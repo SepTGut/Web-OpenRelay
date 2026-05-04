@@ -1,0 +1,41 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #111;
+  color: #eee;
+}
+
+nav {
+  background: #222;
+  padding: 10px;
+}
+
+nav a {
+  margin-right: 10px;
+  color: #0af;
+  text-decoration: none;
+}
+
+main {
+  padding: 20px;
+}
+
+.card {
+  background: #1e1e1e;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 8px;
+}
+
+button {
+  padding: 10px;
+  background: #0af;
+  border: none;
+  cursor: pointer;
+}
+
+.log {
+  background: black;
+  padding: 10px;
+  margin-top: 20px;
+}

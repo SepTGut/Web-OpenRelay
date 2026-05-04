@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav>
+    <h1>Dashboard</h1>
+    <a href="index.html">Home</a>
+    <a href="settings.html">Settings</a>
+  </nav>
+
+  <main>
+    <h2>Relay Control</h2>
+
+    <div class="card">
+      <p>Relay 1</p>
+      <button onclick="toggleRelay(1)">Toggle</button>
+    </div>
+
+    <div class="card">
+      <p>Relay 2</p>
+      <button onclick="toggleRelay(2)">Toggle</button>
+    </div>
+
+    <div class="log">
+      <h3>Logs</h3>
+      <pre id="logBox"></pre>
+    </div>
+  </main>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
