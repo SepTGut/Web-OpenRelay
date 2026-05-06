@@ -1,0 +1,44 @@
+// Relay dot animator for Home page
+// Animates dots representing relay states
+
+function animateRelayDots() {
+  const visualizer = document.querySelector(".visualizer");
+  if (!visualizer) return;
+
+  // Clear the visualizer
+  visualizer.innerHTML = "";
+
+  // Create a container for the grid
+  const grid = document.createElement("div");
+  grid.style.display = "grid";
+  grid.style.gridTemplateColumns = "repeat(8, 1fr)";
+  grid.style.gap = "2px";
+  grid.style.width = "100%";
+  grid.style.maxWidth = "600px";
+  grid.style.margin = "0 auto";
+
+  // Create 128 dots
+  for (let i = 0; i < 128; i++) {
+    const dot = document.createElement("div");
+    dot.style.width = "20px";
+    dot.style.height = "20px";
+    dot.style.backgroundColor = Math.random() > 0.5 ? "#f59e0b" : "#1e293b";
+    dot.style.borderRadius = "50%";
+    grid.appendChild(dot);
+  }
+
+  visualizer.appendChild(grid);
+
+  // Update every 2 seconds
+  setInterval(() => {
+    const dots = grid.querySelectorAll("div");
+    dots.forEach(dot => {
+      dot.style.backgroundColor = Math.random() > 0.5 ? "#f59e0b" : "#1e293b";
+    });
+  }, 2000);
+}
+
+// Initialize when page loads
+window.addEventListener("load", function() {
+  animateRelayDots();
+});
