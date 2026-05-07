@@ -1,7 +1,7 @@
-/* ═════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════
    style.css — Shared: reset, variables, nav, footer
    OpenRelay · FIKSI 2026
-═════════════════════════════════════════════════ */
+══════════════════════════════════════════════════ */
 
 /* ── GOOGLE FONTS ── */
 @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap');
@@ -14,7 +14,7 @@
   --bg4:          #1a2232;
 
   --amber:        #f59e0b;
-  --amber2:       #fbfb24;
+  --amber2:       #fbbf24;
   --amber3:       #d97706;
   --amber-dim:    rgba(245, 158, 11, 0.12);
   --amber-glow:   rgba(245, 158, 11, 0.25);
@@ -141,7 +141,7 @@ nav.site-nav {
   border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
-  justify-center;
+  justify-content: center;
   flex-shrink: 0;
 }
 

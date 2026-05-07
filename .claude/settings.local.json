@@ -1,7 +1,12 @@
 {
   "permissions": {
     "allow": [
-      "Bash(grep -v \">$\")"
+      "Bash(grep -v \">$\")",
+      "Bash(cd /d \"D:\\\\MyCode\\\\Web-OpenRelay\")",
+      "Bash(dir)",
+      "Bash(grep *)",
+      "Bash(start *)",
+      "Bash(scripts/start-server.sh --project-dir \"D:\\\\MyCode\\\\Web-OpenRelay\")"
     ]
   }
 }

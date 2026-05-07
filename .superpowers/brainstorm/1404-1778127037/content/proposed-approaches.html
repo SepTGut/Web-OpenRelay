@@ -1,0 +1,26 @@
+<h2>Which implementation approach should we take?</h2>
+<p class="subtitle">Based on your preferences for hybrid design, visual fidelity, content preservation, and performance</p>
+
+<div class="options">
+  <div class="option" data-choice="approach-a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Adaptive Reference Implementation</h3>
+      <p>Start with the reference design as a foundation, then selectively adapt sections to better accommodate our specific content while maintaining visual consistency. Preserve key interactive elements from current site where they enhance usability.</p>
+    </div>
+  </div>
+  <div class="option" data-choice="approach-b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Content-First Structured Design</h3>
+      <p>Organize content first based on current site structure, then apply reference design styling and components. Ensures all information architecture is preserved while achieving visual goals.</p>
+    </div>
+  </div>
+  <div class="option" data-choice="approach-c" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Component-Based Hybrid</h3>
+      <p>Break down both designs into components, then mix and match: use reference layout/grid system but substitute specific components (cards, nav, etc.) where current versions perform better for our content.</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenRelay Redesign Visual Mockup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #070a0f;
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, rgba(13,26,15,0.9) 0%, rgba(7,16,26,0.9) 100%);
+            margin-bottom: 30px;
+            border-radius: 10px;
+        }
+
+        .header h1 {
+            color: #f59e0b;
+            margin-bottom: 10px;
+        }
+
+        .section {
+            background: #0d1117;
+            border: 1px solid rgba(245,158,11,0.12);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .section h2 {
+            color: #f59e0b;
+            border-bottom: 2px solid rgba(245,158,11,0.2);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: #131a23;
+            border: 1px solid rgba(245,158,11,0.12);
+            border-radius: 8px;
+            padding: 20px;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(245,158,11,0.28);
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .card h3 {
+            color: #f8fafc;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, rgba(13,26,15,0.9) 0%, rgba(7,16,26,0.9) 100%);
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .hero-section h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #f8fafc, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #f59e0b;
+            color: #07090f;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #fbbf24;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #e2e8f0;
+            border: 1px solid rgba(245,158,11,0.28);
+        }
+
+        .btn-outline:hover {
+            background: rgba(245,158,11,0.1);
+            color: #f59e0b;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+            background: #131a23;
+            border-radius: 8px;
+            min-width: 120px;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #f59e0b;
+            display: block;
+        }
+
+        .stat-label {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(245,158,11,0.12);
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+
+            .stats {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>OpenRelay Redesign Visual Mockup</h1>
+            <p>Single-page application showcasing IoT relay controller project</p>
+        </div>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <h1>Kontroler Relay IoT<br><span style="color: #f59e0b;">Open Source</span></h1>
+            <p>Sistem kontroler relay berbasis ESP32 yang memungkinkan pengendalian hingga 128 relay melalui protokol MQTT, dengan antarmuka web modern yang dapat diakses dari mana saja.</p>
+            <div>
+                <a href="#features" class="btn">Lihat Fitur</a>
+                <a href="#architecture" class="btn btn-outline">Baca Dokumentasi</a>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-number">128</span>
+                    <div class="stat-label">Max Relay</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">ESP32</span>
+                    <div class="stat-label">Platform</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">MQTT</span>
+                    <div class="stat-label">Protokol</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">100%</span>
+                    <div class="stat-label">Open Source</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="section" id="features">
+            <h2>Fitur Unggulan</h2>
+            <p>OpenRelay hadir dengan fitur lengkap dari firmware hingga dashboard, semua dalam satu paket open source.</p>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-icon">⚡</div>
+                    <h3>128 Relay Channel</h3>
+                    <p>Ekspansi tak terbatas menggunakan PCF8574 dan MCP23017 melalui I2C. Satu ESP32 untuk semua kebutuhan.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📡</div>
+                    <h3>MQTT Native</h3>
+                    <p>Kontrol relay dari mana saja via MQTT broker publik atau privat. Dukungan WSS untuk dashboard GitHub Pages.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🌐</div>
+                    <h3>Web Dashboard</h3>
+                    <p>Dashboard responsif berbasis GitHub Pages dengan HTTPS + MQTT WSS. Akses dari browser tanpa instalasi apapun.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔧</div>
+                    <h3>PCB Custom</h3>
+                    <p>Desain PCB menggunakan EasyEDA dengan dukungan I2S audio (INMP441), power management, dan ekspander GPIO.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">💾</div>
+                    <h3>Konfigurasi Persisten</h3>
+                    <p>Semua pengaturan (relay, sensor, config) tersimpan di LittleFS dan bertahan setelah restart atau update firmware.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔄</div>
+                    <h3>OTA Update</h3>
+                    <p>Update firmware via jaringan WiFi tanpa perlu kabel. Password OTA dapat dikonfigurasi untuk keamanan.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="section" id="about">
+            <h2>Tentang Proyek</h2>
+            <p>Sistem kontroler relay IoT open source yang dibangun di atas ESP32, dirancang untuk memudahkan otomasi rumah dan industri dengan antarmuka modern.</p>
+            <div class="grid">
+                <div class="card">
+                    <h3>Firmware & PCB</h3>
+                    <p>Proyek firmware, PCB, dan web dashboard terintegrasi untuk mengontrol relay secara lokal maupun jarak jauh melalui protokol MQTT.</p>
+                </div>
+                <div class="card">
+                    <h3>ESP32 Compatible</h3>
+                    <p>Mendukung ekspansi GPIO menggunakan IC PCF8574 dan MCP23017, memungkinkan hingga 128 relay dari satu unit ESP32 tanpa hardware tambahan yang mahal.</p>
+                </div>
+                <div class="card">
+                    <h3>Web Dashboard</h3>
+                    <p>Semua konfigurasi disimpan di LittleFS dan relay dapat dikontrol via MQTT, WebSocket lokal, maupun REST API bawaan.</p>
+                </div>
+                <div class="card">
+                    <h3>Watchdog Hardware</h3>
+                    <p>Watchdog hardware 10 detik untuk failsafe, memastikan sistem kembali ke keadaan aman saat terjadi crash.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Architecture Section -->
+        <section class="section" id="architecture">
+            <h2>Arsitektur Sistem</h2>
+            <p>Tiga layer yang terpisah namun terintegrasi: hardware, firmware, dan web dashboard.</p>
+            <div style="text-align: center; margin: 30px 0;">
+                <div style="display: inline-block;">
+                    <div style="background: #131a23; padding: 15px; border-radius: 8px; margin: 10px; display: inline-block;">
+                        <div style="font-size: 2rem;">🌐</div>
+                        <div style="font-weight: bold; margin: 10px 0;">Dashboard</div>
+                        <div style="color: #94a3b8; font-size: 0.9rem;">GitHub Pages / Browser</div>
+                    </div>
+                    <div style="width: 40px; height: 2px; background: #f59e0b; margin: 15px 0; display: inline-block;"></div>
+                    <div style="background: #131a23; padding: 15px; border-radius: 8px; margin: 10px; display: inline-block;">
+                        <div style="font-size: 2rem;">📡</div>
+                        <div style="font-weight: bold; margin: 10px 0;">MQTT Broker</div>
+                        <div style="color: #94a3b8; font-size: 0.9rem;">HiveMQ WSS :8884</div>
+                    </div>
+                    <div style="width: 40px; height: 2px; background: #f59e0b; margin: 15px 0; display: inline-block;"></div>
+                    <div style="background: #131a23; padding: 15px; border-radius: 8px; margin: 10px; display: inline-block;">
+                        <div style="font-size: 2rem;">🔲</div>
+                        <div style="font-weight: bold; margin: 10px 0;">ESP32</div>
+                        <div style="color: #94a3b8; font-size: 0.9rem;">Firmware + LittleFS</div>
+                    </div>
+                    <div style="width: 40px; height: 2px; background: #f59e0b; margin: 15px 0; display: inline-block;"></div>
+                    <div style="background: #131a23; padding: 15px; border-radius: 8px; margin: 10px; display: inline-block;">
+                        <div style="font-size: 2rem;">🔌</div>
+                        <div style="font-weight: bold; margin: 10px 0;">Expander</div>
+                        <div style="color: #94a3b8; font-size: 0.9rem;">PCF8574 / MCP23017</div>
+                    </div>
+                    <div style="width: 40px; height: 2px; background: #f59e0b; margin: 15px 0; display: inline-block;"></div>
+                    <div style="background: #131a23; padding: 15px; border-radius: 8px; margin: 10px; display: inline-block;">
+                        <div style="font-size: 2rem;">⚡</div>
+                        <div style="font-weight: bold; margin: 10px 0;">Relay</div>
+                        <div style="color: #94a3b8; font-size: 0.9rem;">128 Channel</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section class="section" id="team">
+            <h2>Tim Pengembang</h2>
+            <p>Dibuat oleh Pelajar Indonesia</p>
+            <div class="grid">
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 15px;">GT</div>
+                    <h3>GT</h3>
+                    <p style="color: #94a3b8; margin-bottom: 10px;">Lead Developer<br>Firmware · PCB · Dashboard</p>
+                    <p style="color: #64748b; font-size: 0.9rem;">SMKN 1 Madiun</p>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <div style="font-size: 3rem; margin-bottom: 15px;">RA</div>
+                    <h3>M. Rizky Alfianno</h3>
+                    <p style="color: #94a3b8; margin-bottom: 10px;">Co-Developer<br>Hardware · Testing · Docs</p>
+                    <p style="color: #64748b; font-size: 0.9rem;">SMKN 1 Madiun</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Access Section -->
+        <section class="section" id="access">
+            <h2>Akses Proyek</h2>
+            <p>Mulai Sekarang</p>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-icon">🌐</div>
+                    <h3>Remote Dashboard</h3>
+                    <p>Dashboard web siap pakai yang dihosting di GitHub Pages. Akses dan kontrol relay dari browser menggunakan MQTT over WSS. Tidak butuh instalasi.</p>
+                    <a href="https://github.com/sepgtu/OpenRelay-web" target="_blank" class="btn btn-outline">Lihat Repository</a>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📟</div>
+                    <h3>Web UI Lokal</h3>
+                    <p>Akses dashboard lokal langsung dari ESP32 melalui HTTP ke IP perangkat. Tersimpan di LittleFS. Tersedia saat tidak ada koneksi internet.</p>
+                    <p style="color: #f59e0b; font-weight: bold;">http://relaycrtl.local</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">📡</div>
+                    <h3>MQTT Direct</h3>
+                    <p>Gunakan semua client MQTT yang mendukung (Home Assistant, Node-RED, MQTT Explorer, dsb) dengan prefix <code style="background: #131a23; padding: 2px 4px; border-radius: 3px; font-family: monospace;">home/relay</code>.</p>
+                    <p style="color: #f59e0b; font-weight: bold;">broker.hivemq.com : 1883</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🔐</div>
+                    <h3>Keamanan</h3>
+                    <p>Enkripsi TLS/SSL untuk koneksi yang aman. Tidak diperlukan kredensial untuk koneksi dasar.</p>
+                    <p style="color: #f59e0b; font-weight: bold;">TLS/SSL Enabled</p>
+                </div>
+            </div>
+
+            <!-- WiFi Info -->
+            <div style="text-align: center; margin: 30px 0; padding: 20px; background: #131a23; border-radius: 8px; border: 1px solid rgba(245,158,11,0.12);">
+                <p style="color: #64748b; margin-bottom: 15px;">WiFi Access Point untuk setup pertama:</p>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
+                    <div style="text-align: center;">
+                        <div style="color: #64748b; font-size: 0.9rem; margin-bottom: 5px;">SSID</div>
+                        <div style="font-family: 'Chakra Petch', monospace; font-size: 1.25rem; color: #f59e0b; font-weight: 600;">ESP32-Relay</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="color: #64748b; font-size: 0.9rem; margin-bottom: 5px;">Password</div>
+                        <div style="font-family: 'Chakra Petch', monospace; font-size: 1.25rem; color: #f59e0b; font-weight: 600;">relay1234</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="color: #64748b; font-size: 0.9rem; margin-bottom: 5px;">OTA Password</div>
+                        <div style="font-family: 'Chakra Petch', monospace; font-size: 1.25rem; color: #f59e0b; font-weight: 600;">relay_ota</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <p>© 2026 GT &amp; M. Rizky Alfianno · SMK Negeri 1 Madiun · FIKSI 2026</p>
+        <div style="margin-top: 15px;">
+            <a href="#about" class="btn btn-outline">Tentang</a>
+            <a href="#features" class="btn btn-outline">Fitur</a>
+            <a href="#architecture" class="btn btn-outline">Arsitektur</a>
+            <a href="#team" class="btn btn-outline">Tim</a>
+        </div>
+    </footer>
+</body>
+</html>

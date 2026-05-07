@@ -5,10 +5,10 @@
 
 'use strict';
 
-/* ════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════
    RELAY DOT VISUALIZER
    Simulates 64 relay channels with wave animation
-════════════════════════════════════════════════ */
+═══════════════════════════════════════════════════ */
 (function initRelayVis() {
   const container = document.getElementById('relay-vis');
   if (!container) return;
@@ -60,10 +60,10 @@
 })();
 
 
-/* ════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════
    STAT COUNTER ANIMATION
    Counts up numbers when stats scroll into view
-════════════════════════════════════════════════ */
+═══════════════════════════════════════════════════ */
 (function initStatCounters() {
   const stats = document.querySelectorAll('[data-count]');
   if (!stats.length) return;
@@ -105,10 +105,10 @@
 })();
 
 
-/* ════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════
    LIVE STATUS INDICATOR
    Simulates a "connected" pulse in the hero badge
-════════════════════════════════════════════════ */
+═══════════════════════════════════════════════════ */
 (function initStatusPulse() {
   const badge = document.querySelector('.hero-badge');
   if (!badge) return;
@@ -125,9 +125,9 @@
 })();
 
 
-/* ════════════════════════════════════════════════
+/* ══════════════════════════════════════════════════
    SPEC CARD HOVER — highlight row on hover
-════════════════════════════════════════════════ */
+═══════════════════════════════════════════════════ */
 (function initSpecHover() {
   document.querySelectorAll('.spec-row').forEach(row => {
     row.addEventListener('mouseenter', () => {
