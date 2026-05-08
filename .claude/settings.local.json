@@ -6,7 +6,11 @@
       "Bash(dir)",
       "Bash(grep *)",
       "Bash(start *)",
-      "Bash(scripts/start-server.sh --project-dir \"D:\\\\MyCode\\\\Web-OpenRelay\")"
+      "Bash(scripts/start-server.sh --project-dir \"D:\\\\MyCode\\\\Web-OpenRelay\")",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git worktree *)",
+      "Bash(pwd -P)"
     ]
   }
 }

@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <title>OpenRelay — Kontroler Relay IoT Open Source</title>
+  <meta name="description" content="OpenRelay adalah platform kendali relay berbasis ESP32 open source untuk FIKSI 2026. Dukung 128 relay, MQTT, dashboard web modern." />
+
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/home.css" />
+</head>
+<body>
+
+  <!-- ══ NAV ══ -->
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-mark">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <rect x="3" y="9" width="18" height="6" rx="1.5" stroke="#07090f" stroke-width="2"/>
+          <circle cx="8"  cy="12" r="1.5" fill="#07090f"/>
+          <circle cx="16" cy="12" r="1.5" stroke="#07090f" stroke-width="1.5"/>
+          <path d="M1 12h2M21 12h2M8 9V7M16 9V7M8 15v2M16 15v2" stroke="#07090f" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <span class="nav-brand">OpenRelay</span>
+    </a>
+
+    <ul class="nav-links" role="list">
+      <li><a href="#about">Tentang</a></li>
+      <li><a href="#features">Fitur</a></li>
+      <li><a href="#architecture">Arsitektur</a></li>
+      <li><a href="#team">Tim</a></li>
+    </ul>
+
+    <div class="nav-cta-wrap">
+      <a href="#access" class="nav-cta">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+        Akses Sekarang
+      </a>
+    </div>
+
+    <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div class="nav-mobile-menu" role="menu">
+    <a href="#about" role="menuitem">Tentang</a>
+    <a href="#features" role="menuitem">Fitur</a>
+    <a href="#architecture" role="menuitem">Arsitektur</a>
+    <a href="#team" role="menuitem">Tim</a>
+    <a href="#access" class="nav-cta" role="menuitem">Akses Sekarang</a>
+  </div>
+
+  <!-- ══ ATMOSPHERE ══ -->
+  <div class="atmosphere-scanline" aria-hidden="true"></div>
+
+  <!-- ══ MAIN ══ -->
+  <main class="page-main">
+
+    <!-- ── HERO ── -->
+    <section class="hero" aria-label="Hero section">
+
+      <div class="hero-badge">
+        <span class="dot-live"></span>
+        FIKSI 2026 &nbsp;·&nbsp; SMK Negeri 1 Madiun
+      </div>
+
+      <h1>
+        Kontroler Relay IoT
+        <span class="accent">Open Source</span>
+      </h1>
+
+      <p class="hero-sub">
+        Sistem kontroler relay berbasis ESP32 yang memungkinkan pengendalian hingga 128 relay melalui
+        protokol MQTT, dengan antarmuka web modern yang dapat diakses dari mana saja.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#access" class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+          Coba Dashboard
+        </a>
+        <a href="#features" class="btn btn-outline">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 16v-4M12 8h.01"/>
+          </svg>
+          Lihat Fitur
+        </a>
+      </div>
+
+      <!-- Stats bar -->
+      <div class="hero-stats" role="list" aria-label="Project statistics">
+        <div class="stat" role="listitem">
+          <div class="stat-num" data-count="128" data-suffix="">128</div>
+          <div class="stat-label">Max Relay</div>
+        </div>
+        <div class="stat-divider" aria-hidden="true"></div>
+        <div class="stat" role="listitem">
+          <div class="stat-num">ESP32</div>
+          <div class="stat-label">Platform</div>
+        </div>
+        <div class="stat-divider" aria-hidden="true"></div>
+        <div class="stat" role="listitem">
+          <div class="stat-num">MQTT</div>
+          <div class="stat-label">Protokol</div>
+        </div>
+        <div class="stat-divider" aria-hidden="true"></div>
+        <div class="stat" role="listitem">
+          <div class="stat-num" data-count="100" data-suffix="%">100%</div>
+          <div class="stat-label">Open Source</div>
+        </div>
+      </div>
+
+      <!-- Relay visualizer -->
+      <div class="relay-vis-wrap" aria-hidden="true">
+        <div class="relay-vis-label">— Live relay simulation —</div>
+        <div class="relay-vis" id="relay-vis"></div>
+      </div>
+
+    </section>
+
+    <!-- ── COMPETITION BANNER ── -->
+    <div class="comp-banner" role="complementary" aria-label="Competition info">
+      <div class="comp-inner">
+        <div class="comp-left">
+          <h2>Kompetisi FIKSI 2026</h2>
+          <p>
+            Diajukan sebagai karya unggulan Teknologi Informasi dan Komunikasi
+            tingkat nasional — firmware, PCB, dan web dashboard terintegrasi.
+          </p>
+        </div>
+        <div class="comp-badges">
+          <div class="comp-badge">
+            <div class="comp-badge-icon" aria-hidden="true">🏆</div>
+            <div>
+              <div class="comp-badge-name">FIKSI 2026</div>
+              <div class="comp-badge-sub">Festival Inovasi & Kreativitas Siswa</div>
+            </div>
+          </div>
+          <div class="comp-badge">
+            <div class="comp-badge-icon" aria-hidden="true">🏫</div>
+            <div>
+              <div class="comp-badge-name">SMKN 1 Madiun</div>
+              <div class="comp-badge-sub">Jawa Timur, Indonesia</div>
+            </div>
+          </div>
+          <div class="comp-badge">
+            <div class="comp-badge-icon" aria-hidden="true">⚡</div>
+            <div>
+              <div class="comp-badge-name">IoT Hardware</div>
+              <div class="comp-badge-sub">Firmware · PCB · Dashboard</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <!-- ── ABOUT ── -->
+    <section class="about-section" id="about" aria-labelledby="about-heading">
+      <div class="section-inner">
+
+        <div class="section-tag">Tentang Proyek</div>
+        <h2 class="section-title" id="about-heading">Apa Itu OpenRelay?</h2>
+        <p class="section-desc">
+          Sistem kontroler relay IoT open source yang dibangun di atas ESP32,
+          dirancang untuk memudahkan otomasi rumah dan industri dengan antarmuka modern.
+        </p>
+
+        <div class="about-grid reveal">
+
+          <!-- Left: text -->
+          <div class="about-text">
+            <p>
+              <strong>OpenRelay</strong> adalah proyek firmware, PCB, dan web dashboard
+              terintegrasi untuk mengontrol relay secara lokal maupun jarak jauh
+              melalui protokol MQTT.
+            </p>
+            <p>
+              Dibuat sebagai proyek <strong>standalone</strong> — bukan WLED usermod —
+              untuk kompetisi FIKSI 2026. OpenRelay mengadopsi identitas WLED
+              sehingga kompatibel dengan ekosistem yang sudah ada.
+            </p>
+            <p>
+              Sistem mendukung ekspansi GPIO menggunakan IC <strong>PCF8574</strong>
+              dan <strong>MCP23017</strong>, memungkinkan hingga 128 relay dari satu
+              unit ESP32 tanpa hardware tambahan yang mahal.
+            </p>
+            <p>
+              Semua konfigurasi disimpan di <strong>LittleFS</strong> dan relay dapat
+              dikontrol via MQTT, WebSocket lokal, maupun REST API bawaan.
+            </p>
+
+            <div class="about-highlights">
+              <div class="highlight-item">Firmware ~1585 baris, 15 bug telah diperbaiki</div>
+              <div class="highlight-item">PCB custom dirancang dengan EasyEDA</div>
+              <div class="highlight-item">Dashboard web di GitHub Pages (HTTPS + MQTT WSS)</div>
+              <div class="highlight-item">Watchdog hardware 10 detik untuk failsafe</div>
+            </div>
+          </div>
+
+          <!-- Right: spec card -->
+          <div class="spec-card reveal reveal-delay-2">
+            <div class="spec-card-header">
+              <div class="spec-card-title">// Spesifikasi Utama</div>
+            </div>
+            <div class="spec-rows">
+              <div class="spec-row">
+                <span class="spec-key">Platform</span>
+                <span class="spec-val">ESP32 (espressif32)</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-key">Framework</span>
+                <span class="spec-val">Arduino + PlatformIO</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-key">Storage</span>
+                <span class="spec-val">LittleFS 8MB</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-key">Max Relay</span>
+                <span class="spec-val">128 Channel</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-key">Expander</span>
+                <span class="spec-val">PCF8574 + MCP23017</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-key">MQTT Buffer</span>
+                <span class="spec-val">2048 bytes</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-key">Watchdog</span>
+                <span class="spec-val">10 detik (HW)</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-key">OTA Update</span>
+                <span class="spec-val">Supported</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-key">WLED Compat.</span>
+                <span class="spec-val">v0.14.0-relay</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-key">Active Low</span>
+                <span class="spec-val">Default (true)</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- CTA -->
+        <div style="margin-top: 56px; display: flex; gap: 14px; flex-wrap: wrap;" class="reveal reveal-delay-3">
+          <a href="#features" class="btn btn-primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+            </svg>
+            Lihat Semua Fitur
+          </a>
+          <a href="#architecture" class="btn btn-outline">
+            Baca Dokumentasi
+          </a>
+          <a href="#team" class="btn btn-ghost">
+            Kenali Tim
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── FEATURES ── -->
+    <section class="features-section" id="features" aria-labelledby="features-heading">
+      <div class="section-inner">
+
+        <div class="section-tag">Fitur Unggulan</div>
+        <h2 class="section-title" id="features-heading">Semua yang Kamu Butuhkan</h2>
+        <p class="section-desc">
+          OpenRelay hadir dengan fitur lengkap dari firmware hingga dashboard, semua dalam satu paket open source.
+        </p>
+
+        <div class="features-grid reveal reveal-delay-1">
+          <div class="feature-card reveal">
+            <div class="feature-icon">⚡</div>
+            <div class="feature-title">128 Relay Channel</div>
+            <div class="feature-description">
+              Ekspansi tak terbatas menggunakan PCF8574 dan MCP23017 melalui I2C. Satu ESP32 untuk semua kebutuhan.
+            </div>
+          </div>
+          <div class="feature-card reveal reveal-delay-2">
+            <div class="feature-icon">📡</div>
+            <div class="feature-title">MQTT Native</div>
+            <div class="feature-description">
+              Kontrol relay dari mana saja via MQTT broker publik atau privat. Dukungan WSS untuk dashboard GitHub Pages.
+            </div>
+          </div>
+          <div class="feature-card reveal reveal-delay-3">
+            <div class="feature-icon">🌐</div>
+            <div class="feature-title">Web Dashboard</div>
+            <div class="feature-description">
+              Dashboard responsif berbasis GitHub Pages dengan HTTPS + MQTT WSS. Akses dari browser tanpa instalasi apapun.
+            </div>
+          </div>
+          <div class="feature-card reveal reveal-delay-4">
+            <div class="feature-icon">🔧</div>
+            <div class="feature-title">PCB Custom</div>
+            <div class="feature-description">
+              Desain PCB menggunakan EasyEDA dengan dukungan I2S audio (INMP441), power management, dan ekspander GPIO.
+            </div>
+          </div>
+          <div class="feature-card reveal reveal-delay-5">
+            <div class="feature-icon">💾</div>
+            <div class="feature-title">Konfigurasi Persisten</div>
+            <div class="feature-description">
+              Semua pengaturan (relay, sensor, config) tersimpan di LittleFS dan bertahan setelah restart atau update firmware.
+            </div>
+          </div>
+          <div class="feature-card reveal reveal-delay-6">
+            <div class="feature-icon">🔄</div>
+            <div class="feature-title">OTA Update</div>
+            <div class="feature-description">
+              Update firmware via jaringan WiFi tanpa perlu kabel. Password OTA dapat dikonfigurasi untuk keamanan.
+            </div>
+          </div>
+          <div class="feature-card reveal reveal-delay-7">
+            <div class="feature-icon">📊</div>
+            <div class="feature-title">Pattern Sequencer</div>
+            <div class="feature-description">
+              Buat urutan nyala/mati relay dengan timing kustom. Cocok untuk efek lampu, otomasi pabrik, dan demonstrasi.
+            </div>
+          </div>
+          <div class="feature-card reveal reveal-delay-8">
+            <div class="feature-icon">🛡️</div>
+            <div class="feature-title">Sensor Digital</div>
+            <div class="feature-description">
+              Baca status sensor digital dan kirim ke MQTT secara real-time. Integrasi langsung dengan relay untuk otomasi.
+            </div>
+          </div>
+          <div class="feature-card reveal reveal-delay-9">
+            <div class="feature-icon">👁️</div>
+            <div class="feature-title">Monitoring & Logging</div>
+            <div class="feature-description">
+              Pemantauan real-time dan logging aktivitas relay untuk analisis dan troubleshooting.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── ARCHITECTURE ── -->
+    <section class="architecture-section" id="architecture" aria-labelledby="architecture-heading">
+      <div class="section-inner">
+
+        <div class="section-tag">Arsitektur Sistem</div>
+        <h2 class="section-title" id="architecture-heading">Bagaimana Cara Kerjanya</h2>
+        <p class="section-desc">
+          Tiga layer yang terpisah namun terintegrasi: hardware, firmware, dan web dashboard.
+        </p>
+
+        <div class="architecture-content reveal">
+          <div class="arch-flow">
+            <div class="arch-node">
+              <div class="arch-node-icon">🌐</div>
+              <div class="arch-node-title">Dashboard</div>
+              <div class="arch-node-subtitle">GitHub Pages / Browser</div>
+            </div>
+            <div class="arch-arrow">→</div>
+            <div class="arch-node">
+              <div class="arch-node-icon">📡</div>
+              <div class="arch-node-title">MQTT Broker</div>
+              <div class="arch-node-subtitle">HiveMQ WSS :8884</div>
+            </div>
+            <div class="arch-arrow">→</div>
+            <div class="arch-node">
+              <div class="arch-node-icon">🔲</div>
+              <div class="arch-node-title">ESP32</div>
+              <div class="arch-node-subtitle">Firmware + LittleFS</div>
+            </div>
+            <div class="arch-arrow">→</div>
+            <div class="arch-node">
+              <div class="arch-node-icon">🔌</div>
+              <div class="arch-node-title">Expander</div>
+              <div class="arch-node-subtitle">PCF8574 / MCP23017</div>
+            </div>
+            <div class="arch-arrow">→</div>
+            <div class="arch-node">
+              <div class="arch-node-icon">⚡</div>
+              <div class="arch-node-title">Relay</div>
+              <div class="arch-node-subtitle">128 Channel</div>
+            </div>
+          </div>
+
+          <div class="arch-details">
+            <div class="detail-item">
+              <span class="detail-label">Pin Configuration</span>
+              <span class="detail-value">SDA: IO21, SCL: IO22</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Interrupt (MCP23017)</span>
+              <span class="detail-value">INTA: IO32, INTB: IO33</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Status LEDs</span>
+              <span class="detail-value">IO16, IO17, IO25, IO26</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">I2S Microphone</span>
+              <span class="detail-value">SCK: IO23, WS: IO14, SD: IO13</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Active Low Configuration</span>
+              <span class="detail-value">true (default)</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Maximum Relays</span>
+              <span class="detail-value">128 channels</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── TEAM ── -->
+    <section class="team-section" id="team" aria-labelledby="team-heading">
+      <div class="section-inner">
+
+        <div class="section-tag">Tim Pengembang</div>
+        <h2 class="section-title" id="team-heading">Dibuat oleh Pelajar Indonesia</h2>
+        <p class="section-desc" style="text-align: center; max-width: 600px; margin: 0 auto 2rem;">
+          Proyek ini dikerjakan oleh dua siswa SMK Negeri 1 Madiun sebagai karya kompetisi FIKSI 2026.
+        </p>
+
+        <div class="team-content reveal">
+          <div class="team-member reveal">
+            <div class="team-avatar">GT</div>
+            <div class="team-name">GT</div>
+            <div class="team-role">Lead Developer<br>Firmware · PCB · Dashboard</div>
+            <div class="team-school">SMKN 1 Madiun</div>
+          </div>
+          <div class="team-member reveal reveal-delay-2">
+            <div class="team-avatar">RA</div>
+            <div class="team-name">M. Rizky Alfianno</div>
+            <div class="team-role">Co-Developer<br>Hardware · Testing · Docs</div>
+            <div class="team-school">SMKN 1 Madiun</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── ACCESS ── -->
+    <section class="access-section" id="access" aria-labelledby="access-heading">
+      <div class="section-inner">
+
+        <div class="section-tag">Akses Proyek</div>
+        <h2 class="section-title" id="access-heading">Mulai Sekarang</h2>
+        <p class="section-desc">
+          Dashboard web bisa langsung diakses dari browser. Firmware dan PCB tersedia untuk dikembangkan lebih lanjut.
+        </p>
+
+        <div class="access-content reveal">
+          <div class="access-card reveal">
+            <div class="access-icon">🌐</div>
+            <div class="access-title">Remote Dashboard</div>
+            <div class="access-description">
+              Dashboard web siap pakai yang dihosting di GitHub Pages. Akses dan kontrol relay dari browser
+              menggunakan MQTT over WSS. Tidak butuh instalasi.
+            </div>
+            <a href="https://github.com/sepgtu/OpenRelay-web" class="access-link" target="_blank">Lihat Repository</a>
+          </div>
+          <div class="access-card reveal reveal-delay-2">
+            <div class="access-icon">📟</div>
+            <div class="access-title">Web UI Lokal</div>
+            <div class="access-description">
+              Akses dashboard lokal langsung dari ESP32 melalui HTTP ke IP perangkat. Tersimpan di LittleFS.
+              Tersedia saat tidak ada koneksi internet.
+            </div>
+            <span class="access-link">http://relaycrtl.local</span>
+          </div>
+          <div class="access-card reveal reveal-delay-3">
+            <div class="access-icon">📡</div>
+            <div class="access-title">MQTT Direct</div>
+            <div class="access-description">
+              Gunakan semua client MQTT yang mendukung (Home Assistant, Node-RED, MQTT Explorer, dsb)
+              dengan prefix <code style="font-size:0.9rem">home/relay</code>.
+            </div>
+            <span class="access-link">broker.hivemq.com : 1883</span>
+          </div>
+          <div class="access-card reveal reveal-delay-4">
+            <div class="access-icon">🔐</div>
+            <div class="access-title">Keamanan</div>
+            <div class="access-description">
+              Enkripsi TLS/SSL untuk koneksi yang aman. Tidak diperlukan kredensial untuk koneksi dasar.
+            </div>
+            <span class="access-link">TLS/SSL Enabled</span>
+          </div>
+        </div>
+
+        <!-- WiFi Access Point Info -->
+        <div style="text-align: center; margin-top: 4rem; padding: 2rem; background: var(--bg2); border-radius: var(--radius-lg); border: 1px solid var(--border); max-width: 500px; margin-left: auto; margin-right: auto;">
+          <p style="color: var(--text-dim); font-size: 1rem; margin-bottom: 1.5rem;">
+            WiFi Access Point untuk setup pertama:
+          </p>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+            <div style="text-align: center;">
+              <div style="font-size: 0.9rem; color: var(--text-dim); margin-bottom: 0.5rem;">SSID</div>
+              <div style="font-family: 'Chakra Petch', monospace; font-size: 1.25rem; color: var(--amber); font-weight: 600;">ESP32-Relay</div>
+            </div>
+            <div style="text-align: center;">
+              <div style="font-size: 0.9rem; color: var(--text-dim); margin-bottom: 0.5rem;">Password</div>
+              <div style="font-family: 'Chakra Petch', monospace; font-size: 1.25rem; color: var(--amber); font-weight: 600;">relay1234</div>
+            </div>
+            <div style="text-align: center;">
+              <div style="font-size: 0.9rem; color: var(--text-dim); margin-bottom: 0.5rem;">OTA Password</div>
+              <div style="font-family: 'Chakra Petch', monospace; font-size: 1.25rem; color: var(--amber); font-weight: 600;">relay_ota</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ══ FOOTER ══ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-main">
+
+      <div class="footer-brand">
+        <a href="#" class="nav-logo" style="margin-bottom:14px;display:inline-flex;">
+          <div class="nav-logo-mark">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <rect x="3" y="9" width="18" height="6" rx="1.5" stroke="#07090f" stroke-width="2"/>
+              <circle cx="8"  cy="12" r="1.5" fill="#07090f"/>
+              <circle cx="16" cy="12" r="1.5" stroke="#07090f" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <span class="nav-brand">OpenRelay</span>
+        </a>
+        <p class="footer-desc">
+          Platform kendali relay IoT open source berbasis ESP32.
+          Dibuat untuk kompetisi FIKSI 2026 oleh siswa SMKN 1 Madiun.
+        </p>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Navigasi</div>
+        <ul class="footer-links-list">
+          <li><a href="#about">Tentang</a></li>
+          <li><a href="#features">Fitur</a></li>
+          <li><a href="#architecture">Arsitektur</a></li>
+          <li><a href="#team">Tim</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Info Perangkat</div>
+        <div class="footer-spec-row">
+          <span class="footer-spec-key">AP SSID</span>
+          <span class="footer-spec-val">ESP32-Relay</span>
+        </div>
+        <div class="footer-spec-row">
+          <span class="footer-spec-key">Password</span>
+          <span class="footer-spec-val">relay1234</span>
+        </div>
+        <div class="footer-spec-row">
+          <span class="footer-spec-key">Hostname</span>
+          <span class="footer-spec-val">relaycrtl</span>
+        </div>
+        <div class="footer-spec-row">
+          <span class="footer-spec-key">MQTT Prefix</span>
+          <span class="footer-spec-val">home/relay</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-copy">
+        © <span class="footer-year">2026</span> GT &amp; M. Rizky Alfianno · SMK Negeri 1 Madiun · FIKSI 2026
+      </p>
+      <div class="footer-bottom-links">
+        <a href="#about">Tentang</a>
+        <a href="#features">Fitur</a>
+        <a href="#architecture">Arsitektur</a>
+        <a href="#team">Tim</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+  <script src="js/home.js"></script>
+
+  <!-- HUD Framework -->
+  <div class="hud-corner hud-corner--top-left" aria-hidden="true"></div>
+  <div class="hud-corner hud-corner--top-right" aria-hidden="true"></div>
+  <div class="hud-corner hud-corner--bottom-left" aria-hidden="true"></div>
+  <div class="hud-corner hud-corner--bottom-right" aria-hidden="true"></div>
+
+  <div class="hud-readout hud-readout--top-left" id="hud-tl" aria-hidden="true">SYSTEM_STATUS: NOMINAL</div>
+  <div class="hud-readout hud-readout--top-right" id="hud-tr" aria-hidden="true">VCC: 3.3V</div>
+  <div class="hud-readout hud-readout--bottom-left" id="hud-bl" aria-hidden="true">SDA_BUS: ACTIVE</div>
+  <div class="hud-readout hud-readout--bottom-right" id="hud-br" aria-hidden="true">CORE_TEMP: 34C</div>
+
+  <div class="custom-cursor" id="custom-cursor" aria-hidden="true"></div>
+
+  <script>
+  // HUD Framework - Encapsulated in IIFE to avoid global scope pollution
+  (function() {
+    // HUD Live Data Readouts
+    const readouts = {
+      tl: document.getElementById('hud-tl'),
+      tr: document.getElementById('hud-tr'),
+      bl: document.getElementById('hud-bl'),
+      br: document.getElementById('hud-br')
+    };
+
+    // Simulated data values
+    let systemStatus = 'NOMINAL';
+    let vcc = 3.3;
+    let sdaBus = 'ACTIVE';
+    let coreTemp = 34;
+
+    // Track previous values to minimize DOM updates
+    let prevSystemStatus = systemStatus;
+    let prevVcc = vcc;
+    let prevSdaBus = sdaBus;
+    let prevCoreTemp = coreTemp;
+
+    function updateReadouts() {
+      // Occasionally update values
+      let needsUpdate = false;
+
+      if (Math.random() < 0.3) {
+        systemStatus = systemStatus === 'NOMINAL' ? 'IDLE' : 'NOMINAL';
+        needsUpdate = true;
+      }
+      if (Math.random() < 0.3) {
+        vcc = parseFloat((vcc + (Math.random() - 0.5) * 0.2).toFixed(1));
+        needsUpdate = true;
+      }
+      if (Math.random() < 0.3) {
+        sdaBus = sdaBus === 'ACTIVE' ? 'IDLE' : 'ACTIVE';
+        needsUpdate = true;
+      }
+      if (Math.random() < 0.3) {
+        coreTemp = Math.round(coreTemp + (Math.random() - 0.5) * 2);
+        needsUpdate = true;
+      }
+
+      // Only update DOM if values actually changed
+      if (needsUpdate) {
+        if (systemStatus !== prevSystemStatus) {
+          readouts.tl.textContent = `SYSTEM_STATUS: ${systemStatus}`;
+          prevSystemStatus = systemStatus;
+        }
+        if (vcc !== prevVcc) {
+          readouts.tr.textContent = `VCC: ${vcc}V`;
+          prevVcc = vcc;
+        }
+        if (sdaBus !== prevSdaBus) {
+          readouts.bl.textContent = `SDA_BUS: ${sdaBus}`;
+          prevSdaBus = sdaBus;
+        }
+        if (coreTemp !== prevCoreTemp) {
+          readouts.br.textContent = `CORE_TEMP: ${coreTemp}C`;
+          prevCoreTemp = coreTemp;
+        }
+      }
+    }
+
+    // Update every 2 seconds, but only change DOM when values change
+    setInterval(updateReadouts, 2000);
+
+    // Custom Cursor with requestAnimationFrame for performance
+    const cursor = document.getElementById('custom-cursor');
+    let mouseX = 0;
+    let mouseY = 0;
+    let isMouseMoving = false;
+
+    // Store mouse position on mousemove
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.pageX;
+      mouseY = e.pageY;
+      isMouseMoving = true;
+    });
+
+    // Update cursor position via requestAnimationFrame loop
+    function updateCursorPosition() {
+      if (isMouseMoving) {
+        cursor.style.left = `${mouseX}px`;
+        cursor.style.top = `${mouseY}px`;
+        isMouseMoving = false;
+      }
+      requestAnimationFrame(updateCursorPosition);
+    }
+
+    // Start the animation loop
+    requestAnimationFrame(updateCursorPosition);
+
+    // Expand cursor on hover over interactive elements
+    const interactiveElements = document.querySelectorAll('.btn, .card, a');
+    interactiveElements.forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.classList.add('expanded');
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.classList.remove('expanded');
+      });
+    });
+  })();
+</script>
+</body>
+</html>
