@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <title>Hardware Explorer — OpenRelay</title>
+  <meta name="description" detail="Deep dive into the OpenRelay system signal flow and hardware architecture." />
+
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/explorer.css" />
+</head>
+<body>
+
+  <!-- ══ NAV ══ -->
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <a href="home.html" class="nav-logo">
+      <div class="nav-logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <rect x="3" y="9" width="18" height="6" rx="1.5" stroke="#07090f" stroke-width="2"/>
+          <circle cx="8"  cy="12" r="1.5" fill="#07090f"/>
+          <circle cx="16" cy="12" r="1.5" stroke="#07090f" stroke-width="1.5"/>
+          <path d="M1 12h2M21 12h2M8 9V7M16 9V7M8 15v2M16 15v2" stroke="#07090f" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <span class="nav-brand">OpenRelay</span>
+    </a>
+
+    <ul class="nav-links" role="list">
+      <li><a href="home.html">Beranda</a></li>
+      <li><a href="features.html">Fitur</a></li>
+      <li><a href="docs.html">Dokumentasi</a></li>
+      <li><a href="team.html">Tim</a></li>
+    </ul>
+
+    <div class="nav-cta-wrap">
+      <a href="docs.html#akses" class="nav-cta">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+        Akses Sekarang
+      </a>
+    </div>
+
+    <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="nav-mobile-menu" role="menu">
+    <a href="home.html" role="menuitem">Beranda</a>
+    <a href="features.html" role="menuitem">Fitur</a>
+    <a href="docs.html" role="menuitem">Dokumentasi</a>
+    <a href="team.html" role="menuitem">Tim</a>
+    <a href="docs.html#akses" class="nav-cta" role="menuitem">Akses Sekarang</a>
+  </div>
+
+  <!-- ══ MAIN ══ -->
+  <main class="page-main">
+
+    <!-- ── PAGE HEADER ── -->
+    <div class="section-inner explorer-hero">
+      <div class="section-tag">Signal Flow</div>
+      <h1 class="section-title">System Architecture Explorer</h1>
+      <p class="section-desc">
+        Explore the technical signal flow of the OpenRelay system from MQTT broker to physical relay.
+        Click on any node to see detailed information about each component.
+      </p>
+    </div>
+
+    <!-- ── SIGNAL FLOW MAP ── -->
+    <section class="signal-flow-section" id="signal-flow" aria-labelledby="signal-flow-heading">
+      <div class="section-inner">
+        <h2 class="section-title" id="signal-flow-heading">Signal Flow Map</h2>
+
+        <div class="signal-flow-container">
+          <!-- Coordinate markers -->
+          <div class="coord coord-tl">X:0.00 Y:0.00</div>
+          <div class="coord coord-tr">X:1000.00 Y:0.00</div>
+          <div class="coord coord-bl">X:0.00 Y:600.00</div>
+          <div class="coord coord-br">X:1000.00 Y:600.00</div>
+
+          <!-- Nodes -->
+          <div class="signal-flow-node" id="node-mqtt" data-detail="mqtt">
+            <div class="node-label">Cloud Layer</div>
+            <div class="node-title">MQTT BROKER</div>
+          </div>
+
+          <div class="signal-flow-connection" id="conn-mqtt-esp"></div>
+
+          <div class="signal-flow-node" id="node-esp" data-detail="esp">
+            <div class="node-label">Processing</div>
+            <div class="node-title">ESP32 SOC</div>
+          </div>
+
+          <div class="signal-flow-connection" id="conn-esp-i2c"></div>
+
+          <div class="signal-flow-node" id="node-i2c" data-detail="i2c">
+            <div class="node-label">Protocol</div>
+            <div class="node-title">I2C BUS</div>
+          </div>
+
+          <div class="signal-flow-connection" id="conn-i2c-exp"></div>
+
+          <div class="signal-flow-node" id="node-exp" data-detail="expander">
+            <div class="node-label">Expansion</div>
+            <div class="node-title">MCP23017 / PCF8574</div>
+          </div>
+
+          <div class="signal-flow-connection" id="conn-exp-relay"></div>
+
+          <div class="signal-flow-node" id="node-relay" data-detail="relay">
+            <div class="node-label">Physical</div>
+            <div class="node-title">RELAY CH</div>
+          </div>
+        </div>
+
+        <!-- Detail Panel (initially hidden) -->
+        <div class="detail-panel" id="detail-panel">
+          <div class="detail-panel-header">
+            <h3 class="detail-panel-title">Component Details</h3>
+            <button class="detail-panel-close" aria-label="Close detail panel">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M18 6L6 18M6 6l12 12"/>
+              </svg>
+            </button>
+          </div>
+          <div class="detail-panel-content">
+            <!-- Content will be populated by JavaScript -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ══ FOOTER ══ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <a href="home.html" class="nav-logo" style="margin-bottom:14px;display:inline-flex;">
+          <div class="nav-logo-mark">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <rect x="3" y="9" width="18" height="6" rx="1.5" stroke="#07090f" stroke-width="2"/>
+              <circle cx="8" cy="12" r="1.5" fill="#07090f"/>
+              <circle cx="16" cy="12" r="1.5" stroke="#07090f" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <span class="nav-brand">OpenRelay</span>
+        </a>
+        <p class="footer-desc">
+          Platform kendali relay IoT open source berbasis ESP32.
+          Dibuat untuk kompetisi FIKSI 2026 oleh siswa SMKN 1 Madiun.
+        </p>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Navigasi</div>
+        <ul class="footer-links-list">
+          <li><a href="home.html">Beranda</a></li>
+          <li><a href="features.html">Fitur</a></li>
+          <li><a href="docs.html">Dokumentasi</a></li>
+          <li><a href="team.html">Tim</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Info Perangkat</div>
+        <div class="footer-spec-row">
+          <span class="footer-spec-key">AP SSID</span>
+          <span class="footer-spec-val">ESP32-Relay</span>
+        </div>
+        <div class="footer-spec-row">
+          <span class="footer-spec-key">Password</span>
+          <span class="footer-spec-val">relay1234</span>
+        </div>
+        <div class="footer-spec-row">
+          <span class="footer-spec-key">Hostname</span>
+          <span class="footer-spec-val">relaycrtl</span>
+        </div>
+        <div class="footer-spec-row">
+          <span class="footer-spec-key">MQTT Prefix</span>
+          <span class="footer-spec-val">home/relay</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-copy">
+        © <span class="footer-year">2026</span> GT &amp; M. Rizky Alfianno · SMK Negeri 1 Madiun · FIKSI 2026
+      </p>
+      <div class="footer-bottom-links">
+        <a href="features.html">Fitur</a>
+        <a href="docs.html">Dokumentasi</a>
+        <a href="team.html">Tim</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+  <script src="js/explorer.js"></script>
+</body>
+</html>

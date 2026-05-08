@@ -3,10 +3,375 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tim - OpenRelay</title>
-  <meta http-equiv="refresh" content="0; url=home.html#team" />
+  <meta name="color-scheme" content="dark" />
+  <title>Tim — OpenRelay</title>
+  <meta name="description" content="Tim pengembang OpenRelay: GT dan M. Rizky Alfianno, siswa SMK Negeri 1 Madiun, peserta FIKSI 2026." />
+
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/team.css" />
 </head>
 <body>
-  Redirecting to team section...
+
+  <!-- ══ NAV ══ -->
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <a href="home.html" class="nav-logo">
+      <div class="nav-logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <rect x="3" y="9" width="18" height="6" rx="1.5" stroke="#07090f" stroke-width="2"/>
+          <circle cx="8"  cy="12" r="1.5" fill="#07090f"/>
+          <circle cx="16" cy="12" r="1.5" stroke="#07090f" stroke-width="1.5"/>
+          <path d="M1 12h2M21 12h2M8 9V7M16 9V7M8 15v2M16 15v2" stroke="#07090f" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <span class="nav-brand">OpenRelay</span>
+    </a>
+
+    <ul class="nav-links" role="list">
+      <li><a href="home.html">Beranda</a></li>
+      <li><a href="features.html">Fitur</a></li>
+      <li><a href="docs.html">Dokumentasi</a></li>
+      <li><a href="team.html">Tim</a></li>
+    </ul>
+
+    <div class="nav-cta-wrap">
+      <a href="docs.html#akses" class="nav-cta">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+        Akses Sekarang
+      </a>
+    </div>
+
+    <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="nav-mobile-menu" role="menu">
+    <a href="home.html" role="menuitem">Beranda</a>
+    <a href="features.html" role="menuitem">Fitur</a>
+    <a href="docs.html" role="menuitem">Dokumentasi</a>
+    <a href="team.html" role="menuitem">Tim</a>
+    <a href="docs.html#akses" class="nav-cta" role="menuitem">Akses Sekarang</a>
+  </div>
+
+  <!-- ══ MAIN ══ -->
+  <main class="page-main">
+
+    <!-- ── PAGE HEADER ── -->
+    <div class="section-inner team-hero">
+      <div class="section-tag">Tim Pengembang</div>
+      <h1 class="section-title">Dibuat oleh Pelajar Indonesia</h1>
+      <p class="section-desc">
+        OpenRelay dikerjakan oleh dua siswa SMK Negeri 1 Madiun
+        sebagai karya kompetisi FIKSI 2026 bidang Teknologi IoT.
+      </p>
+    </div>
+
+    <!-- ── TEAM CARDS ── -->
+    <section class="team-section" id="tim" aria-labelledby="team-heading">
+      <div class="section-inner" style="padding-top: 0;">
+
+        <div class="team-grid reveal">
+
+          <!-- Member 1: GT -->
+          <div class="team-card">
+            <div class="team-card-bg" aria-hidden="true"></div>
+            <div class="team-avatar" aria-hidden="true">
+              GT
+              <div class="team-avatar-ring"></div>
+            </div>
+            <div class="team-name">GT</div>
+            <div class="team-handle">@gt · Lead Developer</div>
+            <div class="team-role">
+              Bertanggung jawab atas keseluruhan firmware ESP32,
+              desain PCB, web dashboard, dan arsitektur sistem.
+            </div>
+            <span class="team-school-badge">SMKN 1 Madiun</span>
+            <div class="team-skills">
+              <span class="skill-tag">Firmware C++</span>
+              <span class="skill-tag">PlatformIO</span>
+              <span class="skill-tag">PCB Design</span>
+              <span class="skill-tag">JavaScript</span>
+              <span class="skill-tag">MQTT</span>
+              <span class="skill-tag">WebHID</span>
+              <span class="skill-tag">EasyEDA</span>
+            </div>
+          </div>
+
+          <!-- Member 2: Rizky -->
+          <div class="team-card">
+            <div class="team-card-bg" aria-hidden="true"></div>
+            <div class="team-avatar" aria-hidden="true">
+              RA
+              <div class="team-avatar-ring"></div>
+            </div>
+            <div class="team-name">M. Rizky Alfianno</div>
+            <div class="team-handle">@rizky · Co-Developer</div>
+            <div class="team-role">
+              Membantu pengujian hardware, perakitan komponen,
+              dokumentasi teknis, dan presentasi kompetisi.
+            </div>
+            <span class="team-school-badge">SMKN 1 Madiun</span>
+            <div class="team-skills">
+              <span class="skill-tag">Hardware Testing</span>
+              <span class="skill-tag">Dokumentasi</span>
+              <span class="skill-tag">Presentasi</span>
+              <span class="skill-tag">Perakitan PCB</span>
+              <span class="skill-tag">Wiring</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <!-- ── FIKSI SECTION ── -->
+    <section class="fiksi-section" id="fiksi" aria-labelledby="fiksi-heading">
+      <div class="section-inner">
+
+        <div class="section-tag">Kompetisi</div>
+        <h2 class="section-title" id="fiksi-heading">FIKSI 2026</h2>
+        <p class="section-desc">
+          Festival Inovasi dan Kreativitas Siswa Indonesia — ajang kompetisi
+          nasional untuk pelajar SMK di bidang teknologi dan inovasi.
+        </p>
+
+        <div class="fiksi-grid reveal">
+
+          <!-- Left: info + badges -->
+          <div>
+            <div class="fiksi-info">
+              <p>
+                <strong>FIKSI</strong> (Festival Inovasi dan Kreativitas Siswa Indonesia)
+                adalah kompetisi nasional bergengsi bagi siswa SMK untuk menampilkan
+                karya terbaik di bidang teknologi, seni, dan kewirausahaan.
+              </p>
+              <p>
+                OpenRelay diajukan pada bidang <strong>Teknologi Informasi dan Komunikasi</strong>,
+                menggabungkan tiga komponen utama: firmware ESP32, desain PCB custom,
+                dan web dashboard berbasis GitHub Pages.
+              </p>
+              <p>
+                Proyek ini dirancang sepenuhnya sebagai karya <strong>mandiri</strong>
+                dengan pendekatan open source — semua komponen dapat dikembangkan
+                dan direplikasi oleh komunitas luas.
+              </p>
+            </div>
+
+            <div class="fiksi-badges">
+              <div class="fiksi-badge">
+                <div class="fiksi-badge-icon" aria-hidden="true">🏆</div>
+                <div>
+                  <div class="fiksi-badge-name">FIKSI 2026</div>
+                  <div class="fiksi-badge-sub">Festival Inovasi &amp; Kreativitas Siswa Indonesia</div>
+                </div>
+              </div>
+              <div class="fiksi-badge">
+                <div class="fiksi-badge-icon" aria-hidden="true">💡</div>
+                <div>
+                  <div class="fiksi-badge-name">Bidang TIK</div>
+                  <div class="fiksi-badge-sub">Teknologi Informasi dan Komunikasi</div>
+                </div>
+              </div>
+              <div class="fiksi-badge">
+                <div class="fiksi-badge-icon" aria-hidden="true">🇮🇩</div>
+                <div>
+                  <div class="fiksi-badge-name">Kearifan Lokal</div>
+                  <div class="fiksi-badge-sub">Solusi IoT untuk kebutuhan industri Indonesia</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: timeline -->
+          <div>
+            <div style="margin-bottom: 24px;">
+              <div class="section-tag" style="margin-bottom: 8px;">Timeline Proyek</div>
+            </div>
+
+            <div class="timeline" role="list">
+
+              <div class="timeline-item" role="listitem">
+                <div class="timeline-dot done" aria-hidden="true"></div>
+                <div class="timeline-label">Tahap 1</div>
+                <div class="timeline-title">Riset &amp; Perencanaan</div>
+                <div class="timeline-desc">
+                  Studi ekosistem WLED, analisis protokol MQTT, dan
+                  perancangan arsitektur sistem relay berbasis ESP32.
+                </div>
+                <div class="timeline-status done">✓ Selesai</div>
+              </div>
+
+              <div class="timeline-item" role="listitem">
+                <div class="timeline-dot done" aria-hidden="true"></div>
+                <div class="timeline-label">Tahap 2</div>
+                <div class="timeline-title">Pengembangan Firmware</div>
+                <div class="timeline-desc">
+                  Firmware ~1585 baris, 15 bug diperbaiki. Fitur MQTT,
+                  WebSocket, OTA, LittleFS, watchdog, dan pattern sequencer.
+                </div>
+                <div class="timeline-status done">✓ Selesai</div>
+              </div>
+
+              <div class="timeline-item" role="listitem">
+                <div class="timeline-dot done" aria-hidden="true"></div>
+                <div class="timeline-label">Tahap 3</div>
+                <div class="timeline-title">Desain PCB</div>
+                <div class="timeline-desc">
+                  PCB custom EasyEDA dengan ekspander MCP23017, INMP441 I2S,
+                  power management. 3 item schematic masih dalam perbaikan.
+                </div>
+                <div class="timeline-status wip">⟳ Hampir Selesai</div>
+              </div>
+
+              <div class="timeline-item" role="listitem">
+                <div class="timeline-dot done" aria-hidden="true"></div>
+                <div class="timeline-label">Tahap 4</div>
+                <div class="timeline-title">Web Dashboard</div>
+                <div class="timeline-desc">
+                  Dashboard remote via GitHub Pages dengan HTTPS + MQTT WSS.
+                  UI lokal tersimpan di LittleFS ESP32.
+                </div>
+                <div class="timeline-status done">✓ Selesai</div>
+              </div>
+
+              <div class="timeline-item" role="listitem">
+                <div class="timeline-dot wip" aria-hidden="true"></div>
+                <div class="timeline-label">Tahap 5</div>
+                <div class="timeline-title">Dokumen FIKSI</div>
+                <div class="timeline-desc">
+                  BMC, TOWS Matrix, dokumen teknis lengkap.
+                  Beberapa bagian masih dalam proses finalisasi.
+                </div>
+                <div class="timeline-status wip">⟳ Dalam Proses</div>
+              </div>
+
+              <div class="timeline-item" role="listitem">
+                <div class="timeline-dot pending" aria-hidden="true"></div>
+                <div class="timeline-label">Tahap 6</div>
+                <div class="timeline-title">Pengujian &amp; Presentasi</div>
+                <div class="timeline-desc">
+                  Pengujian hardware akhir, perakitan PCB, dan
+                  persiapan presentasi untuk juri FIKSI 2026.
+                </div>
+                <div class="timeline-status pending">○ Menunggu</div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <!-- ── SCHOOL ── -->
+    <section class="school-section" id="sekolah" aria-labelledby="school-heading">
+      <div class="section-inner">
+
+        <div class="section-tag">Institusi</div>
+        <h2 class="section-title" id="school-heading">Asal Sekolah</h2>
+
+        <div class="school-card reveal">
+          <div class="school-icon" aria-hidden="true">🏫</div>
+          <div>
+            <div class="school-name">SMK Negeri 1 Madiun</div>
+            <p class="school-desc">
+              Sekolah Menengah Kejuruan Negeri 1 Madiun adalah salah satu SMK
+              terkemuka di Jawa Timur yang dikenal menghasilkan lulusan kompeten
+              di bidang teknologi informasi, rekayasa perangkat lunak, dan elektronika.
+              Tim OpenRelay bangga mewakili SMKN 1 Madiun di kompetisi nasional FIKSI 2026.
+            </p>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div style="margin-top: 56px; display: flex; gap: 14px; flex-wrap: wrap;" class="reveal reveal-delay-2">
+          <a href="features.html" class="btn btn-primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+            </svg>
+            Lihat Fitur
+          </a>
+          <a href="docs.html#akses" class="btn btn-outline">Akses Dashboard</a>
+          <a href="docs.html" class="btn btn-ghost">Dokumentasi</a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ══ FOOTER ══ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-main">
+
+      <div class="footer-brand">
+        <a href="home.html" class="nav-logo" style="margin-bottom:14px;display:inline-flex;">
+          <div class="nav-logo-mark">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <rect x="3" y="9" width="18" height="6" rx="1.5" stroke="#07090f" stroke-width="2"/>
+              <circle cx="8" cy="12" r="1.5" fill="#07090f"/>
+              <circle cx="16" cy="12" r="1.5" stroke="#07090f" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <span class="nav-brand">OpenRelay</span>
+        </a>
+        <p class="footer-desc">
+          Platform kendali relay IoT open source berbasis ESP32.
+          Dibuat untuk kompetisi FIKSI 2026 oleh siswa SMKN 1 Madiun.
+        </p>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Navigasi</div>
+        <ul class="footer-links-list">
+          <li><a href="home.html">Beranda</a></li>
+          <li><a href="features.html">Fitur</a></li>
+          <li><a href="docs.html">Dokumentasi</a></li>
+          <li><a href="team.html">Tim</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Info Perangkat</div>
+        <div class="footer-spec-row">
+          <span class="footer-spec-key">AP SSID</span>
+          <span class="footer-spec-val">ESP32-Relay</span>
+        </div>
+        <div class="footer-spec-row">
+          <span class="footer-spec-key">Password</span>
+          <span class="footer-spec-val">relay1234</span>
+        </div>
+        <div class="footer-spec-row">
+          <span class="footer-spec-key">Hostname</span>
+          <span class="footer-spec-val">relaycrtl</span>
+        </div>
+        <div class="footer-spec-row">
+          <span class="footer-spec-key">MQTT Prefix</span>
+          <span class="footer-spec-val">home/relay</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-copy">
+        © <span class="footer-year">2026</span> GT &amp; M. Rizky Alfianno · SMK Negeri 1 Madiun · FIKSI 2026
+      </p>
+      <div class="footer-bottom-links">
+        <a href="features.html">Fitur</a>
+        <a href="docs.html">Dokumentasi</a>
+        <a href="team.html">Tim</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+  <script src="js/team.js"></script>
 </body>
 </html>

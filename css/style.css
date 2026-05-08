@@ -1,7 +1,7 @@
-/* ═════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════
    style.css — Shared: reset, variables, nav, footer
    OpenRelay · FIKSI 2026
-═════════════════════════════════════════════════ */
+═══════════════════════════════════════════════ */
 
 /* ── GOOGLE FONTS ── */
 @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap');
@@ -14,10 +14,11 @@
   --bg4:          #1a2232;
 
   --amber:        #f59e0b;
-  --amber2:       #fbfb24;
+  --amber2:       #fbbf24;
   --amber3:       #d97706;
   --amber-dim:    rgba(245, 158, 11, 0.12);
   --amber-glow:   rgba(245, 158, 11, 0.25);
+  --amber-grain:    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65625' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 
   --green:        #22c55e;
   --green-dim:    rgba(34, 197, 94, 0.12);
@@ -141,7 +142,7 @@ nav.site-nav {
   border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
-  justify-center;
+  justify-content: center;
   flex-shrink: 0;
 }
 
@@ -383,33 +384,92 @@ nav.site-nav {
 /* ── SHARED CARD ── */
 .card {
   background: var(--bg2);
-  border: 1px solid var(--border);
+  border: 1px solid var(--amber);
   border-radius: var(--radius-lg);
   position: relative;
   overflow: hidden;
   transition: border-color var(--transition), transform var(--transition);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .card:hover {
-  border-color: var(--border2);
+  border-color: var(--amber2);
 }
 
-/* ── REVEAL ANIMATION ── */
-.reveal {
+.card-top-stripe {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--amber), transparent);
+}
+
+/* ── HUD & ATMOSPHERE ── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: var(--amber-grain);
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.hud-frame {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10000;
+}
+
+.hud-bracket {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--amber);
+  opacity: 0.4;
+}
+
+.bracket-tl { top: 20px; left: 20px; border-right: none; border-bottom: none; }
+.bracket-tr { top: 20px; right: 20px; border-left: none; border-bottom: none; }
+.bracket-bl { bottom: 20px; left: 20px; border-right: none; border-top: none; }
+.bracket-br { bottom: 20px; right: 20px; border-left: none; border-top: none; }
+
+.scanline {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--amber), transparent);
+  opacity: 0.15;
+  z-index: 10001;
+  pointer-events: none;
+  animation: scanline 8s linear infinite;
+}
+
+@keyframes scanline {
+  0% { top: -10%; }
+  100% { top: 110%; }
+}
+
+.glitch-reveal {
   opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 0.65s ease, transform 0.65s ease;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.reveal.visible {
+.glitch-reveal.visible {
   opacity: 1;
   transform: none;
+  animation: glitch-flicker 0.3s ease-out;
 }
 
-.reveal-delay-1 { transition-delay: 0.1s; }
-.reveal-delay-2 { transition-delay: 0.2s; }
-.reveal-delay-3 { transition-delay: 0.3s; }
-.reveal-delay-4 { transition-delay: 0.4s; }
+@keyframes glitch-flicker {
+  0% { opacity: 0.5; transform: translateX(-2px); }
+  20% { opacity: 1; transform: translateX(2px); }
+  40% { opacity: 0.8; transform: translateX(-1px); }
+  60% { opacity: 1; transform: translateX(0); }
+  100% { opacity: 1; }
+}
 
 /* ── BADGE / CHIP ── */
 .badge {

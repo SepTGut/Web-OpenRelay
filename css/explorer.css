@@ -1,0 +1,235 @@
+/* ════════════════════════════════════════════════
+   explorer.css — Hardware Explorer Styles
+   OpenRelay · FIKSI 2026
+═════════════════════════════════════════════════ */
+
+/* ── SIGNAL FLOW MAP ── */
+.signal-flow-section {
+  background: var(--bg);
+}
+
+.signal-flow-container {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  height: 600px;
+  margin: 40px auto;
+  background:
+    var(--bg3)
+    url("data:image/svg+xml,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='100%25' height='100%25' fill='none'/%3E%3Cpath d='M0 0 L20 20' stroke='rgba(245,158,11,0.05)' stroke-width='1'/%3E%3Cpath d='M20 0 L0 20' stroke='rgba(245,158,11,0.05)' stroke-width='1'/%3E%3C/svg%3E");
+  background-size: 20px 20px;
+  border: 2px solid var(--amber);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+/* ── COORDINATE MARKERS ── */
+.coord {
+  position: absolute;
+  font-family: 'Chakra Petch', monospace;
+  font-size: 10px;
+  color: var(--amber-dim);
+  pointer-events: none;
+}
+
+.coord-tl { top: 10px; left: 10px; }
+.coord-tr { top: 10px; right: 10px; text-align: right; }
+.coord-bl { bottom: 10px; left: 10px; }
+.coord-br { bottom: 10px; right: 10px; text-align: right; }
+
+/* ── NODES ── */
+.signal-flow-node {
+  position: absolute;
+  top: 50%; /* Vertically centered */
+  width: 180px;
+  padding: 16px;
+  background: rgba(0,0,0,0.6);
+  border: 2px solid var(--amber);
+  border-radius: var(--radius-md);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 2;
+  transform: translateY(-50%);
+}
+
+.signal-flow-node:hover {
+  background: var(--amber);
+  color: #000;
+  border-color: var(--amber2);
+  box-shadow: 0 0 20px var(--amber);
+  transform: translateY(-50%) scale(1.05);
+}
+
+.signal-flow-node .node-label {
+  font-family: 'Chakra Petch', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 6px;
+  letter-spacing: 1px;
+}
+
+.signal-flow-node .node-title {
+  font-family: 'Chakra Petch', monospace;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-bright);
+  margin: 0;
+}
+
+/* ── CONNECTIONS ── */
+.signal-flow-connection {
+  position: absolute;
+  top: 50%; /* Vertically centered to match nodes */
+  height: 2px;
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--amber) 25%,
+      var(--amber) 50%,
+      transparent 50%,
+      transparent 100%
+    );
+  background-size: 200% 100%;
+  background-position: 0 0;
+  z-index: 1;
+  animation: marching-ants 2s linear infinite;
+  opacity: 0.4;
+  transition: all 0.3s ease;
+}
+
+/* Active connections (when hovering over nodes) */
+.signal-flow-connection.active {
+  opacity: 1;
+  box-shadow: 0 0 8px var(--amber);
+}
+
+/* Marching ants animation */
+@keyframes marching-ants {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* ── DETAIL PANEL ── */
+.detail-panel {
+  position: fixed;
+  top: 0;
+  right: -400px; /* Hidden off-screen */
+  width: 350px;
+  height: 100vh;
+  background: var(--bg2);
+  border-left: 2px solid var(--amber);
+  box-shadow: -4px 0 12px rgba(0,0,0,0.3);
+  transition: right 0.4s ease;
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.detail-panel.open {
+  right: 0;
+}
+
+.detail-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.detail-panel-title {
+  font-family: 'Chakra Petch', monospace;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-bright);
+  margin: 0;
+}
+
+.detail-panel-close {
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: varRadius-sm;
+  transition: all 0.3s ease;
+}
+
+.detail-panel-close:hover {
+  color: var(--amber);
+  background: var(--amber-dim);
+}
+
+.detail-panel-content {
+  padding: 24px;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+
+.detail-panel-content h4 {
+  font-family: 'Chakra Petch', monospace;
+  color: var(--amber);
+  margin-top: 20px;
+  margin-bottom: 12px;
+}
+
+.detail-panel-content p {
+  margin-bottom: 16px;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .signal-flow-container {
+    height: 500px;
+  }
+
+  .signal-flow-node {
+    width: 150px;
+    padding: 12px;
+  }
+
+  .signal-flow-node .node-label {
+    font-size: 10px;
+  }
+
+  .signal-flow-node .node-title {
+    font-size: 14px;
+  }
+
+  .detail-panel {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 600px) {
+  .signal-flow-container {
+    height: 400px;
+  }
+
+  .signal-flow-node {
+    width: 120px;
+    padding: 10px;
+  }
+
+  .signal-flow-node .node-label {
+    font-size: 9px;
+  }
+
+  .signal-flow-node .node-title {
+    font-size: 12px;
+  }
+
+  .detail-panel {
+    max-width: 100%;
+  }
+}

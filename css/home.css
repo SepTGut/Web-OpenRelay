@@ -1,7 +1,7 @@
-/* ═══════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════
    home.css — Hero, Stats, Relay Visualizer, About, Competition
-   OakRelay · FIKSI 2026
-═════════════════════════════════════════════════ */
+   OpenRelay · FIKSI 2026
+═══════════════════════════════════════════════ */
 
 /* ── HERO ── */
 .hero {
@@ -305,12 +305,11 @@
 }
 
 .spec-card {
-  background: #2b3e64;
-  border: 1px solid #2b3e64;
-  border-radius: 5px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
   overflow: hidden;
   position: relative;
-  padding: 40px;
 }
 
 .spec-card::before {
@@ -318,19 +317,19 @@
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 2px;
-  background: linear-gradient(90deg, #2b3e64, transparent);
+  background: linear-gradient(90deg, var(--amber), var(--amber3), transparent);
 }
 
 .spec-card-header {
   padding: 18px 24px 14px;
-  border-bottom: 1px solid #2b3e64;
+  border-bottom: 1px solid var(--border);
 }
 
 .spec-card-title {
   font-family: 'Chakra Petch', monospace;
   font-size: 11px;
   font-weight: 600;
-  color: #e2e8f0;
+  color: var(--text-dim);
   letter-spacing: 1.5px;
   text-transform: uppercase;
 }
@@ -344,7 +343,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 9px 24px;
-  border-bottom: 1px solid #2b3e64;
+  border-bottom: 1px solid var(--border);
   transition: background var(--transition);
 }
 
@@ -353,311 +352,13 @@
 
 .spec-key {
   font-size: 13px;
-  color: #e2e8f0;
+  color: var(--text-dim);
 }
 
 .spec-val {
   font-family: 'Chakra Petch', monospace;
   font-size: 12px;
-  color: #e2e8f0;
-  font-weight: 600;
-}
-
-/* ── FEATURES SECTION ── */
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
-  margin-top: 32px;
-}
-
-.feature-card {
-  background: #2b3e64;
-  border: 1px solid #2b3e64;
-  border-radius: 5px;
-  overflow: hidden;
-  position: relative;
-  padding: 40px;
-  transition: border-color var(--transition), transform var(--transition);
-}
-
-.feature-card:hover {
-  border-color: #2b3e64;
-  transform: translateY(-4px);
-}
-
-.feature-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, #2b3e64, transparent);
-}
-
-.feature-icon {
-  font-size: 2.5rem;
-  margin-bottom: 16px;
-  display: block;
-  text-align: center;
-  color: #e2e8f0;
-}
-
-.feature-title {
-  font-family: 'Chakra Petch', monospace;
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #e2e8f0;
-  margin-bottom: 12px;
-}
-
-.feature-description {
-  font-size: 0.94rem;
-  color: #e2e8f0;
-  line-height: 1.6;
-}
-
-/* ── ARCHITECTURE SECTION ── */
-.architecture-content {
-  margin-top: 32px;
-}
-
-.arch-flow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 24px;
-}
-
-.arch-node {
-  background: #2b3e64;
-  border: 1px solid #2b3e64;
-  border-radius: 5px;
-  padding: 20px;
-  text-align: center;
-  transition: border-color var(--transition);
-}
-
-.arch-node:hover {
-  border-color: #2b3e64;
-}
-
-.arch-node-icon {
-  font-size: 2.5rem;
-  margin-bottom: 12px;
-  display: block;
-  color: #e2e8f0;
-}
-
-.arch-node-title {
-  font-family: 'Chakra Petch', monospace;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #e2e8f0;
-  margin-bottom: 8px;
-}
-
-.arch-node-subtitle {
-  font-size: 0.88rem;
-  color: #e2e8f0;
-}
-
-.arch-arrow {
-  font-size: 1.5rem;
-  color: #2b3e64;
-  font-weight: 600;
-}
-
-.arch-details {
-  margin-top: 32px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 20px;
-}
-
-.detail-item {
-  background: #2b3e64;
-  border: 1px solid #2b3e64;
-  border-radius: 5px;
-  padding: 16px;
-}
-
-.detail-label {
-  font-family: 'Chakra Petch', monospace;
-  font-size: 0.88rem;
-  color: #e2e8f0;
-  margin-bottom: 8px;
-}
-
-.detail-value {
-  font-family: 'Chakra Petch', monospace;
-  font-size: 1rem;
-  font-weight: 600;
-  color: #e2e8f0;
-}
-
-/* ── TEAM SECTION ── */
-.team-content {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 24px;
-  margin-top: 32px;
-}
-
-.team-member {
-  background: #2b3e64;
-  border: 1px solid #2b3e64;
-  border-radius: 5px;
-  text-align: center;
-  padding: 24px;
-  transition: border-color var(--transition), transform var(--transition);
-}
-
-.team-member:hover {
-  border-color: #2b3e64;
-  transform: translateY(-4px);
-}
-
-.team-avatar {
-  font-size: 3rem;
-  margin-bottom: 16px;
-  display: block;
-  background: #2b3e64;
-  color: #e2e8f0;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-}
-
-.team-name {
-  font-family: 'Chakra Petch', monospace;
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #e2e8f0;
-  margin-bottom: 8px;
-}
-
-.team-role {
-  font-size: 0.94rem;
-  color: #e2e8f0;
-  line-height: 1.4;
-  margin-bottom: 12px;
-}
-
-.team-school {
-  font-size: 0.88rem;
-  color: #e2e8f0;
-}
-
-/* ── ACCESS SECTION ── */
-.access-content {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
-  margin-top: 32px;
-}
-
-.access-card {
-  background: #2b3e64;
-  border: 1px solid #2b3e64;
-  border-radius: 5px;
-  overflow: hidden;
-  position: relative;
-  padding: 40px;
-  transition: border-color var(--transition), transform var(--transition);
-}
-
-.access-card:hover {
-  border-color: #2b3e64;
-  transform: translateY(-4px);
-}
-
-.access-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, #2b3e64, transparent);
-}
-
-.access-icon {
-  font-size: 2.5rem;
-  margin-bottom: 16px;
-  display: block;
-  text-align: center;
-  color: #e2e8f0;
-}
-
-.access-title {
-  font-family: 'Chakra Petch', monospace;
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #e2e8f0;
-  margin-bottom: 12px;
-}
-
-.access-description {
-  font-size: 0.94rem;
-  color: #e2e8f0;
-  line-height: 1.6;
-}
-
-.access-link {
-  display: inline-block;
-  margin-top: 16px;
-  font-family: 'Chakra Petch', monospace;
-  font-size: 0.94rem;
-  color: #e2e8f0;
-  font-weight: 600;
-  text-decoration: none;
-  transition: color var(--transition);
-}
-
-.access-link:hover {
-  color: #e2e8f0;
-  text-decoration: underline;
-}
-
-/* WiFi Access Point Info */
-.wifi-info {
-  text-align: center;
-  margin-top: 32px;
-  padding: 24px;
-  background: #2b3e64;
-  border-radius: 5px;
-  border: 1px solid #2b3e64;
-}
-
-.wifi-info p {
-  color: #e2e8f0;
-  font-size: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.wifi-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-}
-
-.wifi-item {
-  text-align: center;
-}
-
-.wifi-label {
-  font-size: 0.9rem;
-  color: #e2e8f0;
-  margin-bottom: 0.5rem;
-}
-
-.wifi-value {
-  font-family: 'Chakra Petch', monospace;
-  font-size: 1.25rem;
-  color: #e2e8f0;
+  color: var(--amber);
   font-weight: 600;
 }
 

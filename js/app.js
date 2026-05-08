@@ -6,9 +6,9 @@
 
 'use strict';
 
-/* ════════════════════════════════════════════════
+/* ══════════════════════════════════════════════
    NAV — active link highlight + mobile menu
-════════════════════════════════════════════════ */
+══════════════════════════════════════════════ */
 (function initNav() {
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
 
@@ -70,9 +70,9 @@
 })();
 
 
-/* ════════════════════════════════════════════════
+/* ══════════════════════════════════════════════
    SCROLL REVEAL
-════════════════════════════════════════════════ */
+══════════════════════════════════════════════ */
 (function initScrollReveal() {
   const reveals = document.querySelectorAll('.reveal');
   if (!reveals.length) return;
@@ -93,9 +93,9 @@
 })();
 
 
-/* ════════════════════════════════════════════════
+/* ══════════════════════════════════════════════
    SMOOTH SCROLL for anchor links
-════════════════════════════════════════════════ */
+══════════════════════════════════════════════ */
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', e => {
     const target = document.querySelector(anchor.getAttribute('href'));
@@ -109,9 +109,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 
-/* ════════════════════════════════════════════════
+/* ══════════════════════════════════════════════
    TOAST NOTIFICATIONS
-════════════════════════════════════════════════ */
+══════════════════════════════════════════════ */
 (function() {
   // Create toast container
   const toastRoot = document.createElement('div');
@@ -178,9 +178,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 })();
 
 
-/* ════════════════════════════════════════════════
+/* ══════════════════════════════════════════════
    COPY TO CLIPBOARD utility
-════════════════════════════════════════════════ */
+══════════════════════════════════════════════ */
 window.copyToClipboard = function(text, label = 'Copied!') {
   navigator.clipboard.writeText(text).then(() => {
     window.showToast(`✓ ${label}`, 'ok', 2000);
@@ -199,9 +199,9 @@ window.copyToClipboard = function(text, label = 'Copied!') {
 };
 
 
-/* ════════════════════════════════════════════════
+/* ══════════════════════════════════════════════
    YEAR in footer copyright
-════════════════════════════════════════════════ */
+══════════════════════════════════════════════ */
 document.querySelectorAll('.footer-year').forEach(el => {
   el.textContent = new Date().getFullYear();
 });

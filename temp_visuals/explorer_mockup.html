@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        :root {
+            --bg: #05070a;
+            --amber: #f59e0b;
+            --amber-dim: rgba(245, 158, 11, 0.2);
+            --text: #e2e8f0;
+            --grid: rgba(245, 158, 11, 0.05);
+        }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Chakra Petch', monospace;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+        .blueprint-container {
+            position: relative;
+            width: 900px;
+            height: 500px;
+            border: 1px solid var(--amber-dim);
+            background-image:
+                linear-gradient(var(--grid) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+            background-size: 20px 20px;
+            padding: 40px;
+        }
+        .node {
+            position: absolute;
+            border: 1px solid var(--amber);
+            background: rgba(0,0,0,0.8);
+            padding: 10px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+        .node:hover {
+            background: var(--amber);
+            color: #000;
+            box-shadow: 0 0 20px var(--amber);
+        }
+        .node-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            color: var(--amber);
+            margin-bottom: 4px;
+        }
+        .node-title {
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .connection {
+            position: absolute;
+            background: var(--amber-dim);
+            height: 2px;
+            z-index: 1;
+            transition: background 0.3s;
+        }
+        .connection.active {
+            background: var(--amber);
+            box-shadow: 0 0 10px var(--amber);
+        }
+        /* Position Nodes */
+        #node-mqtt { top: 200px; left: 50px; }
+        #node-esp { top: 200px; left: 250px; }
+        #node-i2c { top: 200px; left: 450px; }
+        #node-exp { top: 200px; left: 650px; }
+        #node-relay { top: 200px; left: 800px; }
+
+        .coord {
+            position: absolute;
+            font-size: 8px;
+            color: var(--amber-dim);
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="blueprint-container">
+        <div class="coord" style="top:5px; left:5px;">X:0.00 Y:0.00</div>
+        <div class="coord" style="top:5px; right:5px;">X:900.00 Y:0.00</div>
+        <div class="coord" style="bottom:5px; left:5px;">X:0.00 Y:500.00</div>
+        <div class="coord" style="bottom:5px; right:5px;">X:900.00 Y:500.00</div>
+
+        <div class="node" id="node-mqtt">
+            <div class="node-label">Cloud Layer</div>
+            <div class="node-title">MQTT BROKER</div>
+        </div>
+        <div class="connection" style="top:215px; left:140px; width:110px;"></div>
+
+        <div class="node" id="node-esp">
+            <div class="node-label">Processing</div>
+            <div class="node-title">ESP32 SOC</div>
+        </div>
+        <div class="connection" style="top:215px; left:340px; width:110px;"></div>
+
+        <div class="node" id="node-i2c">
+            <div class="node-label">Protocol</div>
+            <div class="node-title">I2C BUS</div>
+        </div>
+        <div class="connection" style="top:215px; left:540px; width:110px;"></div>
+
+        <div class="node" id="node-exp">
+            <div class="node-label">Expansion</div>
+            <div class="node-title">MCP23017 / PCF8574</div>
+        </div>
+        <div class="connection" style="top:215px; left:740px; width:60px;"></div>
+
+        <div class="node" id="node-relay">
+            <div class="node-label">Physical</div>
+            <div class="node-title">RELAY CH</div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.node').forEach(node => {
+            node.addEventListener('mouseover', () => {
+                document.querySelectorAll('.connection').forEach(c => c.classList.add('active'));
+            });
+            node.addEventListener('mouseout', () => {
+                document.querySelectorAll('.connection').forEach(c => c.classList.remove('active'));
+            });
+        });
+    </script>
+</body>
+</html>

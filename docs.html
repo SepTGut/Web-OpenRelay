@@ -3,10 +3,530 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dokumentasi - OpenRelay</title>
-  <meta http-equiv="refresh" content="0; url=home.html#architecture" />
+  <meta name="color-scheme" content="dark" />
+  <title>Dokumentasi — OpenRelay</title>
+  <meta name="description" content="Dokumentasi OpenRelay: MQTT topics, broker info, payload examples, dan panduan akses dashboard web." />
+
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/docs.css" />
 </head>
 <body>
-  Redirecting to architecture section...
+
+  <!-- ══ NAV ══ -->
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <a href="home.html" class="nav-logo">
+      <div class="nav-logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <rect x="3" y="9" width="18" height="6" rx="1.5" stroke="#07090f" stroke-width="2"/>
+          <circle cx="8"  cy="12" r="1.5" fill="#07090f"/>
+          <circle cx="16" cy="12" r="1.5" stroke="#07090f" stroke-width="1.5"/>
+          <path d="M1 12h2M21 12h2M8 9V7M16 9V7M8 15v2M16 15v2" stroke="#07090f" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <span class="nav-brand">OpenRelay</span>
+    </a>
+
+    <ul class="nav-links" role="list">
+      <li><a href="home.html">Beranda</a></li>
+      <li><a href="features.html">Fitur</a></li>
+      <li><a href="docs.html">Dokumentasi</a></li>
+      <li><a href="team.html">Tim</a></li>
+    </ul>
+
+    <div class="nav-cta-wrap">
+      <a href="#akses" class="nav-cta">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+        Akses Sekarang
+      </a>
+    </div>
+
+    <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="nav-mobile-menu" role="menu">
+    <a href="home.html" role="menuitem">Beranda</a>
+    <a href="features.html" role="menuitem">Fitur</a>
+    <a href="docs.html" role="menuitem">Dokumentasi</a>
+    <a href="team.html" role="menuitem">Tim</a>
+    <a href="#akses" class="nav-cta" role="menuitem">Akses Sekarang</a>
+  </div>
+
+  <!-- ══ MAIN ══ -->
+  <main class="page-main">
+
+    <!-- ── PAGE HEADER ── -->
+    <div class="section-inner docs-hero">
+      <div class="section-tag">Dokumentasi</div>
+      <h1 class="section-title">Panduan Penggunaan</h1>
+      <p class="section-desc">
+        Semua yang perlu kamu tahu untuk mengkoneksikan, mengontrol,
+        dan mengembangkan OpenRelay — dari MQTT topics hingga akses dashboard.
+      </p>
+    </div>
+
+    <!-- ── MQTT TOPICS ── -->
+    <section class="mqtt-section" id="mqtt" aria-labelledby="mqtt-heading">
+      <div class="section-inner" style="padding-top: 0;">
+
+        <div class="section-tag">Protokol MQTT</div>
+        <h2 class="section-title" id="mqtt-heading">Topics &amp; Pesan</h2>
+        <p class="section-desc">
+          OpenRelay menggunakan protokol MQTT standar, kompatibel dengan
+          Home Assistant, Node-RED, dan semua client MQTT lainnya.
+        </p>
+
+        <div class="mqtt-grid reveal">
+
+          <!-- Publish topics -->
+          <div class="mqtt-card">
+            <div class="mqtt-card-header">
+              <div class="mqtt-card-title">Publish (ESP32 → Broker)</div>
+              <span class="badge badge-blue">PUB</span>
+            </div>
+            <div class="mqtt-card-body">
+
+              <div class="topic-row">
+                <span class="topic-name">home/relay/v</span>
+                <span class="topic-badge pub">PUB</span>
+                <button class="topic-copy" title="Copy topic" aria-label="Copy topic home/relay/v">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+              </div>
+
+              <div class="topic-row">
+                <span class="topic-name">home/relay/relay/N/v</span>
+                <span class="topic-badge pub">PUB</span>
+                <button class="topic-copy" title="Copy topic" aria-label="Copy topic home/relay/relay/N/v">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+              </div>
+
+              <div class="topic-row">
+                <span class="topic-name">home/relay/sensor/N/v</span>
+                <span class="topic-badge pub">PUB</span>
+                <button class="topic-copy" title="Copy topic" aria-label="Copy topic home/relay/sensor/N/v">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+              </div>
+
+              <div class="topic-row">
+                <span class="topic-name">home/relay/g</span>
+                <span class="topic-badge pub">PUB</span>
+                <button class="topic-copy" title="Copy topic" aria-label="Copy topic home/relay/g">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+              </div>
+
+              <div class="topic-row">
+                <span class="topic-name">home/relay/c</span>
+                <span class="topic-badge pub">PUB</span>
+                <button class="topic-copy" title="Copy topic" aria-label="Copy topic home/relay/c">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+              </div>
+
+              <div class="topic-row">
+                <span class="topic-name">home/relay/status</span>
+                <span class="topic-badge lwt">LWT</span>
+                <button class="topic-copy" title="Copy topic" aria-label="Copy topic home/relay/status">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Subscribe topics -->
+          <div class="mqtt-card">
+            <div class="mqtt-card-header">
+              <div class="mqtt-card-title">Subscribe (Broker → ESP32)</div>
+              <span class="badge badge-green">SUB</span>
+            </div>
+            <div class="mqtt-card-body">
+
+              <div class="topic-row">
+                <span class="topic-name">home/relay/api</span>
+                <span class="topic-badge sub">SUB</span>
+                <button class="topic-copy" title="Copy topic" aria-label="Copy topic home/relay/api">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+              </div>
+
+              <div class="topic-row">
+                <span class="topic-name">home/relay</span>
+                <span class="topic-badge sub">SUB</span>
+                <button class="topic-copy" title="Copy topic" aria-label="Copy topic home/relay">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+              </div>
+
+              <div class="topic-row">
+                <span class="topic-name">home/relay/ping</span>
+                <span class="topic-badge sub">SUB</span>
+                <button class="topic-copy" title="Copy topic" aria-label="Copy topic home/relay/ping">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+              </div>
+
+              <div class="topic-row">
+                <span class="topic-name">home/relay/relay/N/set</span>
+                <span class="topic-badge sub">SUB</span>
+                <button class="topic-copy" title="Copy topic" aria-label="Copy topic home/relay/relay/N/set">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+              </div>
+
+              <div class="topic-row">
+                <span class="topic-name">home/relay/col</span>
+                <span class="topic-badge sub">SUB</span>
+                <button class="topic-copy" title="Copy topic" aria-label="Copy topic home/relay/col">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+              </div>
+
+              <div class="topic-row">
+                <span class="topic-name">home/relay/#</span>
+                <span class="topic-badge sub">SUB</span>
+                <button class="topic-copy" title="Copy topic" aria-label="Copy topic home/relay/#">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <!-- ── BROKER INFO ── -->
+    <section class="broker-section" id="broker" aria-labelledby="broker-heading">
+      <div class="section-inner">
+
+        <div class="section-tag">Koneksi Broker</div>
+        <h2 class="section-title" id="broker-heading">Info Broker &amp; Jaringan</h2>
+        <p class="section-desc">
+          OpenRelay menggunakan HiveMQ sebagai MQTT broker default.
+          Kamu bisa mengganti ke broker privat melalui konfigurasi firmware.
+        </p>
+
+        <div class="broker-grid reveal">
+
+          <div class="broker-card">
+            <div class="broker-card-title">
+              <span class="dot-live"></span>
+              Broker Publik (Default)
+            </div>
+            <div class="broker-spec-row">
+              <span class="broker-spec-key">Host</span>
+              <span class="broker-spec-val">broker.hivemq.com</span>
+            </div>
+            <div class="broker-spec-row">
+              <span class="broker-spec-key">Port TCP</span>
+              <span class="broker-spec-val blue">1883</span>
+            </div>
+            <div class="broker-spec-row">
+              <span class="broker-spec-key">WSS URL</span>
+              <span class="broker-spec-val">wss://broker.hivemq.com</span>
+            </div>
+            <div class="broker-spec-row">
+              <span class="broker-spec-key">WSS Port</span>
+              <span class="broker-spec-val blue">8884</span>
+            </div>
+            <div class="broker-spec-row">
+              <span class="broker-spec-key">WSS Path</span>
+              <span class="broker-spec-val">/mqtt</span>
+            </div>
+            <div class="broker-spec-row">
+              <span class="broker-spec-key">Auth</span>
+              <span class="broker-spec-val green">Tidak Diperlukan</span>
+            </div>
+            <div class="broker-spec-row">
+              <span class="broker-spec-key">Status</span>
+              <span id="broker-status-badge" class="broker-spec-val" style="font-size:11px;">Memeriksa...</span>
+            </div>
+          </div>
+
+          <div class="broker-card">
+            <div class="broker-card-title">Konfigurasi ESP32</div>
+            <div class="broker-spec-row">
+              <span class="broker-spec-key">MQTT Prefix</span>
+              <span class="broker-spec-val">home/relay</span>
+            </div>
+            <div class="broker-spec-row">
+              <span class="broker-spec-key">Buffer Size</span>
+              <span class="broker-spec-val">2048 bytes</span>
+            </div>
+            <div class="broker-spec-row">
+              <span class="broker-spec-key">Static mqttBuf</span>
+              <span class="broker-spec-val">2560 bytes</span>
+            </div>
+            <div class="broker-spec-row">
+              <span class="broker-spec-key">AP SSID</span>
+              <span class="broker-spec-val green">ESP32-Relay</span>
+            </div>
+            <div class="broker-spec-row">
+              <span class="broker-spec-key">AP Password</span>
+              <span class="broker-spec-val">relay1234</span>
+            </div>
+            <div class="broker-spec-row">
+              <span class="broker-spec-key">Hostname</span>
+              <span class="broker-spec-val">relaycrtl</span>
+            </div>
+            <div class="broker-spec-row">
+              <span class="broker-spec-key">OTA Password</span>
+              <span class="broker-spec-val">relay_ota</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <!-- ── PAYLOAD EXAMPLES ── -->
+    <section class="payload-section" id="payload" aria-labelledby="payload-heading">
+      <div class="section-inner">
+
+        <div class="section-tag">Contoh Payload</div>
+        <h2 class="section-title" id="payload-heading">Format Pesan MQTT</h2>
+        <p class="section-desc">
+          Format JSON yang diterima dan dikirim OpenRelay.
+          Kompatibel dengan Home Assistant MQTT integration.
+        </p>
+
+        <div class="payload-grid reveal">
+
+          <div class="payload-card">
+            <div class="payload-header">
+              <span class="payload-topic">home/relay/api</span>
+              <span class="payload-direction">→ ESP32</span>
+            </div>
+            <div class="payload-body">
+<span class="pun">{</span>
+  <span class="key">"relay"</span><span class="pun">:</span> <span class="num">3</span><span class="pun">,</span>
+  <span class="key">"on"</span><span class="pun">:</span> <span class="bool">true</span>
+<span class="pun">}</span>
+
+<span class="pun">{</span> <span class="key">"relay"</span><span class="pun">:</span> <span class="num">3</span><span class="pun">,</span> <span class="key">"pulse"</span><span class="pun">:</span> <span class="num">500</span> <span class="pun">}</span>
+
+<span class="pun">{</span> <span class="key">"relay"</span><span class="pun">:</span> <span class="num">3</span><span class="pun">,</span> <span class="key">"timer"</span><span class="pun">:</span> <span class="num">60</span> <span class="pun">}</span>
+            </div>
+          </div>
+
+          <div class="payload-card">
+            <div class="payload-header">
+              <span class="payload-topic">home/relay/v</span>
+              <span class="payload-direction">ESP32 →</span>
+            </div>
+            <div class="payload-body">
+<span class="pun">{</span>
+  <span class="key">"relays"</span><span class="pun">: [</span>
+    <span class="pun">{</span>
+      <span class="key">"id"</span><span class="pun">:</span> <span class="num">0</span><span class="pun">,</span>
+      <span class="key">"name"</span><span class="pun">:</span> <span class="str">"Relay 0"</span><span class="pun">,</span>
+      <span class="key">"on"</span><span class="pun">:</span> <span class="bool">false</span>
+    <span class="pun">}</span>
+  <span class="pun">],</span>
+  <span class="key">"sensors"</span><span class="pun">: []</span>
+<span class="pun">}</span>
+            </div>
+          </div>
+
+          <div class="payload-card">
+            <div class="payload-header">
+              <span class="payload-topic">home/relay/api — pattern</span>
+              <span class="payload-direction">→ ESP32</span>
+            </div>
+            <div class="payload-body">
+<span class="pun">{</span>
+  <span class="key">"pattern"</span><span class="pun">: {</span>
+    <span class="key">"steps"</span><span class="pun">: [</span>
+      <span class="pun">{</span>
+        <span class="key">"mask"</span><span class="pun">:</span> <span class="num">1</span><span class="pun">,</span>
+        <span class="key">"duration_ms"</span><span class="pun">:</span> <span class="num">500</span>
+      <span class="pun">}</span>
+    <span class="pun">],</span>
+    <span class="key">"repeat"</span><span class="pun">:</span> <span class="num">-1</span>
+  <span class="pun">}</span>
+<span class="pun">}</span>
+            </div>
+          </div>
+
+          <div class="payload-card">
+            <div class="payload-header">
+              <span class="payload-topic">home/relay/relay/N/v</span>
+              <span class="payload-direction">ESP32 →</span>
+            </div>
+            <div class="payload-body">
+<span class="str">"ON"</span>   <span class="pun">// relay aktif</span>
+<span class="str">"OFF"</span>  <span class="pun">// relay tidak aktif</span>
+
+<span class="pun">// atau JSON:</span>
+<span class="pun">{</span>
+  <span class="key">"on"</span><span class="pun">:</span> <span class="bool">true</span><span class="pun">,</span>
+  <span class="key">"id"</span><span class="pun">:</span> <span class="num">3</span><span class="pun">,</span>
+  <span class="key">"name"</span><span class="pun">:</span> <span class="str">"Relay 3"</span>
+<span class="pun">}</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <!-- ── ACCESS ── -->
+    <section class="access-section" id="akses" aria-labelledby="access-heading">
+      <div class="section-inner">
+
+        <div class="section-tag">Cara Akses</div>
+        <h2 class="section-title" id="access-heading">Mulai Sekarang</h2>
+        <p class="section-desc">
+          Tiga cara untuk mengakses dan mengontrol OpenRelay —
+          pilih yang paling sesuai dengan kebutuhanmu.
+        </p>
+
+        <div class="access-cards reveal">
+
+          <div class="access-card">
+            <div class="access-icon" aria-hidden="true">🌐</div>
+            <div class="access-title">Remote Dashboard</div>
+            <div class="access-desc">
+              Dashboard web siap pakai di GitHub Pages. Kontrol relay dari
+              browser menggunakan MQTT over WSS. Tidak butuh instalasi apapun.
+            </div>
+            <span class="access-url">relay-remote-web (GitHub Pages)</span>
+          </div>
+
+          <div class="access-card">
+            <div class="access-icon" aria-hidden="true">📟</div>
+            <div class="access-title">Web UI Lokal</div>
+            <div class="access-desc">
+              Akses dashboard langsung dari ESP32 melalui IP perangkat.
+              Tersimpan di LittleFS dan tersedia tanpa koneksi internet.
+            </div>
+            <a href="http://relaycrtl.local" class="access-url" target="_blank" rel="noopener">
+              http://relaycrtl.local
+            </a>
+          </div>
+
+          <div class="access-card">
+            <div class="access-icon" aria-hidden="true">📡</div>
+            <div class="access-title">MQTT Direct</div>
+            <div class="access-desc">
+              Gunakan client MQTT apapun — Home Assistant, Node-RED,
+              MQTT Explorer — dengan prefix <code style="font-size:11px;color:var(--amber)">home/relay</code>.
+            </div>
+            <span class="access-url">broker.hivemq.com : 1883</span>
+          </div>
+
+        </div>
+
+        <!-- Default credentials -->
+        <div class="creds-box reveal reveal-delay-2">
+          <p class="creds-label">
+            WiFi Access Point untuk setup pertama — klik untuk menyalin:
+          </p>
+          <div class="creds-card">
+            <div class="cred-item">
+              <div class="cred-key">SSID</div>
+              <div class="cred-val">ESP32-Relay</div>
+            </div>
+            <div class="cred-item">
+              <div class="cred-key">Password</div>
+              <div class="cred-val">relay1234</div>
+            </div>
+            <div class="cred-item">
+              <div class="cred-key">OTA Password</div>
+              <div class="cred-val">relay_ota</div>
+            </div>
+            <div class="cred-item">
+              <div class="cred-key">Hostname</div>
+              <div class="cred-val">relaycrtl</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ══ FOOTER ══ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-main">
+
+      <div class="footer-brand">
+        <a href="home.html" class="nav-logo" style="margin-bottom:14px;display:inline-flex;">
+          <div class="nav-logo-mark">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <rect x="3" y="9" width="18" height="6" rx="1.5" stroke="#07090f" stroke-width="2"/>
+              <circle cx="8" cy="12" r="1.5" fill="#07090f"/>
+              <circle cx="16" cy="12" r="1.5" stroke="#07090f" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <span class="nav-brand">OpenRelay</span>
+        </a>
+        <p class="footer-desc">
+          Platform kendali relay IoT open source berbasis ESP32.
+          Dibuat untuk kompetisi FIKSI 2026 oleh siswa SMKN 1 Madiun.
+        </p>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Navigasi</div>
+        <ul class="footer-links-list">
+          <li><a href="home.html">Beranda</a></li>
+          <li><a href="features.html">Fitur</a></li>
+          <li><a href="docs.html">Dokumentasi</a></li>
+          <li><a href="team.html">Tim</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Info Perangkat</div>
+        <div class="footer-spec-row">
+          <span class="footer-spec-key">AP SSID</span>
+          <span class="footer-spec-val">ESP32-Relay</span>
+        </div>
+        <div class="footer-spec-row">
+          <span class="footer-spec-key">Password</span>
+          <span class="footer-spec-val">relay1234</span>
+        </div>
+        <div class="footer-spec-row">
+          <span class="footer-spec-key">Hostname</span>
+          <span class="footer-spec-val">relaycrtl</span>
+        </div>
+        <div class="footer-spec-row">
+          <span class="footer-spec-key">MQTT Prefix</span>
+          <span class="footer-spec-val">home/relay</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-copy">
+        © <span class="footer-year">2026</span> GT &amp; M. Rizky Alfianno · SMK Negeri 1 Madiun · FIKSI 2026
+      </p>
+      <div class="footer-bottom-links">
+        <a href="features.html">Fitur</a>
+        <a href="docs.html">Dokumentasi</a>
+        <a href="team.html">Tim</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+  <script src="js/docs.js"></script>
 </body>
 </html>

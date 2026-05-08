@@ -1,1 +1,68 @@
-<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta http-equiv="refresh" content="0; url=home.html"><title>OpenRelay</title></head><body>Redirecting to home...</body></html>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="refresh" content="0; url=home.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OpenRelay — Kontroler Relay IoT Open Source</title>
+  <meta name="description" content="OpenRelay adalah platform kendali relay berbasis ESP32 yang kompatibel dengan ekosistem WLED. Dukung hingga 128 relay, kontrol via MQTT, dan dashboard web modern." />
+  <meta name="keywords" content="OpenRelay, ESP32, IoT, relay, MQTT, WLED, FIKSI 2026, SMK Negeri 1 Madiun" />
+  <meta name="author" content="GT & M. Rizky Alfianno — SMKN 1 Madiun" />
+
+  <!-- Open Graph -->
+  <meta property="og:title"       content="OpenRelay — Kontroler Relay IoT Open Source" />
+  <meta property="og:description" content="Platform kendali relay ESP32 open source, FIKSI 2026." />
+  <meta property="og:type"        content="website" />
+
+  <link rel="canonical" href="home.html" />
+
+  <style>
+    body {
+      margin: 0;
+      background: #070a0f;
+      color: #e2e8f0;
+      font-family: 'Chakra Petch', monospace, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      color: #f59e0b;
+      letter-spacing: -0.5px;
+    }
+
+    .sub {
+      font-size: 13px;
+      color: #64748b;
+      letter-spacing: 1px;
+    }
+
+    .spinner {
+      width: 28px; height: 28px;
+      border: 2px solid rgba(245,158,11,0.15);
+      border-top-color: #f59e0b;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-top: 8px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <div class="logo">OpenRelay</div>
+  <div class="sub">LOADING...</div>
+  <div class="spinner"></div>
+
+  <script>
+    // Fallback redirect if meta refresh is blocked
+    window.location.replace('home.html');
+  </script>
+</body>
+</html>

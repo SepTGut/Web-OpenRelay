@@ -1,0 +1,326 @@
+/* ═══════════════════════════════════════════════
+   features.css — Feature cards, Architecture, Code blocks
+   OpenRelay · FIKSI 2026
+═══════════════════════════════════════════════ */
+
+/* ── FEATURES HERO ── */
+.features-hero {
+  padding: 72px 24px 0;
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* ── FEATURE GRID ── */
+.features-section { position: relative; z-index: 1; }
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 56px;
+}
+
+.feature-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+  cursor: default;
+}
+
+.feature-card:hover {
+  border-color: var(--border2);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+}
+
+.feature-card.highlight {
+  border-color: var(--border2);
+  background: linear-gradient(145deg, var(--bg2), var(--bg3));
+}
+
+.feature-icon {
+  width: 44px;
+  height: 44px;
+  background: var(--amber-dim);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  margin-bottom: 18px;
+  border: 1px solid var(--border);
+}
+
+.feature-title {
+  font-family: 'Chakra Petch', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-bright);
+  margin-bottom: 10px;
+  letter-spacing: 0.2px;
+}
+
+.feature-desc {
+  font-size: 13.5px;
+  color: var(--text-dim);
+  line-height: 1.65;
+}
+
+.feature-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 14px;
+  font-family: 'Chakra Petch', monospace;
+  font-size: 10px;
+  color: var(--amber);
+  letter-spacing: 0.5px;
+}
+
+/* ── ARCHITECTURE SECTION ── */
+.arch-section {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  z-index: 1;
+}
+
+.arch-flow {
+  margin-top: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 0;
+  padding-bottom: 8px;
+}
+
+.arch-node {
+  flex-shrink: 0;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 18px 22px;
+  text-align: center;
+  min-width: 148px;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.arch-node:hover {
+  border-color: var(--border2);
+  box-shadow: var(--shadow-amber);
+}
+
+.arch-node-icon { font-size: 24px; margin-bottom: 10px; }
+
+.arch-node-name {
+  font-family: 'Chakra Petch', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-bright);
+  margin-bottom: 4px;
+}
+
+.arch-node-sub {
+  font-size: 11px;
+  color: var(--text-dim);
+  font-family: 'Chakra Petch', monospace;
+}
+
+.arch-arrow {
+  flex-shrink: 0;
+  padding: 0 10px;
+  color: var(--amber);
+  font-size: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.arch-arrow-label {
+  font-size: 9px;
+  color: var(--text-muted);
+  font-family: 'Chakra Petch', monospace;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+/* ── LAYER DIAGRAM ── */
+.arch-layers {
+  margin-top: 48px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.arch-layer {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+}
+
+.arch-layer-num {
+  font-family: 'Chakra Petch', monospace;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--border2);
+  margin-bottom: 8px;
+  line-height: 1;
+}
+
+.arch-layer-name {
+  font-family: 'Chakra Petch', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--amber);
+  margin-bottom: 12px;
+}
+
+.arch-layer-items {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.arch-layer-item {
+  font-size: 12px;
+  color: var(--text-dim);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.arch-layer-item::before {
+  content: '›';
+  color: var(--amber);
+  font-weight: 700;
+}
+
+/* ── CODE BLOCKS ── */
+.code-section { position: relative; z-index: 1; }
+
+.code-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 52px;
+}
+
+.code-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.code-header {
+  background: var(--bg3);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.code-dots { display: flex; gap: 6px; }
+.code-dot  { width: 10px; height: 10px; border-radius: 50%; }
+
+.code-filename {
+  font-family: 'Chakra Petch', monospace;
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-left: 4px;
+  letter-spacing: 0.3px;
+}
+
+.code-lang {
+  margin-left: auto;
+  font-family: 'Chakra Petch', monospace;
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.code-body {
+  padding: 20px;
+  font-family: 'Chakra Petch', monospace;
+  font-size: 12.5px;
+  line-height: 1.9;
+  color: #94a3b8;
+  overflow-x: auto;
+}
+
+.code-body .kw  { color: var(--blue); }
+.code-body .str { color: var(--green); }
+.code-body .num { color: var(--amber); }
+.code-body .cmt { color: var(--text-muted); font-style: italic; }
+.code-body .fn  { color: #e879f9; }
+.code-body .var { color: #f1a1f1; }
+
+/* ── RELAY ARCH TABLE ── */
+.relay-arch {
+  margin-top: 48px;
+}
+
+.relay-arch-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.relay-arch-table thead tr {
+  background: var(--bg3);
+  border-bottom: 1px solid var(--border2);
+}
+
+.relay-arch-table th {
+  padding: 12px 20px;
+  text-align: left;
+  font-family: 'Chakra Petch', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-dim);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.relay-arch-table td {
+  padding: 11px 20px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-dim);
+  vertical-align: middle;
+}
+
+.relay-arch-table tbody tr:hover { background: rgba(255,255,255,0.015); }
+
+.relay-arch-table td:first-child {
+  font-family: 'Chakra Petch', monospace;
+  color: var(--amber);
+  font-size: 12px;
+}
+
+.relay-arch-table td .mono-sm {
+  font-family: 'Chakra Petch', monospace;
+  font-size: 11px;
+  color: var(--green);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .features-grid { grid-template-columns: 1fr 1fr; }
+  .arch-layers   { grid-template-columns: 1fr; }
+  .code-grid     { grid-template-columns: 1fr; }
+  .arch-flow     { justify-content: flex-start; }
+}
+
+@media (max-width: 600px) {
+  .features-grid { grid-template-columns: 1fr; }
+}

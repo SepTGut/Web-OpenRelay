@@ -1,0 +1,338 @@
+/* ═══════════════════════════════════════════════
+   team.css — Team cards, FIKSI 2026, Project timeline
+   OpenRelay · FIKSI 2026
+═══════════════════════════════════════════════ */
+
+/* ── TEAM HERO ── */
+.team-hero {
+  padding: 72px 24px 0;
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+/* ── TEAM CARDS ── */
+.team-section { position: relative; z-index: 1; }
+
+.team-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  max-width: 720px;
+  margin: 56px auto 0;
+}
+
+.team-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 40px 32px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: border-color var(--transition), transform var(--transition);
+}
+
+.team-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--amber), transparent);
+}
+
+.team-card:hover {
+  border-color: var(--border2);
+  transform: translateY(-3px);
+}
+
+.team-card-bg {
+  position: absolute;
+  bottom: -40px;
+  right: -40px;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(245,158,11,0.06), transparent 70%);
+  pointer-events: none;
+}
+
+.team-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--amber-dim);
+  border: 2px solid var(--amber);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Chakra Petch', monospace;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--amber);
+  margin: 0 auto 22px;
+  position: relative;
+  z-index: 1;
+}
+
+.team-avatar-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px solid rgba(245,158,11,0.2);
+  animation: ring-pulse 3s ease-in-out infinite;
+}
+
+@keyframes ring-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%       { transform: scale(1.08); opacity: 0.4; }
+}
+
+.team-name {
+  font-family: 'Chakra Petch', monospace;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-bright);
+  margin-bottom: 6px;
+  position: relative;
+  z-index: 1;
+}
+
+.team-handle {
+  font-family: 'Chakra Petch', monospace;
+  font-size: 12px;
+  color: var(--amber);
+  margin-bottom: 14px;
+  position: relative;
+  z-index: 1;
+}
+
+.team-role {
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-bottom: 22px;
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+}
+
+.team-school-badge {
+  display: inline-block;
+  background: var(--amber-dim);
+  border: 1px solid var(--border2);
+  color: var(--amber);
+  font-size: 11px;
+  font-family: 'Chakra Petch', monospace;
+  padding: 5px 14px;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.5px;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.team-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.skill-tag {
+  font-family: 'Chakra Petch', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  background: var(--bg3);
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  letter-spacing: 0.3px;
+}
+
+/* ── FIKSI SECTION ── */
+.fiksi-section {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  z-index: 1;
+}
+
+.fiksi-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  margin-top: 52px;
+  align-items: start;
+}
+
+.fiksi-info p {
+  font-size: 15px;
+  color: var(--text-dim);
+  margin-bottom: 16px;
+  line-height: 1.8;
+}
+
+.fiksi-info p strong { color: var(--text); font-weight: 500; }
+
+.fiksi-badges {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.fiksi-badge {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  transition: border-color var(--transition);
+}
+
+.fiksi-badge:hover { border-color: var(--border2); }
+
+.fiksi-badge-icon { font-size: 24px; flex-shrink: 0; }
+
+.fiksi-badge-name {
+  font-family: 'Chakra Petch', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--amber);
+  margin-bottom: 2px;
+}
+
+.fiksi-badge-sub {
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+/* ── PROJECT TIMELINE ── */
+.timeline {
+  position: relative;
+  padding-left: 28px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--amber), var(--amber3), var(--border));
+  border-radius: 2px;
+}
+
+.timeline-item {
+  position: relative;
+  padding-bottom: 28px;
+}
+
+.timeline-item:last-child { padding-bottom: 0; }
+
+.timeline-dot {
+  position: absolute;
+  left: -24px;
+  top: 4px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--amber);
+  border: 2px solid var(--bg2);
+}
+
+.timeline-dot.done { background: var(--green); }
+.timeline-dot.pending { background: var(--text-muted); }
+
+.timeline-label {
+  font-family: 'Chakra Petch', monospace;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+  letter-spacing: 0.5px;
+}
+
+.timeline-title {
+  font-family: 'Chakra Petch', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-bright);
+  margin-bottom: 4px;
+}
+
+.timeline-desc {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+
+.timeline-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 6px;
+  font-family: 'Chakra Petch', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.timeline-status.done    { color: var(--green); }
+.timeline-status.pending { color: var(--text-muted); }
+.timeline-status.wip     { color: var(--amber); }
+
+/* ── SCHOOL INFO ── */
+.school-section { position: relative; z-index: 1; }
+
+.school-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  margin-top: 52px;
+  position: relative;
+  overflow: hidden;
+}
+
+.school-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--amber), var(--amber3));
+}
+
+.school-icon { font-size: 56px; flex-shrink: 0; }
+
+.school-name {
+  font-family: 'Chakra Petch', monospace;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-bright);
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.school-desc {
+  font-size: 14px;
+  color: var(--text-dim);
+  line-height: 1.7;
+  max-width: 560px;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .team-grid  { grid-template-columns: 1fr; max-width: 420px; }
+  .fiksi-grid { grid-template-columns: 1fr; }
+  .school-card { flex-direction: column; text-align: center; }
+  .school-card::before { top: 0; bottom: auto; left: 0; right: 0; width: auto; height: 3px; }
+}
