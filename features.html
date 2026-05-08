@@ -1,12 +1,72 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fitur - OpenRelay</title>
-  <meta http-equiv="refresh" content="0; url=home.html#features" />
+
+  <title>Features - OpenRelay</title>
+
+  <link rel="stylesheet" href="css/style.css" />
 </head>
+
 <body>
-  Redirecting to features section...
+
+  <header>
+    <nav>
+      <h1>OpenRelay</h1>
+
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="features.html">Features</a>
+        <a href="docs.html">Docs</a>
+        <a href="team.html">Team</a>
+        <a href="explorer.html">Explorer</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+
+    <section class="feature-grid">
+
+      <h2>System Features</h2>
+
+      <div class="grid">
+
+        <article class="card">
+          <h3>MQTT Control</h3>
+          <p>Low-latency relay communication.</p>
+        </article>
+
+        <article class="card">
+          <h3>ESP32 Core</h3>
+          <p>Dual-core wireless microcontroller.</p>
+        </article>
+
+        <article class="card">
+          <h3>Web Dashboard</h3>
+          <p>Industrial futuristic interface.</p>
+        </article>
+
+      </div>
+
+    </section>
+
+    <section class="architecture">
+      <h2>Architecture Flow</h2>
+
+      <pre>
+MQTT → ESP32 → I2C → Expander → Relay
+      </pre>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>OpenRelay © 2026</p>
+  </footer>
+
+  <script src="js/features.js"></script>
+
 </body>
 </html>

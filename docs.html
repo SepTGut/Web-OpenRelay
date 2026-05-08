@@ -1,12 +1,68 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dokumentasi - OpenRelay</title>
-  <meta http-equiv="refresh" content="0; url=home.html#architecture" />
+
+  <title>Documentation - OpenRelay</title>
+
+  <link rel="stylesheet" href="css/style.css" />
 </head>
+
 <body>
-  Redirecting to architecture section...
+
+  <header>
+    <nav>
+      <h1>OpenRelay</h1>
+
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="features.html">Features</a>
+        <a href="docs.html">Docs</a>
+        <a href="team.html">Team</a>
+        <a href="explorer.html">Explorer</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+
+    <section class="mqtt-topics">
+      <h2>MQTT Topics</h2>
+
+      <pre>
+openrelay/relay/1
+openrelay/relay/2
+openrelay/status
+      </pre>
+    </section>
+
+    <section class="broker-info">
+      <h2>Broker Information</h2>
+
+      <p>Protocol: MQTT</p>
+      <p>Port: 1883</p>
+      <p>Transport: TCP/IP</p>
+    </section>
+
+    <section class="payload-examples">
+      <h2>Payload Examples</h2>
+
+      <pre>
+{
+  "relay": 1,
+  "state": true
+}
+      </pre>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>OpenRelay © 2026</p>
+  </footer>
+
+  <script src="js/docs.js"></script>
+
 </body>
 </html>
