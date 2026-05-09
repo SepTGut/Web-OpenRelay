@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="dark scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -32,21 +32,21 @@
       </div>
 
       <nav class="hidden md:flex items-center gap-8 text-sm text-zinc-300">
-        <a href="#" class="hover:text-primary transition">Home</a>
-        <a href="#" class="hover:text-primary transition">Features</a>
-        <a href="#" class="hover:text-primary transition">Docs</a>
-        <a href="#" class="hover:text-primary transition">Team</a>
+        <a href="#home" class="hover:text-primary transition">Home</a>
+        <a href="#features" class="hover:text-primary transition">Features</a>
+        <a href="#about" class="hover:text-primary transition">About</a>
+        <a href="#tech" class="hover:text-primary transition">Tech</a>
       </nav>
 
-      <button class="px-5 py-2 rounded-xl bg-primary text-black font-semibold hover:scale-105 transition">
-        Dashboard
-      </button>
+      <a href="../home.html" class="px-5 py-2 rounded-xl bg-primary text-black font-semibold hover:scale-105 transition">
+        Classic UI
+      </a>
     </div>
   </header>
 
   <main>
 
-    <section class="relative min-h-screen flex items-center justify-center px-6">
+    <section id="home" class="relative min-h-screen flex items-center justify-center px-6">
       <div class="max-w-5xl mx-auto text-center relative z-10">
 
         <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/10 text-primary text-sm mb-8">
@@ -65,13 +65,13 @@
         </p>
 
         <div class="mt-10 flex flex-wrap justify-center gap-4">
-          <button class="px-8 py-4 rounded-2xl bg-primary text-black font-bold hover:scale-105 transition">
-            Open Dashboard
-          </button>
-
-          <button class="px-8 py-4 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 transition">
+          <a href="#features" class="px-8 py-4 rounded-2xl bg-primary text-black font-bold hover:scale-105 transition">
             Explore Features
-          </button>
+          </a>
+
+          <a href="#about" class="px-8 py-4 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 transition">
+            Learn More
+          </a>
         </div>
 
         <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-5">
@@ -97,6 +97,97 @@
           </div>
 
         </div>
+      </div>
+    </section>
+
+    <section id="features" class="py-32 px-6 relative z-10">
+      <div class="max-w-7xl mx-auto">
+
+        <div class="mb-16 text-center">
+          <div class="text-primary font-semibold tracking-widest uppercase text-sm">Features</div>
+          <h2 class="text-4xl md:text-6xl font-black mt-4">Modern IoT Control</h2>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+
+          <div class="glass-card p-8 rounded-3xl">
+            <div class="text-primary text-5xl mb-6">⚡</div>
+            <h3 class="text-2xl font-bold mb-4">MQTT Control</h3>
+            <p class="text-zinc-400 leading-8">Real-time relay communication with lightweight MQTT integration.</p>
+          </div>
+
+          <div class="glass-card p-8 rounded-3xl">
+            <div class="text-primary text-5xl mb-6">🌐</div>
+            <h3 class="text-2xl font-bold mb-4">Web Dashboard</h3>
+            <p class="text-zinc-400 leading-8">Responsive remote management dashboard built for desktop and mobile.</p>
+          </div>
+
+          <div class="glass-card p-8 rounded-3xl">
+            <div class="text-primary text-5xl mb-6">🔧</div>
+            <h3 class="text-2xl font-bold mb-4">Expandable</h3>
+            <p class="text-zinc-400 leading-8">Support for PCF8574 and MCP23017 expanders up to 128 channels.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="py-32 px-6 relative z-10 border-t border-white/5">
+      <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+
+        <div>
+          <div class="text-primary font-semibold tracking-widest uppercase text-sm">About</div>
+          <h2 class="text-4xl md:text-6xl font-black mt-4 leading-tight">
+            Open Source Hardware Ecosystem
+          </h2>
+
+          <p class="mt-8 text-zinc-400 leading-8 text-lg">
+            OpenRelay combines firmware, PCB hardware, MQTT communication,
+            and modern UI into a complete automation ecosystem for education,
+            smart homes, and industrial experiments.
+          </p>
+        </div>
+
+        <div class="glass-card p-8 rounded-[2rem]">
+          <div class="space-y-5">
+            <div class="flex justify-between border-b border-white/10 pb-3">
+              <span class="text-zinc-400">Framework</span>
+              <span class="text-primary font-bold">Arduino</span>
+            </div>
+
+            <div class="flex justify-between border-b border-white/10 pb-3">
+              <span class="text-zinc-400">Storage</span>
+              <span class="text-primary font-bold">LittleFS</span>
+            </div>
+
+            <div class="flex justify-between border-b border-white/10 pb-3">
+              <span class="text-zinc-400">Platform</span>
+              <span class="text-primary font-bold">ESP32</span>
+            </div>
+
+            <div class="flex justify-between border-b border-white/10 pb-3">
+              <span class="text-zinc-400">OTA Update</span>
+              <span class="text-primary font-bold">Supported</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tech" class="py-32 px-6 relative z-10">
+      <div class="max-w-5xl mx-auto text-center">
+
+        <div class="text-primary font-semibold tracking-widest uppercase text-sm">Technology</div>
+
+        <h2 class="text-4xl md:text-6xl font-black mt-4">
+          Built For The Future
+        </h2>
+
+        <p class="mt-8 text-zinc-400 leading-8 text-lg max-w-3xl mx-auto">
+          Designed with scalability, remote access, and modern web technologies
+          to create a professional-grade IoT relay ecosystem.
+        </p>
+
       </div>
     </section>
 
