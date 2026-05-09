@@ -1,49 +1,59 @@
 const pages = [
-  'home.html',
   'features.html',
   'docs.html',
   'team.html'
 ];
 
-let loadedPages = new Set();
+let pageIndex = 0;
 let loading = false;
 
-async function fetchPageContent(page) {
+async function fetchSection(page) {
   const res = await fetch(page);
-  const text = await res.text();
+  const html = await res.text();
 
   const parser = new DOMParser();
-  const doc = parser.parseFromString(text, 'text/html');
+  const doc = parser.parseFromString(html, 'text/html');
 
-  return doc.querySelector('.page-main')?.innerHTML || '';
+  const content = doc.querySelector('.page-main');
+
+  return content ? content.innerHTML : '';
 }
 
-async function appendNextPage() {
+async function streamNextSection() {
   if (loading) return;
-
-  const app = document.getElementById('app-content');
-  if (!app) return;
+  if (pageIndex >= pages.length) return;
 
   loading = true;
 
   try {
-    const nextPage = pages.find(p => !loadedPages.has(p));
+    const app = document.getElementById('app-content');
 
-    if (!nextPage) {
-      loading = false;
-      return;
-    }
+    if (!app) return;
 
-    loadedPages.add(nextPage);
+    const page = pages[pageIndex];
 
-    const html = await fetchPageContent(nextPage);
+    const html = await fetchSection(page);
 
-    const section = document.createElement('section');
-    section.className = 'spa-page-block';
-    section.setAttribute('data-page', nextPage);
-    section.innerHTML = html;
+    const wrapper = document.createElement('section');
+    wrapper.className = 'stream-section';
+    wrapper.dataset.page = page;
 
-    app.appendChild(section);
+    wrapper.style.opacity = '0';
+    wrapper.style.transform = 'translateY(40px)';
+    wrapper.style.transition = 'all .6s ease';
+
+    wrapper.innerHTML = html;
+
+    const trigger = document.getElementById('scroll-trigger');
+
+    app.insertBefore(wrapper, trigger);
+
+    requestAnimationFrame(() => {
+      wrapper.style.opacity = '1';
+      wrapper.style.transform = 'translateY(0)';
+    });
+
+    pageIndex++;
 
   } catch (err) {
     console.error(err);
@@ -52,36 +62,24 @@ async function appendNextPage() {
   loading = false;
 }
 
-async function initInfinitePages() {
-  const app = document.getElementById('app-content');
+function setupInfiniteScroll() {
+  const trigger = document.getElementById('scroll-trigger');
 
-  if (!app) return;
-
-  app.innerHTML = '';
-
-  await appendNextPage();
-
-  const trigger = document.createElement('div');
-  trigger.id = 'scroll-trigger';
-  trigger.style.height = '1px';
-
-  app.appendChild(trigger);
+  if (!trigger) return;
 
   const observer = new IntersectionObserver(async entries => {
     if (entries[0].isIntersecting) {
-      await appendNextPage();
+      await streamNextSection();
     }
   }, {
-    rootMargin: '1200px'
+    rootMargin: '70%'
   });
 
   observer.observe(trigger);
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  initInfinitePages();
-
-  document.body.addEventListener('click', e => {
+function setupNavigation() {
+  document.body.addEventListener('click', async e => {
     const link = e.target.closest('[data-spa]');
 
     if (!link) return;
@@ -90,12 +88,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const target = link.getAttribute('href');
 
-    const el = document.querySelector(`[data-page="${target}"]`);
+    let targetEl = document.querySelector(`[data-page="${target}"]`);
 
-    if (el) {
-      el.scrollIntoView({
-        behavior: 'smooth'
+    while (!targetEl && pageIndex < pages.length) {
+      await streamNextSection();
+      targetEl = document.querySelector(`[data-page="${target}"]`);
+    }
+
+    if (targetEl) {
+      targetEl.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
       });
     }
   });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const app = document.getElementById('app-content');
+
+  if (!app) return;
+
+  if (!document.getElementById('scroll-trigger')) {
+    const trigger = document.createElement('div');
+    trigger.id = 'scroll-trigger';
+    trigger.style.height = '2px';
+
+    app.appendChild(trigger);
+  }
+
+  setupInfiniteScroll();
+  setupNavigation();
 });
