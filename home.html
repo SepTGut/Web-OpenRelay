@@ -5,23 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="color-scheme" content="dark" />
   <title>OpenRelay — Kontroler Relay IoT Open Source</title>
-  <meta name="description" content="OpenRelay adalah platform kendali relay berbasis ESP32 open source untuk FIKSI 2026." />
 
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/home.css" />
+
+  <style>
+    #app-content {
+      transition: opacity .25s ease;
+    }
+  </style>
 </head>
 <body>
 
 <nav class="site-nav">
-  <a href="home.html" class="nav-logo">
+  <a href="home.html" class="nav-logo" data-spa>
     <span class="nav-brand">OpenRelay</span>
   </a>
 
   <ul class="nav-links">
-    <li><a href="home.html">Beranda</a></li>
-    <li><a href="features.html">Fitur</a></li>
-    <li><a href="docs.html">Dokumentasi</a></li>
-    <li><a href="team.html">Tim</a></li>
+    <li><a href="home.html" data-spa>Beranda</a></li>
+    <li><a href="features.html" data-spa>Fitur</a></li>
+    <li><a href="docs.html" data-spa>Dokumentasi</a></li>
+    <li><a href="team.html" data-spa>Tim</a></li>
     <li><a href="NewStyle/index.html" style="color:var(--amber);font-weight:700;">NewStyle ✨</a></li>
   </ul>
 
@@ -29,6 +34,8 @@
     <a href="NewStyle/index.html" class="nav-cta">✨ New UI</a>
   </div>
 </nav>
+
+<div id="app-content">
 
 <main class="page-main">
 
@@ -50,7 +57,7 @@
 
   <div class="hero-actions">
     <a href="NewStyle/index.html" class="btn btn-primary">✨ Try NewStyle UI</a>
-    <a href="features.html" class="btn btn-outline">Lihat Fitur</a>
+    <a href="features.html" class="btn btn-outline" data-spa>Lihat Fitur</a>
   </div>
 
   <div class="hero-stats">
@@ -77,7 +84,6 @@
 
 <section class="about-section">
   <div class="section-inner">
-
     <div class="section-tag">About</div>
 
     <h2 class="section-title">Apa Itu OpenRelay?</h2>
@@ -86,83 +92,6 @@
       Sistem kontrol relay open source berbasis ESP32 untuk otomasi rumah,
       industri, dan eksperimen IoT modern.
     </p>
-
-    <div class="about-grid">
-
-      <div class="about-text">
-        <p>
-          OpenRelay mendukung MQTT, REST API, WebSocket,
-          OTA update, serta ekspansi relay menggunakan PCF8574 dan MCP23017.
-        </p>
-
-        <div class="about-highlights">
-          <div class="highlight-item">Firmware ESP32 custom</div>
-          <div class="highlight-item">Dashboard modern berbasis web</div>
-          <div class="highlight-item">Kompatibel dengan ekosistem WLED</div>
-          <div class="highlight-item">Mendukung hingga 128 relay</div>
-        </div>
-      </div>
-
-      <div class="spec-card">
-        <div class="spec-card-header">
-          <div class="spec-card-title">// Spesifikasi</div>
-        </div>
-
-        <div class="spec-rows">
-          <div class="spec-row">
-            <span class="spec-key">Platform</span>
-            <span class="spec-val">ESP32</span>
-          </div>
-
-          <div class="spec-row">
-            <span class="spec-key">Framework</span>
-            <span class="spec-val">Arduino</span>
-          </div>
-
-          <div class="spec-row">
-            <span class="spec-key">Storage</span>
-            <span class="spec-val">LittleFS</span>
-          </div>
-
-          <div class="spec-row">
-            <span class="spec-key">OTA</span>
-            <span class="spec-val">Supported</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<section class="comp-banner">
-  <div class="comp-inner">
-
-    <div class="comp-left">
-      <h2>FIKSI 2026 Project</h2>
-      <p>
-        Proyek IoT hardware dan software terintegrasi untuk kompetisi nasional.
-      </p>
-    </div>
-
-    <div class="comp-badges">
-      <div class="comp-badge">
-        <div class="comp-badge-icon">⚡</div>
-        <div>
-          <div class="comp-badge-name">IoT Hardware</div>
-          <div class="comp-badge-sub">ESP32 + Relay</div>
-        </div>
-      </div>
-
-      <div class="comp-badge">
-        <div class="comp-badge-icon">🌐</div>
-        <div>
-          <div class="comp-badge-name">Web Dashboard</div>
-          <div class="comp-badge-sub">Modern UI</div>
-        </div>
-      </div>
-    </div>
-
   </div>
 </section>
 
@@ -176,6 +105,9 @@
 
 </main>
 
+</div>
+
+<script src="js/router.js"></script>
 <script src="js/app.js"></script>
 <script src="js/home.js"></script>
 </body>
