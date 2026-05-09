@@ -6,7 +6,6 @@ const pages = [
 
 let pageIndex = 0;
 let loading = false;
-let observer = null;
 
 async function fetchSection(page) {
   const res = await fetch(page);
@@ -64,9 +63,7 @@ async function streamNextSection() {
 
     wrapper.innerHTML = html;
 
-    const trigger = document.getElementById('scroll-trigger');
-
-    app.insertBefore(wrapper, trigger);
+    app.appendChild(wrapper);
 
     requestAnimationFrame(() => {
       wrapper.style.opacity = '1';
@@ -85,27 +82,34 @@ async function streamNextSection() {
 }
 
 function setupInfiniteScroll() {
-  const trigger = document.getElementById('scroll-trigger');
+  let ticking = false;
 
-  if (!trigger) return;
+  async function checkScroll() {
+    if (loading) {
+      ticking = false;
+      return;
+    }
 
-  observer = new IntersectionObserver(async entries => {
-    const entry = entries[0];
+    const scrollBottom = window.innerHeight + window.scrollY;
+    const preloadPoint = document.body.offsetHeight - 1400;
 
-    if (!entry.isIntersecting || loading) return;
+    if (scrollBottom >= preloadPoint) {
+      await streamNextSection();
+    }
 
-    observer.unobserve(trigger);
+    ticking = false;
+  }
 
-    await streamNextSection();
-
-    observer.observe(trigger);
-
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(checkScroll);
+      ticking = true;
+    }
   }, {
-    rootMargin: '0px 0px 70% 0px',
-    threshold: 0.01
+    passive: true
   });
 
-  observer.observe(trigger);
+  checkScroll();
 }
 
 function setupNavigation() {
@@ -142,14 +146,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const app = document.getElementById('app-content');
 
   if (!app) return;
-
-  if (!document.getElementById('scroll-trigger')) {
-    const trigger = document.createElement('div');
-    trigger.id = 'scroll-trigger';
-    trigger.style.height = '2px';
-
-    app.appendChild(trigger);
-  }
 
   initDynamicContent(document);
 
