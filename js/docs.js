@@ -1,6 +1,6 @@
 /**
  * docs.js — MQTT topic copy-to-clipboard, broker status,
- *            payload syntax highlight, access card interactions
+ *            payload syntax highlight interactions
  * OpenRelay · FIKSI 2026
  */
 
@@ -53,35 +53,6 @@
 
 
 /* ══════════════════════════════════════════════
-   MQTT CARD TABS
-   Switches between "Publish" and "Subscribe" topic lists
-   if tab buttons exist on the page
-══════════════════════════════════════════════ */
-(function initMqttTabs() {
-  const tabBtns  = document.querySelectorAll('[data-mqtt-tab]');
-  const tabPanes = document.querySelectorAll('[data-mqtt-pane]');
-  if (!tabBtns.length) return;
-
-  tabBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const target = btn.dataset.mqttTab;
-
-      tabBtns.forEach(b => {
-        const active = b.dataset.mqttTab === target;
-        b.style.color      = active ? 'var(--amber)'  : 'var(--text-dim)';
-        b.style.borderColor= active ? 'var(--amber)'  : 'var(--border)';
-        b.style.background = active ? 'var(--amber-dim)' : 'transparent';
-      });
-
-      tabPanes.forEach(pane => {
-        pane.style.display = pane.dataset.mqttPane === target ? '' : 'none';
-      });
-    });
-  });
-})();
-
-
-/* ══════════════════════════════════════════════
    CREDS BOX — click any cred value to copy
 ══════════════════════════════════════════════ */
 (function initCredsCopy() {
@@ -107,20 +78,6 @@
     });
     item.addEventListener('mouseleave', () => {
       val.style.color = '';
-    });
-  });
-})();
-
-
-/* ══════════════════════════════════════════════
-   ACCESS CARDS — open URL on click if data-href set
-══════════════════════════════════════════════ */
-(function initAccessCards() {
-  document.querySelectorAll('.access-card[data-href]').forEach(card => {
-    card.style.cursor = 'pointer';
-    card.addEventListener('click', () => {
-      const url = card.dataset.href;
-      if (url) window.open(url, '_blank', 'noopener noreferrer');
     });
   });
 })();
