@@ -5,12 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="color-scheme" content="dark" />
   <title>Hardware Explorer — OpenRelay</title>
-  <meta name="description" detail="Deep dive into the OpenRelay system signal flow and hardware architecture." />
+  <meta name="description" content="Deep dive into the OpenRelay system signal flow and hardware architecture." />
 
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/explorer.css" />
 </head>
 <body>
+
+  <!-- ══ HUD ══ -->
+  <div class="hud-frame" aria-hidden="true">
+    <div class="hud-bracket bracket-tl"></div>
+    <div class="hud-bracket bracket-tr"></div>
+    <div class="hud-bracket bracket-bl"></div>
+    <div class="hud-bracket bracket-br"></div>
+  </div>
+  <div class="scanline" aria-hidden="true"></div>
 
   <!-- ══ NAV ══ -->
   <nav class="site-nav" role="navigation" aria-label="Main navigation">
@@ -31,6 +40,7 @@
       <li><a href="features.html">Fitur</a></li>
       <li><a href="docs.html">Dokumentasi</a></li>
       <li><a href="team.html">Tim</a></li>
+      <li><a href="explorer.html" class="active">Explorer</a></li>
     </ul>
 
     <div class="nav-cta-wrap">
@@ -52,6 +62,7 @@
     <a href="features.html" role="menuitem">Fitur</a>
     <a href="docs.html" role="menuitem">Dokumentasi</a>
     <a href="team.html" role="menuitem">Tim</a>
+    <a href="explorer.html" role="menuitem" class="active">Explorer</a>
     <a href="docs.html#akses" class="nav-cta" role="menuitem">Akses Sekarang</a>
   </div>
 
@@ -59,80 +70,108 @@
   <main class="page-main">
 
     <!-- ── PAGE HEADER ── -->
-    <div class="section-inner explorer-hero">
+    <div class="section-inner" style="padding-bottom: 0;">
       <div class="section-tag">Signal Flow</div>
       <h1 class="section-title">System Architecture Explorer</h1>
       <p class="section-desc">
-        Explore the technical signal flow of the OpenRelay system from MQTT broker to physical relay.
-        Click on any node to see detailed information about each component.
+        Explore the technical signal flow of the OpenRelay system from MQTT broker
+        to physical relay. Click any node to see detailed component information.
       </p>
     </div>
 
     <!-- ── SIGNAL FLOW MAP ── -->
     <section class="signal-flow-section" id="signal-flow" aria-labelledby="signal-flow-heading">
       <div class="section-inner">
-        <h2 class="section-title" id="signal-flow-heading">Signal Flow Map</h2>
 
-        <div class="signal-flow-container">
+        <h2 class="section-title" id="signal-flow-heading" style="display:none;">Signal Flow Map</h2>
+
+        <div class="signal-flow-container" role="img" aria-label="Signal flow diagram from MQTT Broker through ESP32, I2C Bus, and Expander to Relay channels">
+
           <!-- Coordinate markers -->
-          <div class="coord coord-tl">X:0.00 Y:0.00</div>
-          <div class="coord coord-tr">X:1000.00 Y:0.00</div>
-          <div class="coord coord-bl">X:0.00 Y:600.00</div>
-          <div class="coord coord-br">X:1000.00 Y:600.00</div>
+          <div class="coord coord-tl" aria-hidden="true">X:0.00 Y:0.00</div>
+          <div class="coord coord-tr" aria-hidden="true">X:1000.00 Y:0.00</div>
+          <div class="coord coord-bl" aria-hidden="true">X:0.00 Y:600.00</div>
+          <div class="coord coord-br" aria-hidden="true">X:1000.00 Y:600.00</div>
 
-          <!-- Nodes -->
-          <div class="signal-flow-node" id="node-mqtt" data-detail="mqtt">
-            <div class="node-label">Cloud Layer</div>
-            <div class="node-title">MQTT BROKER</div>
+          <!-- Flow track — all nodes in a flex row -->
+          <div class="signal-flow-track">
+
+            <div class="signal-flow-node" id="node-mqtt" data-detail="mqtt" role="button" tabindex="0" aria-label="MQTT Broker — click for details">
+              <div class="node-label">Cloud Layer</div>
+              <div class="node-title">MQTT<br>BROKER</div>
+            </div>
+
+            <div class="signal-flow-connection" id="conn-0" aria-hidden="true"></div>
+
+            <div class="signal-flow-node" id="node-esp" data-detail="esp" role="button" tabindex="0" aria-label="ESP32 SOC — click for details">
+              <div class="node-label">Processing</div>
+              <div class="node-title">ESP32<br>SOC</div>
+            </div>
+
+            <div class="signal-flow-connection" id="conn-1" aria-hidden="true"></div>
+
+            <div class="signal-flow-node" id="node-i2c" data-detail="i2c" role="button" tabindex="0" aria-label="I2C Bus — click for details">
+              <div class="node-label">Protocol</div>
+              <div class="node-title">I2C<br>BUS</div>
+            </div>
+
+            <div class="signal-flow-connection" id="conn-2" aria-hidden="true"></div>
+
+            <div class="signal-flow-node" id="node-exp" data-detail="expander" role="button" tabindex="0" aria-label="I/O Expander — click for details">
+              <div class="node-label">Expansion</div>
+              <div class="node-title">MCP23017<br>PCF8574</div>
+            </div>
+
+            <div class="signal-flow-connection" id="conn-3" aria-hidden="true"></div>
+
+            <div class="signal-flow-node" id="node-relay" data-detail="relay" role="button" tabindex="0" aria-label="Relay Channels — click for details">
+              <div class="node-label">Physical</div>
+              <div class="node-title">RELAY<br>CH</div>
+            </div>
+
+          </div><!-- /.signal-flow-track -->
+
+          <!-- Sub-labels row -->
+          <div class="signal-flow-labels" aria-hidden="true">
+            <div class="node-sub-label">broker.hivemq.com</div>
+            <div class="conn-spacer"></div>
+            <div class="node-sub-label">240 MHz · LittleFS</div>
+            <div class="conn-spacer"></div>
+            <div class="node-sub-label">100–400 kHz</div>
+            <div class="conn-spacer"></div>
+            <div class="node-sub-label">16-bit / 8-bit I/O</div>
+            <div class="conn-spacer"></div>
+            <div class="node-sub-label">Up to 128 CH</div>
           </div>
 
-          <div class="signal-flow-connection" id="conn-mqtt-esp"></div>
+        </div><!-- /.signal-flow-container -->
 
-          <div class="signal-flow-node" id="node-esp" data-detail="esp">
-            <div class="node-label">Processing</div>
-            <div class="node-title">ESP32 SOC</div>
-          </div>
+        <p style="text-align:center; font-family:'Chakra Petch',monospace; font-size:11px; color:var(--text-muted); margin-top:16px; letter-spacing:1px;">
+          ↑ CLICK ANY NODE FOR DETAILS
+        </p>
 
-          <div class="signal-flow-connection" id="conn-esp-i2c"></div>
-
-          <div class="signal-flow-node" id="node-i2c" data-detail="i2c">
-            <div class="node-label">Protocol</div>
-            <div class="node-title">I2C BUS</div>
-          </div>
-
-          <div class="signal-flow-connection" id="conn-i2c-exp"></div>
-
-          <div class="signal-flow-node" id="node-exp" data-detail="expander">
-            <div class="node-label">Expansion</div>
-            <div class="node-title">MCP23017 / PCF8574</div>
-          </div>
-
-          <div class="signal-flow-connection" id="conn-exp-relay"></div>
-
-          <div class="signal-flow-node" id="node-relay" data-detail="relay">
-            <div class="node-label">Physical</div>
-            <div class="node-title">RELAY CH</div>
-          </div>
-        </div>
-
-        <!-- Detail Panel (initially hidden) -->
-        <div class="detail-panel" id="detail-panel">
-          <div class="detail-panel-header">
-            <h3 class="detail-panel-title">Component Details</h3>
-            <button class="detail-panel-close" aria-label="Close detail panel">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <path d="M18 6L6 18M6 6l12 12"/>
-              </svg>
-            </button>
-          </div>
-          <div class="detail-panel-content">
-            <!-- Content will be populated by JavaScript -->
-          </div>
-        </div>
       </div>
     </section>
 
   </main>
+
+  <!-- ══ PANEL OVERLAY ══ -->
+  <div class="panel-overlay" id="panel-overlay" aria-hidden="true"></div>
+
+  <!-- ══ DETAIL PANEL ══ -->
+  <aside class="detail-panel" id="detail-panel" role="complementary" aria-label="Component details">
+    <div class="detail-panel-header">
+      <h3 class="detail-panel-title" id="detail-panel-title">Component Details</h3>
+      <button class="detail-panel-close" id="detail-panel-close" aria-label="Close detail panel">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+    <div class="detail-panel-content" id="detail-panel-content">
+      <!-- Populated by JS -->
+    </div>
+  </aside>
 
   <!-- ══ FOOTER ══ -->
   <footer class="site-footer" role="contentinfo">

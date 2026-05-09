@@ -5,110 +5,349 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="color-scheme" content="dark" />
   <title>OpenRelay — Kontroler Relay IoT Open Source</title>
+  <meta name="description" content="OpenRelay adalah platform kendali relay berbasis ESP32 yang kompatibel dengan ekosistem WLED. Dukung hingga 128 relay, kontrol via MQTT, dan dashboard web modern." />
 
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/home.css" />
-
-  <style>
-    #app-content {
-      transition: opacity .25s ease;
-    }
-  </style>
 </head>
 <body>
 
-<nav class="site-nav">
-  <a href="home.html" class="nav-logo" data-spa>
-    <span class="nav-brand">OpenRelay</span>
-  </a>
-
-  <ul class="nav-links">
-    <li><a href="home.html" data-spa>Beranda</a></li>
-    <li><a href="features.html" data-spa>Fitur</a></li>
-    <li><a href="docs.html" data-spa>Dokumentasi</a></li>
-    <li><a href="team.html" data-spa>Tim</a></li>
-    <li><a href="NewStyle/index.html" style="color:var(--amber);font-weight:700;">NewStyle ✨</a></li>
-  </ul>
-
-  <div class="nav-cta-wrap">
-    <a href="NewStyle/index.html" class="nav-cta">✨ New UI</a>
+  <!-- ══ HUD ══ -->
+  <div class="hud-frame" aria-hidden="true">
+    <div class="hud-bracket bracket-tl"></div>
+    <div class="hud-bracket bracket-tr"></div>
+    <div class="hud-bracket bracket-bl"></div>
+    <div class="hud-bracket bracket-br"></div>
   </div>
-</nav>
+  <div class="scanline" aria-hidden="true"></div>
 
-<div id="app-content">
+  <!-- ══ NAV ══ -->
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <a href="home.html" class="nav-logo">
+      <div class="nav-logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <rect x="3" y="9" width="18" height="6" rx="1.5" stroke="#07090f" stroke-width="2"/>
+          <circle cx="8"  cy="12" r="1.5" fill="#07090f"/>
+          <circle cx="16" cy="12" r="1.5" stroke="#07090f" stroke-width="1.5"/>
+          <path d="M1 12h2M21 12h2M8 9V7M16 9V7M8 15v2M16 15v2" stroke="#07090f" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <span class="nav-brand">OpenRelay</span>
+    </a>
 
-<main class="page-main">
+    <ul class="nav-links" role="list">
+      <li><a href="home.html" class="active">Beranda</a></li>
+      <li><a href="features.html">Fitur</a></li>
+      <li><a href="docs.html">Dokumentasi</a></li>
+      <li><a href="team.html">Tim</a></li>
+      <li><a href="explorer.html">Explorer</a></li>
+    </ul>
 
-<section class="hero">
-  <div class="hero-badge">
-    <span class="dot-live"></span>
-    FIKSI 2026 · SMKN 1 Madiun
-  </div>
-
-  <h1>
-    Kontroler Relay IoT
-    <span class="accent">Open Source</span>
-  </h1>
-
-  <p class="hero-sub">
-    OpenRelay adalah platform relay ESP32 modern dengan MQTT,
-    dashboard web, REST API, dan kompatibilitas WLED.
-  </p>
-
-  <div class="hero-actions">
-    <a href="NewStyle/index.html" class="btn btn-primary">✨ Try NewStyle UI</a>
-    <a href="features.html" class="btn btn-outline" data-spa>Lihat Fitur</a>
-  </div>
-
-  <div class="hero-stats">
-    <div class="stat">
-      <div class="stat-num">128</div>
-      <div class="stat-label">Relay</div>
+    <div class="nav-cta-wrap">
+      <a href="docs.html#akses" class="nav-cta">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+        Akses Sekarang
+      </a>
     </div>
 
-    <div class="stat-divider"></div>
+    <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
 
-    <div class="stat">
-      <div class="stat-num">ESP32</div>
-      <div class="stat-label">Platform</div>
+  <div class="nav-mobile-menu" role="menu">
+    <a href="home.html" role="menuitem" class="active">Beranda</a>
+    <a href="features.html" role="menuitem">Fitur</a>
+    <a href="docs.html" role="menuitem">Dokumentasi</a>
+    <a href="team.html" role="menuitem">Tim</a>
+    <a href="explorer.html" role="menuitem">Explorer</a>
+    <a href="docs.html#akses" class="nav-cta" role="menuitem">Akses Sekarang</a>
+  </div>
+
+  <!-- ══ MAIN ══ -->
+  <main class="page-main">
+
+    <!-- ── HERO ── -->
+    <section class="hero" id="beranda" aria-labelledby="hero-heading">
+
+      <div class="hero-badge" aria-label="FIKSI 2026 SMKN 1 Madiun">
+        <span class="dot-live" aria-hidden="true"></span>
+        FIKSI 2026 · SMKN 1 Madiun
+      </div>
+
+      <h1 id="hero-heading">
+        Kontroler Relay IoT
+        <span class="accent">Open Source</span>
+      </h1>
+
+      <p class="hero-sub">
+        OpenRelay adalah platform relay ESP32 modern dengan MQTT,
+        dashboard web, REST API, dan kompatibilitas ekosistem WLED.
+        Dukung hingga 128 channel relay.
+      </p>
+
+      <div class="hero-actions">
+        <a href="features.html" class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+          </svg>
+          Lihat Fitur
+        </a>
+        <a href="explorer.html" class="btn btn-outline">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+          </svg>
+          Hardware Explorer
+        </a>
+      </div>
+
+      <!-- Stats bar -->
+      <div class="hero-stats" role="list" aria-label="Key statistics">
+
+        <div class="stat" role="listitem">
+          <div class="stat-num" data-count="128" data-suffix="">0</div>
+          <div class="stat-label">Relay Channels</div>
+        </div>
+
+        <div class="stat-divider" aria-hidden="true"></div>
+
+        <div class="stat" role="listitem">
+          <div class="stat-num">ESP32</div>
+          <div class="stat-label">Platform</div>
+        </div>
+
+        <div class="stat-divider" aria-hidden="true"></div>
+
+        <div class="stat" role="listitem">
+          <div class="stat-num">MQTT</div>
+          <div class="stat-label">Protocol</div>
+        </div>
+
+        <div class="stat-divider" aria-hidden="true"></div>
+
+        <div class="stat" role="listitem">
+          <div class="stat-num" data-count="8" data-suffix="MB">0</div>
+          <div class="stat-label">LittleFS Flash</div>
+        </div>
+
+      </div>
+
+      <!-- Relay dot visualizer -->
+      <div class="relay-vis-wrap" aria-hidden="true">
+        <div class="relay-vis-label">LIVE RELAY SIMULATION · 64 CHANNELS</div>
+        <div class="relay-vis" id="relay-vis"></div>
+      </div>
+
+    </section>
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <!-- ── COMPETITION BANNER ── -->
+    <section class="comp-banner" id="kompetisi" aria-labelledby="comp-heading">
+      <div class="comp-inner">
+        <div class="comp-left">
+          <h2 id="comp-heading">FIKSI 2026</h2>
+          <p>
+            Festival Inovasi dan Kreativitas Siswa Indonesia — kompetisi nasional
+            untuk pelajar SMK. OpenRelay mewakili bidang Teknologi Informasi dan
+            Komunikasi dari SMK Negeri 1 Madiun, Jawa Timur.
+          </p>
+        </div>
+
+        <div class="comp-badges">
+          <div class="comp-badge">
+            <div class="comp-badge-icon" aria-hidden="true">🏆</div>
+            <div>
+              <div class="comp-badge-name">FIKSI 2026</div>
+              <div class="comp-badge-sub">Kompetisi Nasional SMK</div>
+            </div>
+          </div>
+
+          <div class="comp-badge">
+            <div class="comp-badge-icon" aria-hidden="true">🏫</div>
+            <div>
+              <div class="comp-badge-name">SMKN 1 Madiun</div>
+              <div class="comp-badge-sub">Jawa Timur, Indonesia</div>
+            </div>
+          </div>
+
+          <div class="comp-badge">
+            <div class="comp-badge-icon" aria-hidden="true">💡</div>
+            <div>
+              <div class="comp-badge-name">Bidang TIK</div>
+              <div class="comp-badge-sub">Teknologi Informasi &amp; Komunikasi</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <!-- ── ABOUT SECTION ── -->
+    <section class="about-section" id="tentang" aria-labelledby="about-heading">
+      <div class="section-inner">
+
+        <div class="section-tag">Tentang Proyek</div>
+        <h2 class="section-title" id="about-heading">Apa Itu OpenRelay?</h2>
+
+        <div class="about-grid glitch-reveal">
+
+          <div class="about-text">
+            <p>
+              OpenRelay adalah platform kontrol relay <strong>open source</strong> berbasis
+              ESP32 yang dirancang untuk otomasi rumah, industri kecil, dan eksperimen IoT modern.
+              Seluruh komponen — dari firmware hingga PCB — dibuat sendiri.
+            </p>
+            <p>
+              Sistem mendukung hingga <strong>128 channel relay</strong> menggunakan ekspander
+              I2C (PCF8574 &amp; MCP23017), dikontrol melalui MQTT, WebSocket, atau REST API.
+              Dashboard web tersedia secara remote via GitHub Pages dan lokal via LittleFS ESP32.
+            </p>
+            <p>
+              Kompatibel dengan ekosistem <strong>WLED</strong> — sehingga bisa diintegrasikan
+              ke sistem yang sudah ada tanpa konfigurasi ulang.
+            </p>
+
+            <div class="about-highlights">
+              <div class="highlight-item">Firmware ~1585 baris · 15+ bug diperbaiki</div>
+              <div class="highlight-item">PCB custom via EasyEDA + MCP23017 + INMP441</div>
+              <div class="highlight-item">Dashboard GitHub Pages + MQTT WSS</div>
+              <div class="highlight-item">Hardware watchdog 10s failsafe</div>
+              <div class="highlight-item">Pattern sequencer &amp; pulse/timer mode</div>
+            </div>
+          </div>
+
+          <!-- Spec card -->
+          <div class="spec-card card">
+            <div class="card-top-stripe" aria-hidden="true"></div>
+            <div class="spec-card-header">
+              <div class="spec-card-title">Hardware Specifications</div>
+            </div>
+            <div class="spec-rows">
+              <div class="spec-row">
+                <span class="spec-key">MCU</span>
+                <span class="spec-val">ESP32 Dual-core</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-key">Max Relay</span>
+                <span class="spec-val">128 Channel</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-key">Storage</span>
+                <span class="spec-val">LittleFS 8MB</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-key">Protocol</span>
+                <span class="spec-val">MQTT / WS / REST</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-key">Expansion</span>
+                <span class="spec-val">PCF8574 / MCP23017</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-key">OTA</span>
+                <span class="spec-val">Supported</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-key">Watchdog</span>
+                <span class="spec-val">Hardware 10s</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-key">WLED Compat</span>
+                <span class="spec-val">v0.14.0-relay</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Actions -->
+        <div style="margin-top:48px;display:flex;gap:14px;flex-wrap:wrap;" class="glitch-reveal">
+          <a href="features.html" class="btn btn-primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+            </svg>
+            Semua Fitur
+          </a>
+          <a href="explorer.html" class="btn btn-outline">Hardware Explorer</a>
+          <a href="docs.html" class="btn btn-ghost">Dokumentasi</a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ══ FOOTER ══ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-main">
+
+      <div class="footer-brand">
+        <a href="home.html" class="nav-logo" style="margin-bottom:14px;display:inline-flex;">
+          <div class="nav-logo-mark">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <rect x="3" y="9" width="18" height="6" rx="1.5" stroke="#07090f" stroke-width="2"/>
+              <circle cx="8" cy="12" r="1.5" fill="#07090f"/>
+              <circle cx="16" cy="12" r="1.5" stroke="#07090f" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <span class="nav-brand">OpenRelay</span>
+        </a>
+        <p class="footer-desc">
+          Platform kendali relay IoT open source berbasis ESP32.
+          Dibuat untuk kompetisi FIKSI 2026 oleh siswa SMKN 1 Madiun.
+        </p>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Navigasi</div>
+        <ul class="footer-links-list">
+          <li><a href="home.html">Beranda</a></li>
+          <li><a href="features.html">Fitur</a></li>
+          <li><a href="docs.html">Dokumentasi</a></li>
+          <li><a href="team.html">Tim</a></li>
+          <li><a href="explorer.html">Explorer</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Info Perangkat</div>
+        <div class="footer-spec-row">
+          <span class="footer-spec-key">AP SSID</span>
+          <span class="footer-spec-val">ESP32-Relay</span>
+        </div>
+        <div class="footer-spec-row">
+          <span class="footer-spec-key">Password</span>
+          <span class="footer-spec-val">relay1234</span>
+        </div>
+        <div class="footer-spec-row">
+          <span class="footer-spec-key">Hostname</span>
+          <span class="footer-spec-val">relaycrtl</span>
+        </div>
+        <div class="footer-spec-row">
+          <span class="footer-spec-key">MQTT Prefix</span>
+          <span class="footer-spec-val">home/relay</span>
+        </div>
+      </div>
+
     </div>
 
-    <div class="stat-divider"></div>
-
-    <div class="stat">
-      <div class="stat-num">MQTT</div>
-      <div class="stat-label">Protocol</div>
+    <div class="footer-bottom">
+      <p class="footer-copy">
+        © <span class="footer-year">2026</span> GT &amp; M. Rizky Alfianno · SMK Negeri 1 Madiun · FIKSI 2026
+      </p>
+      <div class="footer-bottom-links">
+        <a href="features.html">Fitur</a>
+        <a href="docs.html">Dokumentasi</a>
+        <a href="team.html">Tim</a>
+      </div>
     </div>
-  </div>
-</section>
+  </footer>
 
-<section class="about-section">
-  <div class="section-inner">
-    <div class="section-tag">About</div>
-
-    <h2 class="section-title">Apa Itu OpenRelay?</h2>
-
-    <p class="section-desc">
-      Sistem kontrol relay open source berbasis ESP32 untuk otomasi rumah,
-      industri, dan eksperimen IoT modern.
-    </p>
-  </div>
-</section>
-
-<footer class="site-footer">
-  <div class="footer-bottom">
-    <p class="footer-copy">
-      © 2026 OpenRelay · SMKN 1 Madiun
-    </p>
-  </div>
-</footer>
-
-</main>
-
-</div>
-
-<script src="js/router.js"></script>
-<script src="js/app.js"></script>
-<script src="js/home.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/home.js"></script>
 </body>
 </html>

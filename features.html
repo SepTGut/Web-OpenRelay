@@ -1,33 +1,571 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Fitur — OpenRelay</title>
-<link rel="stylesheet" href="css/style.css" />
-<link rel="stylesheet" href="css/features.css" />
-<style>#app-content{transition:opacity .25s ease}</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="dark" />
+  <title>Fitur — OpenRelay</title>
+  <meta name="description" content="Fitur lengkap OpenRelay: MQTT, WebSocket, REST API, OTA, dashboard web, dan ekspander hingga 128 relay." />
+
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/features.css" />
 </head>
 <body>
-<nav class="site-nav">
-<a href="home.html" class="nav-logo" data-spa><span class="nav-brand">OpenRelay</span></a>
-<ul class="nav-links">
-<li><a href="home.html" data-spa>Beranda</a></li>
-<li><a href="features.html" data-spa>Fitur</a></li>
-<li><a href="docs.html" data-spa>Dokumentasi</a></li>
-<li><a href="team.html" data-spa>Tim</a></li>
-</ul>
-</nav>
-<div id="app-content">
-<main class="page-main">
-<div class="section-inner features-hero">
-<div class="section-tag">Fitur Unggulan</div>
-<h1 class="section-title">Semua yang Kamu Butuhkan</h1>
-<p class="section-desc">OpenRelay hadir dengan fitur lengkap dari firmware hingga dashboard.</p>
-</div>
-</main>
-</div>
-<script src="js/router.js"></script>
-<script src="js/app.js"></script>
+
+  <!-- ══ HUD ══ -->
+  <div class="hud-frame" aria-hidden="true">
+    <div class="hud-bracket bracket-tl"></div>
+    <div class="hud-bracket bracket-tr"></div>
+    <div class="hud-bracket bracket-bl"></div>
+    <div class="hud-bracket bracket-br"></div>
+  </div>
+  <div class="scanline" aria-hidden="true"></div>
+
+  <!-- ══ NAV ══ -->
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <a href="home.html" class="nav-logo">
+      <div class="nav-logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <rect x="3" y="9" width="18" height="6" rx="1.5" stroke="#07090f" stroke-width="2"/>
+          <circle cx="8"  cy="12" r="1.5" fill="#07090f"/>
+          <circle cx="16" cy="12" r="1.5" stroke="#07090f" stroke-width="1.5"/>
+          <path d="M1 12h2M21 12h2M8 9V7M16 9V7M8 15v2M16 15v2" stroke="#07090f" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <span class="nav-brand">OpenRelay</span>
+    </a>
+
+    <ul class="nav-links" role="list">
+      <li><a href="home.html">Beranda</a></li>
+      <li><a href="features.html" class="active">Fitur</a></li>
+      <li><a href="docs.html">Dokumentasi</a></li>
+      <li><a href="team.html">Tim</a></li>
+      <li><a href="explorer.html">Explorer</a></li>
+    </ul>
+
+    <div class="nav-cta-wrap">
+      <a href="docs.html#akses" class="nav-cta">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+        Akses Sekarang
+      </a>
+    </div>
+
+    <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="nav-mobile-menu" role="menu">
+    <a href="home.html" role="menuitem">Beranda</a>
+    <a href="features.html" role="menuitem" class="active">Fitur</a>
+    <a href="docs.html" role="menuitem">Dokumentasi</a>
+    <a href="team.html" role="menuitem">Tim</a>
+    <a href="explorer.html" role="menuitem">Explorer</a>
+    <a href="docs.html#akses" class="nav-cta" role="menuitem">Akses Sekarang</a>
+  </div>
+
+  <!-- ══ MAIN ══ -->
+  <main class="page-main">
+
+    <!-- ── PAGE HEADER ── -->
+    <div class="section-inner features-hero">
+      <div class="section-tag">Fitur Unggulan</div>
+      <h1 class="section-title">Semua yang Kamu Butuhkan</h1>
+      <p class="section-desc">
+        OpenRelay hadir dengan fitur lengkap — dari firmware ESP32 yang robust
+        hingga dashboard web modern dan protokol komunikasi industrial.
+      </p>
+    </div>
+
+    <!-- ── FEATURE GRID ── -->
+    <section class="features-section" id="fitur" aria-labelledby="features-heading">
+      <div class="section-inner" style="padding-top:0;">
+
+        <h2 class="section-title" id="features-heading" style="display:none;">Feature Grid</h2>
+
+        <div class="features-grid reveal">
+
+          <div class="feature-card highlight">
+            <div class="feature-icon" aria-hidden="true">⚡</div>
+            <div class="feature-title">MQTT Control</div>
+            <p class="feature-desc">
+              Kontrol relay real-time menggunakan protokol MQTT standar.
+              Kompatibel dengan Home Assistant, Node-RED, dan semua MQTT client.
+            </p>
+            <div class="feature-tag">
+              <span class="dot-live" aria-hidden="true"></span>
+              broker.hivemq.com
+            </div>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon" aria-hidden="true">🌐</div>
+            <div class="feature-title">Web Dashboard</div>
+            <p class="feature-desc">
+              Dashboard responsif via GitHub Pages (HTTPS + MQTT WSS)
+              dan dashboard lokal tersimpan di LittleFS ESP32.
+            </p>
+            <div class="feature-tag">GitHub Pages · LittleFS</div>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon" aria-hidden="true">🔌</div>
+            <div class="feature-title">REST API</div>
+            <p class="feature-desc">
+              API HTTP untuk integrasi dengan sistem eksternal.
+              Mendukung kontrol per-channel dan status query JSON.
+            </p>
+            <div class="feature-tag">JSON · HTTP</div>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon" aria-hidden="true">🔗</div>
+            <div class="feature-title">WebSocket Lokal</div>
+            <p class="feature-desc">
+              Koneksi WebSocket langsung ke ESP32 untuk latensi rendah
+              tanpa perlu koneksi internet.
+            </p>
+            <div class="feature-tag">ws://relaycrtl.local</div>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon" aria-hidden="true">🔧</div>
+            <div class="feature-title">I2C Expander</div>
+            <p class="feature-desc">
+              Dukung PCF8574 dan MCP23017 untuk ekspansi hingga
+              128 channel relay via bus I2C.
+            </p>
+            <div class="feature-tag">PCF8574 · MCP23017</div>
+          </div>
+
+          <div class="feature-card highlight">
+            <div class="feature-icon" aria-hidden="true">🔄</div>
+            <div class="feature-title">OTA Updates</div>
+            <p class="feature-desc">
+              Update firmware over-the-air menggunakan ArduinoOTA
+              tanpa perlu kabel USB atau bongkar perangkat.
+            </p>
+            <div class="feature-tag">ArduinoOTA · relay_ota</div>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon" aria-hidden="true">⏱️</div>
+            <div class="feature-title">Pattern Sequencer</div>
+            <p class="feature-desc">
+              Jalankan pola relay otomatis dengan langkah-langkah bitmask
+              dan durasi yang dapat dikonfigurasi. Repeat -1 untuk loop.
+            </p>
+            <div class="feature-tag">JSON Pattern · Repeat</div>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon" aria-hidden="true">🛡️</div>
+            <div class="feature-title">Hardware Watchdog</div>
+            <p class="feature-desc">
+              Watchdog hardware 10 detik memastikan ESP32 reset otomatis
+              jika firmware hang — untuk sistem yang harus selalu online.
+            </p>
+            <div class="feature-tag">Failsafe · 10s timeout</div>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon" aria-hidden="true">💾</div>
+            <div class="feature-title">LittleFS Storage</div>
+            <p class="feature-desc">
+              Konfigurasi WiFi, MQTT, dan relay tersimpan di flash 8MB.
+              Persisten meski restart — tidak perlu setup ulang.
+            </p>
+            <div class="feature-tag">8MB · JSON Config</div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <!-- ── ARCHITECTURE SECTION ── -->
+    <section class="arch-section" id="arsitektur" aria-labelledby="arch-heading">
+      <div class="section-inner">
+
+        <div class="section-tag">Arsitektur</div>
+        <h2 class="section-title" id="arch-heading">Alur Sinyal Sistem</h2>
+        <p class="section-desc">
+          Dari MQTT broker di cloud hingga relay fisik — data mengalir
+          melalui lapisan yang terstruktur dan dapat diandalkan.
+        </p>
+
+        <!-- Flow diagram -->
+        <div class="arch-flow reveal" role="img" aria-label="Architecture flow diagram">
+
+          <div class="arch-node">
+            <div class="arch-node-icon" aria-hidden="true">☁️</div>
+            <div class="arch-node-name">MQTT Broker</div>
+            <div class="arch-node-sub">broker.hivemq.com</div>
+          </div>
+
+          <div class="arch-arrow" aria-hidden="true">
+            <span>→</span>
+            <span class="arch-arrow-label">TCP/WSS</span>
+          </div>
+
+          <div class="arch-node">
+            <div class="arch-node-icon" aria-hidden="true">🖥️</div>
+            <div class="arch-node-name">ESP32</div>
+            <div class="arch-node-sub">240 MHz · LittleFS</div>
+          </div>
+
+          <div class="arch-arrow" aria-hidden="true">
+            <span>→</span>
+            <span class="arch-arrow-label">I2C Bus</span>
+          </div>
+
+          <div class="arch-node">
+            <div class="arch-node-icon" aria-hidden="true">🔌</div>
+            <div class="arch-node-name">Expander</div>
+            <div class="arch-node-sub">MCP23017 · PCF8574</div>
+          </div>
+
+          <div class="arch-arrow" aria-hidden="true">
+            <span>→</span>
+            <span class="arch-arrow-label">GPIO</span>
+          </div>
+
+          <div class="arch-node">
+            <div class="arch-node-icon" aria-hidden="true">⚡</div>
+            <div class="arch-node-name">Relay Channels</div>
+            <div class="arch-node-sub">Up to 128 CH</div>
+          </div>
+
+        </div>
+
+        <!-- Layer diagram -->
+        <div class="arch-layers reveal" style="margin-top:40px;">
+
+          <div class="arch-layer">
+            <div class="arch-layer-num">01</div>
+            <div class="arch-layer-name">Cloud Layer</div>
+            <div class="arch-layer-items">
+              <div class="arch-layer-item">MQTT Broker (HiveMQ)</div>
+              <div class="arch-layer-item">GitHub Pages Dashboard</div>
+              <div class="arch-layer-item">MQTT over WSS (port 8884)</div>
+              <div class="arch-layer-item">LWT Online/Offline tracking</div>
+            </div>
+          </div>
+
+          <div class="arch-layer">
+            <div class="arch-layer-num">02</div>
+            <div class="arch-layer-name">Processing Layer</div>
+            <div class="arch-layer-items">
+              <div class="arch-layer-item">ESP32 Firmware (C++)</div>
+              <div class="arch-layer-item">MQTT Client + WebSocket</div>
+              <div class="arch-layer-item">REST API + OTA Handler</div>
+              <div class="arch-layer-item">LittleFS Config Storage</div>
+            </div>
+          </div>
+
+          <div class="arch-layer">
+            <div class="arch-layer-num">03</div>
+            <div class="arch-layer-name">Physical Layer</div>
+            <div class="arch-layer-items">
+              <div class="arch-layer-item">I2C Bus (SDA/SCL)</div>
+              <div class="arch-layer-item">MCP23017 16-bit Expander</div>
+              <div class="arch-layer-item">PCF8574 8-bit Expander</div>
+              <div class="arch-layer-item">SPDT Relay Channels</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <!-- ── CODE BLOCKS ── -->
+    <section class="code-section" id="kode" aria-labelledby="code-heading">
+      <div class="section-inner">
+
+        <div class="section-tag">Contoh Kode</div>
+        <h2 class="section-title" id="code-heading">Integrasi Mudah</h2>
+        <p class="section-desc">
+          Kontrol relay dengan JSON payload sederhana — dari Python,
+          Node-RED, Home Assistant, atau client MQTT apapun.
+        </p>
+
+        <div class="code-grid reveal">
+
+          <!-- Python example -->
+          <div class="code-card">
+            <div class="code-header">
+              <div class="code-dots" aria-hidden="true">
+                <div class="code-dot" style="background:#ef4444;"></div>
+                <div class="code-dot" style="background:#f59e0b;"></div>
+                <div class="code-dot" style="background:#22c55e;"></div>
+              </div>
+              <span class="code-filename">control.py</span>
+              <span class="code-lang">Python</span>
+            </div>
+            <div class="code-body">
+<span class="kw">import</span> paho.mqtt.client <span class="kw">as</span> mqtt
+<span class="kw">import</span> json
+
+client = mqtt.<span class="fn">Client</span>()
+client.<span class="fn">connect</span>(<span class="str">"broker.hivemq.com"</span>, <span class="num">1883</span>)
+
+<span class="cmt"># Turn relay 3 ON</span>
+payload = json.<span class="fn">dumps</span>({
+  <span class="str">"relay"</span>: <span class="num">3</span>,
+  <span class="str">"on"</span>: <span class="kw">True</span>
+})
+client.<span class="fn">publish</span>(<span class="str">"home/relay/api"</span>, payload)
+
+<span class="cmt"># Pulse relay 1 for 500ms</span>
+client.<span class="fn">publish</span>(
+  <span class="str">"home/relay/api"</span>,
+  json.<span class="fn">dumps</span>({<span class="str">"relay"</span>: <span class="num">1</span>, <span class="str">"pulse"</span>: <span class="num">500</span>})
+)
+            </div>
+          </div>
+
+          <!-- JSON payload example -->
+          <div class="code-card">
+            <div class="code-header">
+              <div class="code-dots" aria-hidden="true">
+                <div class="code-dot" style="background:#ef4444;"></div>
+                <div class="code-dot" style="background:#f59e0b;"></div>
+                <div class="code-dot" style="background:#22c55e;"></div>
+              </div>
+              <span class="code-filename">pattern.json</span>
+              <span class="code-lang">JSON</span>
+            </div>
+            <div class="code-body">
+<span class="cmt">// Pattern sequencer — repeating loop</span>
+{
+  <span class="str">"pattern"</span>: {
+    <span class="str">"steps"</span>: [
+      {
+        <span class="str">"mask"</span>: <span class="num">0b00001111</span>,
+        <span class="str">"duration_ms"</span>: <span class="num">300</span>
+      },
+      {
+        <span class="str">"mask"</span>: <span class="num">0b11110000</span>,
+        <span class="str">"duration_ms"</span>: <span class="num">300</span>
+      }
+    ],
+    <span class="str">"repeat"</span>: <span class="num">-1</span>
+  }
+}
+            </div>
+          </div>
+
+          <!-- Home Assistant YAML -->
+          <div class="code-card">
+            <div class="code-header">
+              <div class="code-dots" aria-hidden="true">
+                <div class="code-dot" style="background:#ef4444;"></div>
+                <div class="code-dot" style="background:#f59e0b;"></div>
+                <div class="code-dot" style="background:#22c55e;"></div>
+              </div>
+              <span class="code-filename">configuration.yaml</span>
+              <span class="code-lang">HA YAML</span>
+            </div>
+            <div class="code-body">
+<span class="cmt"># Home Assistant MQTT Switch</span>
+<span class="var">switch</span>:
+  - <span class="var">platform</span>: <span class="str">mqtt</span>
+    <span class="var">name</span>: <span class="str">"Relay 1"</span>
+    <span class="var">command_topic</span>: <span class="str">"home/relay/relay/1/set"</span>
+    <span class="var">state_topic</span>: <span class="str">"home/relay/relay/1/v"</span>
+    <span class="var">payload_on</span>: <span class="str">"ON"</span>
+    <span class="var">payload_off</span>: <span class="str">"OFF"</span>
+    <span class="var">availability_topic</span>: <span class="str">"home/relay/status"</span>
+            </div>
+          </div>
+
+          <!-- Firmware snippet -->
+          <div class="code-card">
+            <div class="code-header">
+              <div class="code-dots" aria-hidden="true">
+                <div class="code-dot" style="background:#ef4444;"></div>
+                <div class="code-dot" style="background:#f59e0b;"></div>
+                <div class="code-dot" style="background:#22c55e;"></div>
+              </div>
+              <span class="code-filename">relay_api.cpp</span>
+              <span class="code-lang">C++</span>
+            </div>
+            <div class="code-body">
+<span class="cmt">// MQTT message handler</span>
+<span class="kw">void</span> <span class="fn">onMqttMessage</span>(
+  <span class="kw">const char</span>* topic,
+  <span class="kw">uint8_t</span>* payload, <span class="kw">int</span> len
+) {
+  <span class="kw">auto</span> doc = <span class="fn">parseJson</span>(payload, len);
+  <span class="kw">int</span> ch = doc[<span class="str">"relay"</span>];
+  <span class="kw">bool</span> on = doc[<span class="str">"on"</span>];
+  relays[ch].<span class="fn">setState</span>(on);
+  <span class="fn">publishState</span>(ch);
+}
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <div class="divider" aria-hidden="true"></div>
+
+    <!-- ── RELAY ARCH TABLE ── -->
+    <section id="spesifikasi" aria-labelledby="spec-heading">
+      <div class="section-inner">
+
+        <div class="section-tag">Spesifikasi</div>
+        <h2 class="section-title" id="spec-heading">Tabel Spesifikasi Relay</h2>
+        <p class="section-desc">
+          Mapping pin ekspander ke channel relay dan fungsi masing-masing.
+        </p>
+
+        <div class="relay-arch reveal" style="margin-top:40px;">
+          <table class="relay-arch-table" aria-label="Relay architecture specifications">
+            <thead>
+              <tr>
+                <th scope="col">Expander</th>
+                <th scope="col">Address</th>
+                <th scope="col">Pins</th>
+                <th scope="col">Channels</th>
+                <th scope="col">Function</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>MCP23017 #1</td>
+                <td><span class="mono-sm">0x20</span></td>
+                <td>GPA0–GPA7</td>
+                <td>CH 1–8</td>
+                <td>Main relay bank A</td>
+              </tr>
+              <tr>
+                <td>MCP23017 #1</td>
+                <td><span class="mono-sm">0x20</span></td>
+                <td>GPB0–GPB7</td>
+                <td>CH 9–16</td>
+                <td>Main relay bank B</td>
+              </tr>
+              <tr>
+                <td>MCP23017 #2</td>
+                <td><span class="mono-sm">0x21</span></td>
+                <td>GPA0–GPB7</td>
+                <td>CH 17–32</td>
+                <td>Expansion bank</td>
+              </tr>
+              <tr>
+                <td>PCF8574 #1</td>
+                <td><span class="mono-sm">0x38</span></td>
+                <td>P0–P7</td>
+                <td>CH 33–40</td>
+                <td>Auxiliary / sensor</td>
+              </tr>
+              <tr>
+                <td>PCF8574 #2</td>
+                <td><span class="mono-sm">0x39</span></td>
+                <td>P0–P7</td>
+                <td>CH 41–48</td>
+                <td>Auxiliary / sensor</td>
+              </tr>
+              <tr>
+                <td colspan="3" style="color:var(--text-muted);font-size:12px;">… up to 8 × MCP23017 + 8 × PCF8574 …</td>
+                <td>CH 49–128</td>
+                <td>Full expansion</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- CTA -->
+        <div style="margin-top:48px;display:flex;gap:14px;flex-wrap:wrap;" class="reveal reveal-delay-2">
+          <a href="docs.html" class="btn btn-primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+            Dokumentasi MQTT
+          </a>
+          <a href="explorer.html" class="btn btn-outline">Hardware Explorer</a>
+          <a href="team.html" class="btn btn-ghost">Tentang Tim</a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ══ FOOTER ══ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-main">
+
+      <div class="footer-brand">
+        <a href="home.html" class="nav-logo" style="margin-bottom:14px;display:inline-flex;">
+          <div class="nav-logo-mark">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <rect x="3" y="9" width="18" height="6" rx="1.5" stroke="#07090f" stroke-width="2"/>
+              <circle cx="8" cy="12" r="1.5" fill="#07090f"/>
+              <circle cx="16" cy="12" r="1.5" stroke="#07090f" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <span class="nav-brand">OpenRelay</span>
+        </a>
+        <p class="footer-desc">
+          Platform kendali relay IoT open source berbasis ESP32.
+          Dibuat untuk kompetisi FIKSI 2026 oleh siswa SMKN 1 Madiun.
+        </p>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Navigasi</div>
+        <ul class="footer-links-list">
+          <li><a href="home.html">Beranda</a></li>
+          <li><a href="features.html">Fitur</a></li>
+          <li><a href="docs.html">Dokumentasi</a></li>
+          <li><a href="team.html">Tim</a></li>
+          <li><a href="explorer.html">Explorer</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-col-title">Info Perangkat</div>
+        <div class="footer-spec-row">
+          <span class="footer-spec-key">AP SSID</span>
+          <span class="footer-spec-val">ESP32-Relay</span>
+        </div>
+        <div class="footer-spec-row">
+          <span class="footer-spec-key">Password</span>
+          <span class="footer-spec-val">relay1234</span>
+        </div>
+        <div class="footer-spec-row">
+          <span class="footer-spec-key">Hostname</span>
+          <span class="footer-spec-val">relaycrtl</span>
+        </div>
+        <div class="footer-spec-row">
+          <span class="footer-spec-key">MQTT Prefix</span>
+          <span class="footer-spec-val">home/relay</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-copy">
+        © <span class="footer-year">2026</span> GT &amp; M. Rizky Alfianno · SMK Negeri 1 Madiun · FIKSI 2026
+      </p>
+      <div class="footer-bottom-links">
+        <a href="features.html">Fitur</a>
+        <a href="docs.html">Dokumentasi</a>
+        <a href="team.html">Tim</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+  <script src="js/features.js"></script>
 </body>
 </html>
