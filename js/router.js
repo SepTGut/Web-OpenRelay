@@ -6,6 +6,7 @@ const pages = [
 
 let pageIndex = 0;
 let loading = false;
+let observer = null;
 
 async function fetchSection(page) {
   const res = await fetch(page);
@@ -19,6 +20,16 @@ async function fetchSection(page) {
   return content ? content.innerHTML : '';
 }
 
+function initDynamicContent(scope = document) {
+  if (typeof window.initReveal === 'function') {
+    window.initReveal(scope);
+  }
+
+  if (typeof window.initRelayVisualizer === 'function') {
+    window.initRelayVisualizer(scope);
+  }
+}
+
 async function streamNextSection() {
   if (loading) return;
   if (pageIndex >= pages.length) return;
@@ -28,9 +39,18 @@ async function streamNextSection() {
   try {
     const app = document.getElementById('app-content');
 
-    if (!app) return;
+    if (!app) {
+      loading = false;
+      return;
+    }
 
     const page = pages[pageIndex];
+
+    if (document.querySelector(`[data-page="${page}"]`)) {
+      pageIndex++;
+      loading = false;
+      return;
+    }
 
     const html = await fetchSection(page);
 
@@ -40,7 +60,7 @@ async function streamNextSection() {
 
     wrapper.style.opacity = '0';
     wrapper.style.transform = 'translateY(40px)';
-    wrapper.style.transition = 'all .6s ease';
+    wrapper.style.transition = 'opacity .6s ease, transform .6s ease';
 
     wrapper.innerHTML = html;
 
@@ -53,10 +73,12 @@ async function streamNextSection() {
       wrapper.style.transform = 'translateY(0)';
     });
 
+    initDynamicContent(wrapper);
+
     pageIndex++;
 
   } catch (err) {
-    console.error(err);
+    console.error('Stream error:', err);
   }
 
   loading = false;
@@ -67,12 +89,20 @@ function setupInfiniteScroll() {
 
   if (!trigger) return;
 
-  const observer = new IntersectionObserver(async entries => {
-    if (entries[0].isIntersecting) {
-      await streamNextSection();
-    }
+  observer = new IntersectionObserver(async entries => {
+    const entry = entries[0];
+
+    if (!entry.isIntersecting || loading) return;
+
+    observer.unobserve(trigger);
+
+    await streamNextSection();
+
+    observer.observe(trigger);
+
   }, {
-    rootMargin: '70%'
+    rootMargin: '0px 0px 70% 0px',
+    threshold: 0.01
   });
 
   observer.observe(trigger);
@@ -84,15 +114,19 @@ function setupNavigation() {
 
     if (!link) return;
 
+    const href = link.getAttribute('href');
+
+    if (!href || href.startsWith('http') || href.includes('NewStyle')) {
+      return;
+    }
+
     e.preventDefault();
 
-    const target = link.getAttribute('href');
-
-    let targetEl = document.querySelector(`[data-page="${target}"]`);
+    let targetEl = document.querySelector(`[data-page="${href}"]`);
 
     while (!targetEl && pageIndex < pages.length) {
       await streamNextSection();
-      targetEl = document.querySelector(`[data-page="${target}"]`);
+      targetEl = document.querySelector(`[data-page="${href}"]`);
     }
 
     if (targetEl) {
@@ -116,6 +150,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     app.appendChild(trigger);
   }
+
+  initDynamicContent(document);
 
   setupInfiniteScroll();
   setupNavigation();
