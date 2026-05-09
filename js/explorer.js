@@ -14,6 +14,7 @@
   const panelBody   = document.getElementById('detail-panel-content');
   const panelClose  = document.getElementById('detail-panel-close');
   const overlay     = document.getElementById('panel-overlay');
+  let lastFocusedElement = null; // Track what triggered the panel
 
   if (!nodes.length || !panel) return;
 
@@ -167,11 +168,20 @@
   function openPanel(key) {
     const d = details[key];
     if (!d) return;
+
+    // Save currently focused element for return
+    lastFocusedElement = document.activeElement;
+
     panelTitle.textContent  = d.title;
     panelBody.innerHTML     = buildPanel(key);
     panel.classList.add('open');
     overlay.classList.add('visible');
     overlay.setAttribute('aria-hidden', 'false');
+
+    // Move focus to close button when panel opens
+    requestAnimationFrame(() => {
+      panelClose.focus();
+    });
   }
 
   function closePanel() {
@@ -181,6 +191,11 @@
     // Deactivate all connections & nodes
     conns.forEach(c => c.classList.remove('conn-active'));
     nodes.forEach(n => n.classList.remove('node-active'));
+
+    // Return focus to element that triggered the panel
+    if (lastFocusedElement) {
+      lastFocusedElement.focus();
+    }
   }
 
   /* ── ACTIVATE CONNECTIONS UP TO NODE INDEX ── */
@@ -223,6 +238,16 @@
         e.preventDefault();
         node.click();
       }
+    });
+
+    // Touch support
+    node.addEventListener('touchstart', e => {
+      e.preventDefault();
+      // Prevent scrolling/default touch behavior
+    });
+    node.addEventListener('touchend', e => {
+      e.preventDefault();
+      node.click(); // Trigger action only once
     });
   });
 

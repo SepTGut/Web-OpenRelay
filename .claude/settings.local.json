@@ -10,7 +10,11 @@
       "Bash(git add *)",
       "Bash(git commit *)",
       "Bash(git worktree *)",
-      "Bash(pwd -P)"
+      "Bash(pwd -P)",
+      "Bash(gh pr *)",
+      "mcp__github__list_pull_requests",
+      "Bash(css/style.css *)",
+      "PowerShell(git pull *)"
     ]
   }
 }
