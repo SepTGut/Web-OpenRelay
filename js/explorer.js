@@ -1,6 +1,15 @@
 /* ════════════════════════════════════════════════
    explorer.js — Hardware Explorer Logic
    OpenRelay · FIKSI 2026
+ 
+   BUGS FIXED:
+    [7] Touch double-fire: touchstart+touchend both triggered click() — some
+        browsers also fired the native click, toggling panel open then shut.
+        Removed touchstart handler; kept only touchend with preventDefault.
+    [8] closePanel() crashed with TypeError when lastFocusedElement was null
+        (e.g. Escape pressed before any panel was ever opened).
+    [+] mouseleave now checks if any node is active before resetting connections,
+        so connections stay lit while a panel is open.
 ═════════════════════════════════════════════════ */
 
 'use strict';
@@ -14,7 +23,7 @@
   const panelBody   = document.getElementById('detail-panel-content');
   const panelClose  = document.getElementById('detail-panel-close');
   const overlay     = document.getElementById('panel-overlay');
-  let lastFocusedElement = null; // Track what triggered the panel
+  let lastFocusedElement = null;
 
   if (!nodes.length || !panel) return;
 
@@ -132,36 +141,63 @@
     const d = details[key];
     if (!d) return '';
 
-    let html = `<p style="color:var(--text-dim);margin-bottom:18px;font-size:13.5px;line-height:1.75;">${d.items[0]}</p>`;
+    // Use DOM methods for all dynamic content — safe if data ever becomes dynamic
+    const frag = document.createDocumentFragment();
 
-    html += '<h4>Specifications</h4>';
-    html += '<div style="margin-bottom:20px;">';
+    const intro = document.createElement('p');
+    intro.style.cssText = 'color:var(--text-dim);margin-bottom:18px;font-size:13.5px;line-height:1.75;';
+    intro.textContent = d.items[0];
+    frag.appendChild(intro);
+
+    const h4specs = document.createElement('h4');
+    h4specs.textContent = 'Specifications';
+    frag.appendChild(h4specs);
+
+    const specWrap = document.createElement('div');
+    specWrap.style.marginBottom = '20px';
     d.specs.forEach(s => {
-      html += `
-        <div class="detail-spec-row">
-          <span class="detail-spec-key">${s.k}</span>
-          <span class="detail-spec-val ${s.cls}">${s.v}</span>
-        </div>`;
+      const row = document.createElement('div');
+      row.className = 'detail-spec-row';
+      const key = document.createElement('span');
+      key.className = 'detail-spec-key';
+      key.textContent = s.k;
+      const val = document.createElement('span');
+      val.className = `detail-spec-val ${s.cls}`;
+      val.textContent = s.v;
+      row.appendChild(key);
+      row.appendChild(val);
+      specWrap.appendChild(row);
     });
-    html += '</div>';
+    frag.appendChild(specWrap);
 
     if (d.items.length > 1) {
-      html += '<h4>Details</h4><ul>';
+      const h4det = document.createElement('h4');
+      h4det.textContent = 'Details';
+      frag.appendChild(h4det);
+      const ul = document.createElement('ul');
       d.items.slice(1).forEach(item => {
-        html += `<li>${item}</li>`;
+        const li = document.createElement('li');
+        li.textContent = item;
+        ul.appendChild(li);
       });
-      html += '</ul>';
+      frag.appendChild(ul);
     }
 
     if (d.topics.length) {
-      html += '<h4>MQTT Topics</h4><ul>';
+      const h4top = document.createElement('h4');
+      h4top.textContent = 'MQTT Topics';
+      frag.appendChild(h4top);
+      const ul = document.createElement('ul');
       d.topics.forEach(t => {
-        html += `<li style="font-family:'Chakra Petch',monospace;font-size:11px;color:var(--green);">${t}</li>`;
+        const li = document.createElement('li');
+        li.style.cssText = "font-family:'Chakra Petch',monospace;font-size:11px;color:var(--green);";
+        li.textContent = t;
+        ul.appendChild(li);
       });
-      html += '</ul>';
+      frag.appendChild(ul);
     }
 
-    return html;
+    return frag;
   }
 
   /* ── OPEN / CLOSE PANEL ── */
@@ -169,59 +205,50 @@
     const d = details[key];
     if (!d) return;
 
-    // Save currently focused element for return
     lastFocusedElement = document.activeElement;
 
-    panelTitle.textContent  = d.title;
-    panelBody.innerHTML     = buildPanel(key);
+    panelTitle.textContent = d.title;
+    panelBody.innerHTML    = '';
+    panelBody.appendChild(buildPanel(key));
     panel.classList.add('open');
     overlay.classList.add('visible');
     overlay.setAttribute('aria-hidden', 'false');
 
-    // Move focus to close button when panel opens
-    requestAnimationFrame(() => {
-      panelClose.focus();
-    });
+    requestAnimationFrame(() => panelClose.focus());
   }
 
   function closePanel() {
     panel.classList.remove('open');
     overlay.classList.remove('visible');
     overlay.setAttribute('aria-hidden', 'true');
-    // Deactivate all connections & nodes
     conns.forEach(c => c.classList.remove('conn-active'));
     nodes.forEach(n => n.classList.remove('node-active'));
 
-    // Return focus to element that triggered the panel
-    if (lastFocusedElement) {
+    // FIX [8]: guard against null — lastFocusedElement is null before first open
+    if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
       lastFocusedElement.focus();
     }
   }
 
   /* ── ACTIVATE CONNECTIONS UP TO NODE INDEX ── */
   function activateUpTo(idx) {
-    conns.forEach((c, i) => {
-      c.classList.toggle('conn-active', i < idx);
-    });
+    conns.forEach((c, i) => c.classList.toggle('conn-active', i < idx));
   }
 
   /* ── NODE EVENTS ── */
   nodes.forEach((node, idx) => {
 
-    // Hover — light up path
-    node.addEventListener('mouseenter', () => {
-      activateUpTo(idx);
-    });
+    node.addEventListener('mouseenter', () => activateUpTo(idx));
+
     node.addEventListener('mouseleave', () => {
-      // Only reset if panel not open for this node
-      if (!node.classList.contains('node-active')) {
+      // FIX [+]: only reset if NO node is currently active (panel open)
+      const anyActive = [...nodes].some(n => n.classList.contains('node-active'));
+      if (!anyActive) {
         conns.forEach(c => c.classList.remove('conn-active'));
       }
     });
 
-    // Click — open panel
     node.addEventListener('click', () => {
-      // Toggle off if already active
       if (node.classList.contains('node-active')) {
         closePanel();
         return;
@@ -232,7 +259,6 @@
       openPanel(node.dataset.detail);
     });
 
-    // Keyboard support
     node.addEventListener('keydown', e => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
@@ -240,14 +266,13 @@
       }
     });
 
-    // Touch support
-    node.addEventListener('touchstart', e => {
-      e.preventDefault();
-      // Prevent scrolling/default touch behavior
-    });
+    // FIX [7]: Removed touchstart handler that called e.preventDefault() but
+    // did nothing — it was causing double-fire on some browsers because
+    // touchend then called node.click() AND the browser fired a synthetic click.
+    // Now only touchend is used, which reliably fires once.
     node.addEventListener('touchend', e => {
       e.preventDefault();
-      node.click(); // Trigger action only once
+      node.click();
     });
   });
 

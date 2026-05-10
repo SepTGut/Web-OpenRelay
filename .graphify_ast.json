@@ -1,0 +1,1127 @@
+{
+  "nodes": [
+    {
+      "id": "js_app_js",
+      "label": "app.js",
+      "file_type": "code",
+      "source_file": "js\\app.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "js_app_hamburger",
+      "label": "hamburger",
+      "file_type": "code",
+      "source_file": "js\\app.js",
+      "source_location": "L24"
+    },
+    {
+      "id": "js_app_mobilemenu",
+      "label": "mobileMenu",
+      "file_type": "code",
+      "source_file": "js\\app.js",
+      "source_location": "L25"
+    },
+    {
+      "id": "js_app_isopen",
+      "label": "isOpen",
+      "file_type": "code",
+      "source_file": "js\\app.js",
+      "source_location": "L29"
+    },
+    {
+      "id": "js_app_spans",
+      "label": "spans",
+      "file_type": "code",
+      "source_file": "js\\app.js",
+      "source_location": "L32"
+    },
+    {
+      "id": "js_app_nav",
+      "label": "nav",
+      "file_type": "code",
+      "source_file": "js\\app.js",
+      "source_location": "L62"
+    },
+    {
+      "id": "js_app_reveals",
+      "label": "reveals",
+      "file_type": "code",
+      "source_file": "js\\app.js",
+      "source_location": "L77"
+    },
+    {
+      "id": "js_app_observer",
+      "label": "observer",
+      "file_type": "code",
+      "source_file": "js\\app.js",
+      "source_location": "L80"
+    },
+    {
+      "id": "js_app_target",
+      "label": "target",
+      "file_type": "code",
+      "source_file": "js\\app.js",
+      "source_location": "L101"
+    },
+    {
+      "id": "js_app_toastroot",
+      "label": "toastRoot",
+      "file_type": "code",
+      "source_file": "js\\app.js",
+      "source_location": "L117"
+    },
+    {
+      "id": "js_app_colors",
+      "label": "colors",
+      "file_type": "code",
+      "source_file": "js\\app.js",
+      "source_location": "L138"
+    },
+    {
+      "id": "js_app_toast",
+      "label": "toast",
+      "file_type": "code",
+      "source_file": "js\\app.js",
+      "source_location": "L147"
+    },
+    {
+      "id": "js_app_ta",
+      "label": "ta",
+      "file_type": "code",
+      "source_file": "js\\app.js",
+      "source_location": "L189"
+    },
+    {
+      "id": "js_docs_js",
+      "label": "docs.js",
+      "file_type": "code",
+      "source_file": "js\\docs.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "js_docs_row",
+      "label": "row",
+      "file_type": "code",
+      "source_file": "js\\docs.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "js_docs_topic",
+      "label": "topic",
+      "file_type": "code",
+      "source_file": "js\\docs.js",
+      "source_location": "L17"
+    },
+    {
+      "id": "js_docs_svg",
+      "label": "svg",
+      "file_type": "code",
+      "source_file": "js\\docs.js",
+      "source_location": "L23"
+    },
+    {
+      "id": "js_docs_badge",
+      "label": "badge",
+      "file_type": "code",
+      "source_file": "js\\docs.js",
+      "source_location": "L39"
+    },
+    {
+      "id": "js_docs_val",
+      "label": "val",
+      "file_type": "code",
+      "source_file": "js\\docs.js",
+      "source_location": "L60"
+    },
+    {
+      "id": "js_docs_lines",
+      "label": "lines",
+      "file_type": "code",
+      "source_file": "js\\docs.js",
+      "source_location": "L92"
+    },
+    {
+      "id": "js_explorer_js",
+      "label": "explorer.js",
+      "file_type": "code",
+      "source_file": "js\\explorer.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "js_explorer_nodes",
+      "label": "nodes",
+      "file_type": "code",
+      "source_file": "js\\explorer.js",
+      "source_location": "L10"
+    },
+    {
+      "id": "js_explorer_conns",
+      "label": "conns",
+      "file_type": "code",
+      "source_file": "js\\explorer.js",
+      "source_location": "L11"
+    },
+    {
+      "id": "js_explorer_panel",
+      "label": "panel",
+      "file_type": "code",
+      "source_file": "js\\explorer.js",
+      "source_location": "L12"
+    },
+    {
+      "id": "js_explorer_paneltitle",
+      "label": "panelTitle",
+      "file_type": "code",
+      "source_file": "js\\explorer.js",
+      "source_location": "L13"
+    },
+    {
+      "id": "js_explorer_panelbody",
+      "label": "panelBody",
+      "file_type": "code",
+      "source_file": "js\\explorer.js",
+      "source_location": "L14"
+    },
+    {
+      "id": "js_explorer_panelclose",
+      "label": "panelClose",
+      "file_type": "code",
+      "source_file": "js\\explorer.js",
+      "source_location": "L15"
+    },
+    {
+      "id": "js_explorer_overlay",
+      "label": "overlay",
+      "file_type": "code",
+      "source_file": "js\\explorer.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "js_explorer_details",
+      "label": "details",
+      "file_type": "code",
+      "source_file": "js\\explorer.js",
+      "source_location": "L22"
+    },
+    {
+      "id": "js_explorer_buildpanel",
+      "label": "buildPanel()",
+      "file_type": "code",
+      "source_file": "js\\explorer.js",
+      "source_location": "L131"
+    },
+    {
+      "id": "js_explorer_openpanel",
+      "label": "openPanel()",
+      "file_type": "code",
+      "source_file": "js\\explorer.js",
+      "source_location": "L168"
+    },
+    {
+      "id": "js_explorer_closepanel",
+      "label": "closePanel()",
+      "file_type": "code",
+      "source_file": "js\\explorer.js",
+      "source_location": "L187"
+    },
+    {
+      "id": "js_explorer_activateupto",
+      "label": "activateUpTo()",
+      "file_type": "code",
+      "source_file": "js\\explorer.js",
+      "source_location": "L202"
+    },
+    {
+      "id": "js_features_js",
+      "label": "features.js",
+      "file_type": "code",
+      "source_file": "js\\features.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "js_features_nodes",
+      "label": "nodes",
+      "file_type": "code",
+      "source_file": "js\\features.js",
+      "source_location": "L14"
+    },
+    {
+      "id": "js_features_arrows",
+      "label": "arrows",
+      "file_type": "code",
+      "source_file": "js\\features.js",
+      "source_location": "L15"
+    },
+    {
+      "id": "js_features_cards",
+      "label": "cards",
+      "file_type": "code",
+      "source_file": "js\\features.js",
+      "source_location": "L47"
+    },
+    {
+      "id": "js_features_header",
+      "label": "header",
+      "file_type": "code",
+      "source_file": "js\\features.js",
+      "source_location": "L72"
+    },
+    {
+      "id": "js_features_body",
+      "label": "body",
+      "file_type": "code",
+      "source_file": "js\\features.js",
+      "source_location": "L73"
+    },
+    {
+      "id": "js_features_btn",
+      "label": "btn",
+      "file_type": "code",
+      "source_file": "js\\features.js",
+      "source_location": "L76"
+    },
+    {
+      "id": "js_features_layers",
+      "label": "layers",
+      "file_type": "code",
+      "source_file": "js\\features.js",
+      "source_location": "L118"
+    },
+    {
+      "id": "js_features_observer",
+      "label": "observer",
+      "file_type": "code",
+      "source_file": "js\\features.js",
+      "source_location": "L121"
+    },
+    {
+      "id": "js_home_js",
+      "label": "home.js",
+      "file_type": "code",
+      "source_file": "js\\home.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "js_home_container",
+      "label": "container",
+      "file_type": "code",
+      "source_file": "js\\home.js",
+      "source_location": "L13"
+    },
+    {
+      "id": "js_home_dots",
+      "label": "dots",
+      "file_type": "code",
+      "source_file": "js\\home.js",
+      "source_location": "L17"
+    },
+    {
+      "id": "js_home_d",
+      "label": "d",
+      "file_type": "code",
+      "source_file": "js\\home.js",
+      "source_location": "L21"
+    },
+    {
+      "id": "js_home_animate",
+      "label": "animate()",
+      "file_type": "code",
+      "source_file": "js\\home.js",
+      "source_location": "L29"
+    },
+    {
+      "id": "js_home_stats",
+      "label": "stats",
+      "file_type": "code",
+      "source_file": "js\\home.js",
+      "source_location": "L68"
+    },
+    {
+      "id": "js_home_easeoutquart",
+      "label": "easeOutQuart()",
+      "file_type": "code",
+      "source_file": "js\\home.js",
+      "source_location": "L71"
+    },
+    {
+      "id": "js_home_animatecount",
+      "label": "animateCount()",
+      "file_type": "code",
+      "source_file": "js\\home.js",
+      "source_location": "L75"
+    },
+    {
+      "id": "js_home_observer",
+      "label": "observer",
+      "file_type": "code",
+      "source_file": "js\\home.js",
+      "source_location": "L95"
+    },
+    {
+      "id": "js_home_badge",
+      "label": "badge",
+      "file_type": "code",
+      "source_file": "js\\home.js",
+      "source_location": "L113"
+    },
+    {
+      "id": "js_home_dot",
+      "label": "dot",
+      "file_type": "code",
+      "source_file": "js\\home.js",
+      "source_location": "L117"
+    },
+    {
+      "id": "js_router_js",
+      "label": "router.js",
+      "file_type": "code",
+      "source_file": "js\\router.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "js_router_pages",
+      "label": "pages",
+      "file_type": "code",
+      "source_file": "js\\router.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "js_router_fetchsection",
+      "label": "fetchSection()",
+      "file_type": "code",
+      "source_file": "js\\router.js",
+      "source_location": "L10"
+    },
+    {
+      "id": "js_router_initdynamiccontent",
+      "label": "initDynamicContent()",
+      "file_type": "code",
+      "source_file": "js\\router.js",
+      "source_location": "L22"
+    },
+    {
+      "id": "js_router_streamnextsection",
+      "label": "streamNextSection()",
+      "file_type": "code",
+      "source_file": "js\\router.js",
+      "source_location": "L32"
+    },
+    {
+      "id": "js_router_setupinfinitescroll",
+      "label": "setupInfiniteScroll()",
+      "file_type": "code",
+      "source_file": "js\\router.js",
+      "source_location": "L84"
+    },
+    {
+      "id": "js_router_setupnavigation",
+      "label": "setupNavigation()",
+      "file_type": "code",
+      "source_file": "js\\router.js",
+      "source_location": "L115"
+    },
+    {
+      "id": "js_router_app",
+      "label": "app",
+      "file_type": "code",
+      "source_file": "js\\router.js",
+      "source_location": "L146"
+    },
+    {
+      "id": "js_team_js",
+      "label": "team.js",
+      "file_type": "code",
+      "source_file": "js\\team.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "js_team_ring",
+      "label": "ring",
+      "file_type": "code",
+      "source_file": "js\\team.js",
+      "source_location": "L15"
+    },
+    {
+      "id": "js_team_skills",
+      "label": "skills",
+      "file_type": "code",
+      "source_file": "js\\team.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "js_team_items",
+      "label": "items",
+      "file_type": "code",
+      "source_file": "js\\team.js",
+      "source_location": "L49"
+    },
+    {
+      "id": "js_team_observer",
+      "label": "observer",
+      "file_type": "code",
+      "source_file": "js\\team.js",
+      "source_location": "L52"
+    },
+    {
+      "id": "js_team_nameel",
+      "label": "nameEl",
+      "file_type": "code",
+      "source_file": "js\\team.js",
+      "source_location": "L111"
+    },
+    {
+      "id": "js_team_fulltext",
+      "label": "fullText",
+      "file_type": "code",
+      "source_file": "js\\team.js",
+      "source_location": "L114"
+    },
+    {
+      "id": "js_team_palette",
+      "label": "palette",
+      "file_type": "code",
+      "source_file": "js\\team.js",
+      "source_location": "L145"
+    },
+    {
+      "id": "newstyle_app_js",
+      "label": "app.js",
+      "file_type": "code",
+      "source_file": "NewStyle\\app.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "newstyle_app_cards",
+      "label": "cards",
+      "file_type": "code",
+      "source_file": "NewStyle\\app.js",
+      "source_location": "L3"
+    },
+    {
+      "id": "newstyle_app_rect",
+      "label": "rect",
+      "file_type": "code",
+      "source_file": "NewStyle\\app.js",
+      "source_location": "L7"
+    }
+  ],
+  "edges": [
+    {
+      "source": "js_app_js",
+      "target": "js_app_hamburger",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\app.js",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "js_app_js",
+      "target": "js_app_mobilemenu",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\app.js",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "js_app_js",
+      "target": "js_app_isopen",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\app.js",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "js_app_js",
+      "target": "js_app_spans",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\app.js",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "js_app_js",
+      "target": "js_app_nav",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\app.js",
+      "source_location": "L62",
+      "weight": 1.0
+    },
+    {
+      "source": "js_app_js",
+      "target": "js_app_reveals",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\app.js",
+      "source_location": "L77",
+      "weight": 1.0
+    },
+    {
+      "source": "js_app_js",
+      "target": "js_app_observer",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\app.js",
+      "source_location": "L80",
+      "weight": 1.0
+    },
+    {
+      "source": "js_app_js",
+      "target": "js_app_target",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\app.js",
+      "source_location": "L101",
+      "weight": 1.0
+    },
+    {
+      "source": "js_app_js",
+      "target": "js_app_toastroot",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\app.js",
+      "source_location": "L117",
+      "weight": 1.0
+    },
+    {
+      "source": "js_app_js",
+      "target": "js_app_colors",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\app.js",
+      "source_location": "L138",
+      "weight": 1.0
+    },
+    {
+      "source": "js_app_js",
+      "target": "js_app_toast",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\app.js",
+      "source_location": "L147",
+      "weight": 1.0
+    },
+    {
+      "source": "js_app_js",
+      "target": "js_app_ta",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\app.js",
+      "source_location": "L189",
+      "weight": 1.0
+    },
+    {
+      "source": "js_docs_js",
+      "target": "js_docs_row",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\docs.js",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "js_docs_js",
+      "target": "js_docs_topic",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\docs.js",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "js_docs_js",
+      "target": "js_docs_svg",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\docs.js",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "js_docs_js",
+      "target": "js_docs_badge",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\docs.js",
+      "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "js_docs_js",
+      "target": "js_docs_val",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\docs.js",
+      "source_location": "L60",
+      "weight": 1.0
+    },
+    {
+      "source": "js_docs_js",
+      "target": "js_docs_lines",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\docs.js",
+      "source_location": "L92",
+      "weight": 1.0
+    },
+    {
+      "source": "js_explorer_js",
+      "target": "js_explorer_nodes",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\explorer.js",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "js_explorer_js",
+      "target": "js_explorer_conns",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\explorer.js",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "js_explorer_js",
+      "target": "js_explorer_panel",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\explorer.js",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "js_explorer_js",
+      "target": "js_explorer_paneltitle",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\explorer.js",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "js_explorer_js",
+      "target": "js_explorer_panelbody",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\explorer.js",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "js_explorer_js",
+      "target": "js_explorer_panelclose",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\explorer.js",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "js_explorer_js",
+      "target": "js_explorer_overlay",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\explorer.js",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "js_explorer_js",
+      "target": "js_explorer_details",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\explorer.js",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "js_explorer_js",
+      "target": "js_explorer_buildpanel",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\explorer.js",
+      "source_location": "L131",
+      "weight": 1.0
+    },
+    {
+      "source": "js_explorer_js",
+      "target": "js_explorer_openpanel",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\explorer.js",
+      "source_location": "L168",
+      "weight": 1.0
+    },
+    {
+      "source": "js_explorer_js",
+      "target": "js_explorer_closepanel",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\explorer.js",
+      "source_location": "L187",
+      "weight": 1.0
+    },
+    {
+      "source": "js_explorer_js",
+      "target": "js_explorer_activateupto",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\explorer.js",
+      "source_location": "L202",
+      "weight": 1.0
+    },
+    {
+      "source": "js_explorer_openpanel",
+      "target": "js_explorer_buildpanel",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\explorer.js",
+      "source_location": "L176",
+      "weight": 1.0
+    },
+    {
+      "source": "js_features_js",
+      "target": "js_features_nodes",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\features.js",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "js_features_js",
+      "target": "js_features_arrows",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\features.js",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "js_features_js",
+      "target": "js_features_cards",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\features.js",
+      "source_location": "L47",
+      "weight": 1.0
+    },
+    {
+      "source": "js_features_js",
+      "target": "js_features_header",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\features.js",
+      "source_location": "L72",
+      "weight": 1.0
+    },
+    {
+      "source": "js_features_js",
+      "target": "js_features_body",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\features.js",
+      "source_location": "L73",
+      "weight": 1.0
+    },
+    {
+      "source": "js_features_js",
+      "target": "js_features_btn",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\features.js",
+      "source_location": "L76",
+      "weight": 1.0
+    },
+    {
+      "source": "js_features_js",
+      "target": "js_features_layers",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\features.js",
+      "source_location": "L118",
+      "weight": 1.0
+    },
+    {
+      "source": "js_features_js",
+      "target": "js_features_observer",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\features.js",
+      "source_location": "L121",
+      "weight": 1.0
+    },
+    {
+      "source": "js_home_js",
+      "target": "js_home_container",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\home.js",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "js_home_js",
+      "target": "js_home_dots",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\home.js",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "js_home_js",
+      "target": "js_home_d",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\home.js",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "js_home_js",
+      "target": "js_home_animate",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\home.js",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "js_home_js",
+      "target": "js_home_stats",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\home.js",
+      "source_location": "L68",
+      "weight": 1.0
+    },
+    {
+      "source": "js_home_js",
+      "target": "js_home_easeoutquart",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\home.js",
+      "source_location": "L71",
+      "weight": 1.0
+    },
+    {
+      "source": "js_home_js",
+      "target": "js_home_animatecount",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\home.js",
+      "source_location": "L75",
+      "weight": 1.0
+    },
+    {
+      "source": "js_home_js",
+      "target": "js_home_observer",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\home.js",
+      "source_location": "L95",
+      "weight": 1.0
+    },
+    {
+      "source": "js_home_js",
+      "target": "js_home_badge",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\home.js",
+      "source_location": "L113",
+      "weight": 1.0
+    },
+    {
+      "source": "js_home_js",
+      "target": "js_home_dot",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\home.js",
+      "source_location": "L117",
+      "weight": 1.0
+    },
+    {
+      "source": "js_router_js",
+      "target": "js_router_pages",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\router.js",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "js_router_js",
+      "target": "js_router_fetchsection",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\router.js",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "js_router_js",
+      "target": "js_router_initdynamiccontent",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\router.js",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "js_router_js",
+      "target": "js_router_streamnextsection",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\router.js",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "js_router_js",
+      "target": "js_router_setupinfinitescroll",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\router.js",
+      "source_location": "L84",
+      "weight": 1.0
+    },
+    {
+      "source": "js_router_js",
+      "target": "js_router_setupnavigation",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\router.js",
+      "source_location": "L115",
+      "weight": 1.0
+    },
+    {
+      "source": "js_router_js",
+      "target": "js_router_app",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\router.js",
+      "source_location": "L146",
+      "weight": 1.0
+    },
+    {
+      "source": "js_router_streamnextsection",
+      "target": "js_router_fetchsection",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\router.js",
+      "source_location": "L54",
+      "weight": 1.0
+    },
+    {
+      "source": "js_router_streamnextsection",
+      "target": "js_router_initdynamiccontent",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\router.js",
+      "source_location": "L73",
+      "weight": 1.0
+    },
+    {
+      "source": "js_team_js",
+      "target": "js_team_ring",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\team.js",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "js_team_js",
+      "target": "js_team_skills",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\team.js",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "js_team_js",
+      "target": "js_team_items",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\team.js",
+      "source_location": "L49",
+      "weight": 1.0
+    },
+    {
+      "source": "js_team_js",
+      "target": "js_team_observer",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\team.js",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "js_team_js",
+      "target": "js_team_nameel",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\team.js",
+      "source_location": "L111",
+      "weight": 1.0
+    },
+    {
+      "source": "js_team_js",
+      "target": "js_team_fulltext",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\team.js",
+      "source_location": "L114",
+      "weight": 1.0
+    },
+    {
+      "source": "js_team_js",
+      "target": "js_team_observer",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\team.js",
+      "source_location": "L120",
+      "weight": 1.0
+    },
+    {
+      "source": "js_team_js",
+      "target": "js_team_palette",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "js\\team.js",
+      "source_location": "L145",
+      "weight": 1.0
+    },
+    {
+      "source": "newstyle_app_js",
+      "target": "newstyle_app_cards",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "NewStyle\\app.js",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "newstyle_app_js",
+      "target": "newstyle_app_rect",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "NewStyle\\app.js",
+      "source_location": "L7",
+      "weight": 1.0
+    }
+  ],
+  "input_tokens": 0,
+  "output_tokens": 0
+}

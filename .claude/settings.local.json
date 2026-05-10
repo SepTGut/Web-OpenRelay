@@ -14,7 +14,12 @@
       "Bash(gh pr *)",
       "mcp__github__list_pull_requests",
       "Bash(css/style.css *)",
-      "PowerShell(git pull *)"
+      "PowerShell(git pull *)",
+      "PowerShell(python -c \"import json, sys; from graphify.detect import detect; from pathlib import Path; result = detect\\(Path\\('.'\\)\\); print\\(json.dumps\\(result\\)\\)\" > .graphify_detect.json)",
+      "PowerShell([System.IO.File]::ReadAllBytes\\('.graphify_detect.json'\\)[0..10])",
+      "PowerShell(New-Item *)",
+      "PowerShell(Copy-Item *)",
+      "PowerShell([System.IO.File]::ReadAllBytes\\('.graphify_cached.json'\\)[0..10])"
     ]
   }
 }

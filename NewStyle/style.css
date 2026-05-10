@@ -14,7 +14,22 @@ body {
 }
 
 .glass-card {
-  background: rgba(255,255,255,0.04);
+  /*
+   * FIX: background now uses CSS custom properties --mx / --my
+   * set by NewStyle/app.js on mousemove.
+   * Fallback values (50% 50%) reproduce the original static center gradient
+   * when no mouse position has been set (e.g. on touch, or before hover).
+   *
+   * This replaces the old approach of reassigning card.style.background
+   * inline on every pixel of mouse movement (which triggered a full repaint
+   * each time). CSS var updates are batched by the browser — one composite
+   * pass instead of hundreds of repaints per second.
+   */
+  background: radial-gradient(
+    circle at var(--mx, 50%) var(--my, 50%),
+    rgba(245,158,11,0.14),
+    rgba(255,255,255,0.04)
+  );
   border: 1px solid rgba(255,255,255,0.08);
   backdrop-filter: blur(16px);
   transition: all .3s ease;

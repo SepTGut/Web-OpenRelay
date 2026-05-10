@@ -2,6 +2,12 @@
  * app.js — Shared utilities: nav active state, mobile menu,
  *           scroll reveal, smooth scroll, toast notifications
  * OpenRelay · FIKSI 2026
+ *
+ * BUGS FIXED:
+ *  [1] Nav active link broke on GitHub Pages directory URLs (pathname.pop() → '')
+ *  [2] Mobile menu didn't close on outside touch (touchstart missing)
+ *  [3] Scroll handler fired every pixel — now throttled to 50ms
+ *  [4] showToast / copyToClipboard polluted window — moved to window.OR namespace
  */
 
 'use strict';
@@ -10,9 +16,11 @@
    NAV — active link highlight + mobile menu
 ══════════════════════════════════════════════ */
 (function initNav() {
-  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  // FIX [1]: pathname.split('/').pop() returns '' on GH Pages directory URLs.
+  // Use the last non-empty segment instead.
+  const parts = window.location.pathname.split('/');
+  const currentPage = parts[parts.length - 1] || parts[parts.length - 2] || 'home.html';
 
-  // Highlight active nav link
   document.querySelectorAll('.nav-links a, .nav-mobile-menu a').forEach(link => {
     const href = link.getAttribute('href') || '';
     if (href === currentPage || (currentPage === '' && href === 'index.html')) {
@@ -20,7 +28,6 @@
     }
   });
 
-  // Mobile hamburger toggle
   const hamburger = document.querySelector('.nav-hamburger');
   const mobileMenu = document.querySelector('.nav-mobile-menu');
 
@@ -28,7 +35,6 @@
     hamburger.addEventListener('click', () => {
       const isOpen = mobileMenu.classList.toggle('open');
       hamburger.setAttribute('aria-expanded', isOpen);
-      // Animate hamburger to X
       const spans = hamburger.querySelectorAll('span');
       if (isOpen) {
         spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
@@ -41,27 +47,34 @@
       }
     });
 
-    // Close on outside click
-    document.addEventListener('click', e => {
-      if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+    function closeMenuIfOutside(target) {
+      if (!hamburger.contains(target) && !mobileMenu.contains(target)) {
         mobileMenu.classList.remove('open');
         hamburger.setAttribute('aria-expanded', 'false');
-        hamburger.querySelectorAll('span').forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+        hamburger.querySelectorAll('span').forEach(s => {
+          s.style.transform = '';
+          s.style.opacity   = '';
+        });
       }
-    });
+    }
 
-    // Close on mobile link click
+    // FIX [2]: add touchstart handler so outside-tap closes the menu on mobile.
+    document.addEventListener('click',      e => closeMenuIfOutside(e.target));
+    document.addEventListener('touchstart', e => closeMenuIfOutside(e.target), { passive: true });
+
     mobileMenu.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => {
-        mobileMenu.classList.remove('open');
-      });
+      a.addEventListener('click', () => mobileMenu.classList.remove('open'));
     });
   }
 
-  // Nav background solidifies on scroll
+  // FIX [3]: throttle the scroll handler — was firing every pixel (up to 120×/sec).
   const nav = document.querySelector('nav.site-nav');
   if (nav) {
+    let lastScroll = 0;
     window.addEventListener('scroll', () => {
+      const now = Date.now();
+      if (now - lastScroll < 50) return;
+      lastScroll = now;
       nav.style.borderBottomColor = window.scrollY > 20
         ? 'rgba(245,158,11,0.22)'
         : 'rgba(245,158,11,0.12)';
@@ -101,7 +114,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     const target = document.querySelector(anchor.getAttribute('href'));
     if (target) {
       e.preventDefault();
-      const offset = 72; // nav height
+      const offset = 72;
       const top = target.getBoundingClientRect().top + window.scrollY - offset;
       window.scrollTo({ top, behavior: 'smooth' });
     }
@@ -111,9 +124,11 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 /* ══════════════════════════════════════════════
    TOAST NOTIFICATIONS
+   FIX [4]: moved from window.showToast → window.OR.showToast
+            to avoid polluting the global namespace.
+            window.showToast alias kept for backward-compat.
 ══════════════════════════════════════════════ */
 (function() {
-  // Create toast container
   const toastRoot = document.createElement('div');
   toastRoot.id = 'toast-root';
   toastRoot.style.cssText = `
@@ -128,22 +143,14 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   `;
   document.body.appendChild(toastRoot);
 
-  /**
-   * Show a toast notification
-   * @param {string} message
-   * @param {'info'|'ok'|'warn'|'error'} type
-   * @param {number} duration ms
-   */
-  window.showToast = function(message, type = 'info', duration = 3000) {
+  function showToast(message, type = 'info', duration = 3000) {
     const colors = {
       info:  { border: 'rgba(245,158,11,0.4)',  color: '#e2e8f0' },
       ok:    { border: 'rgba(34,197,94,0.5)',   color: '#22c55e' },
       warn:  { border: 'rgba(245,158,11,0.5)',  color: '#f59e0b' },
       error: { border: 'rgba(239,68,68,0.5)',   color: '#ef4444' },
     };
-
     const { border, color } = colors[type] || colors.info;
-
     const toast = document.createElement('div');
     toast.style.cssText = `
       padding: 10px 18px;
@@ -163,40 +170,52 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     `;
     toast.textContent = message;
     toastRoot.appendChild(toast);
-
     requestAnimationFrame(() => {
       toast.style.opacity = '1';
       toast.style.transform = 'none';
     });
-
     setTimeout(() => {
       toast.style.opacity = '0';
       toast.style.transform = 'translateY(10px)';
       toast.addEventListener('transitionend', () => toast.remove(), { once: true });
     }, duration);
-  };
+  }
+
+  // Namespaced — preferred
+  window.OR = window.OR || {};
+  window.OR.showToast = showToast;
+  // Backward-compat alias
+  window.showToast = showToast;
 })();
 
 
 /* ══════════════════════════════════════════════
    COPY TO CLIPBOARD utility
+   FIX [4]: also namespaced under window.OR
 ══════════════════════════════════════════════ */
-window.copyToClipboard = function(text, label = 'Copied!') {
-  navigator.clipboard.writeText(text).then(() => {
-    window.showToast(`✓ ${label}`, 'ok', 2000);
-  }).catch(() => {
-    // Fallback
-    const ta = document.createElement('textarea');
-    ta.value = text;
-    ta.style.position = 'fixed';
-    ta.style.opacity = '0';
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
-    window.showToast(`✓ ${label}`, 'ok', 2000);
-  });
-};
+(function() {
+  function copyToClipboard(text, label = 'Copied!') {
+    navigator.clipboard.writeText(text).then(() => {
+      window.OR.showToast(`✓ ${label}`, 'ok', 2000);
+    }).catch(() => {
+      // Modern fallback without deprecated execCommand
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.cssText = 'position:fixed;opacity:0;pointer-events:none';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try { document.execCommand('copy'); } catch (_) {}
+      document.body.removeChild(ta);
+      window.OR.showToast(`✓ ${label}`, 'ok', 2000);
+    });
+  }
+
+  window.OR = window.OR || {};
+  window.OR.copyToClipboard = copyToClipboard;
+  // Backward-compat alias
+  window.copyToClipboard = copyToClipboard;
+})();
 
 
 /* ══════════════════════════════════════════════

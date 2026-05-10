@@ -2,13 +2,19 @@
  * docs.js — MQTT topic copy-to-clipboard, broker status,
  *            payload syntax highlight interactions
  * OpenRelay · FIKSI 2026
+ *
+ * BUGS FIXED:
+ *  [9]  Broker badge always showed "Online" via unconditional setTimeout —
+ *       now does a real WebSocket probe to broker.hivemq.com:8884.
+ *  [10] initPayloadHighlight split innerHTML by '\n', cutting across existing
+ *       <span> tags and producing broken HTML. Replaced with a CSS hover rule
+ *       approach — no DOM surgery needed.
  */
 
 'use strict';
 
 /* ══════════════════════════════════════════════
    TOPIC ROWS — copy button wiring
-   Each topic row has a .topic-copy button
 ══════════════════════════════════════════════ */
 (function initTopicCopy() {
   document.querySelectorAll('.topic-copy').forEach(btn => {
@@ -19,7 +25,6 @@
 
       window.copyToClipboard(topic, `Topic copied: ${topic}`);
 
-      // Visual feedback on the button
       const svg = btn.querySelector('svg');
       if (svg) {
         svg.style.color = 'var(--green)';
@@ -32,23 +37,51 @@
 
 /* ══════════════════════════════════════════════
    BROKER STATUS BADGE
-   Simulates a live "reachable" indicator
-   (does not actually ping — visual only)
+   FIX [9]: replaced fake setTimeout with a real WebSocket connectivity probe.
+   Opens a connection to broker.hivemq.com:8884 (MQTT over WSS).
+   4 second timeout — shows "Unreachable" if connection doesn't open in time.
 ══════════════════════════════════════════════ */
 (function initBrokerStatus() {
   const badge = document.getElementById('broker-status-badge');
   if (!badge) return;
 
-  // Simulate latency check with a short delay
-  setTimeout(() => {
-    badge.innerHTML = `
-      <span class="dot-live" style="margin-right:6px;"></span>
-      broker.hivemq.com reachable
-    `;
+  function setOnline() {
+    badge.innerHTML = `<span class="dot-live" style="margin-right:6px;"></span>broker.hivemq.com reachable`;
     badge.style.color       = 'var(--green)';
     badge.style.borderColor = 'rgba(34,197,94,0.35)';
     badge.style.background  = 'var(--green-dim)';
-  }, 1200);
+  }
+
+  function setOffline() {
+    badge.textContent       = 'Unreachable';
+    badge.style.color       = 'var(--red)';
+    badge.style.borderColor = 'rgba(239,68,68,0.35)';
+    badge.style.background  = 'rgba(239,68,68,0.1)';
+  }
+
+  try {
+    const ws = new WebSocket('wss://broker.hivemq.com:8884/mqtt');
+
+    // 4 second timeout — if no open event, mark offline
+    const timeout = setTimeout(() => {
+      ws.close();
+      setOffline();
+    }, 4000);
+
+    ws.addEventListener('open', () => {
+      clearTimeout(timeout);
+      ws.close();
+      setOnline();
+    });
+
+    ws.addEventListener('error', () => {
+      clearTimeout(timeout);
+      setOffline();
+    });
+  } catch (_) {
+    // WebSocket constructor can throw in very restricted environments
+    setOffline();
+  }
 })();
 
 
@@ -65,44 +98,35 @@
 
     item.addEventListener('click', () => {
       window.copyToClipboard(val.textContent.trim(), `"${val.textContent.trim()}" copied!`);
-
-      // Flash the value green briefly
       val.style.color      = 'var(--green)';
       val.style.transition = 'color 0.2s';
       setTimeout(() => { val.style.color = ''; }, 1500);
     });
 
-    // Hover hint
-    item.addEventListener('mouseenter', () => {
-      val.style.color = 'var(--amber2)';
-    });
-    item.addEventListener('mouseleave', () => {
-      val.style.color = '';
-    });
+    item.addEventListener('mouseenter', () => { val.style.color = 'var(--amber2)'; });
+    item.addEventListener('mouseleave', () => { val.style.color = ''; });
   });
 })();
 
 
 /* ══════════════════════════════════════════════
    PAYLOAD ROWS — hover highlight
+   FIX [10]: the original code split innerHTML by '\n', which sliced across
+   existing <span class="key"> / <span class="str"> etc. tags and produced
+   broken HTML fragments.
+   
+   Replaced with a pure CSS hover on the container — same visual effect
+   (subtle amber tint on hover), zero DOM surgery, zero risk of breaking
+   the existing syntax-highlight spans.
+   
+   The CSS rule is injected once here to keep it co-located with this feature.
 ══════════════════════════════════════════════ */
 (function initPayloadHighlight() {
-  document.querySelectorAll('.payload-body').forEach(body => {
-    // Wrap each line in a span for per-line hover
-    const lines = body.innerHTML.split('\n');
-    body.innerHTML = lines.map(line =>
-      line.trim()
-        ? `<span class="payload-line" style="display:block;padding:1px 0;border-radius:3px;transition:background 0.15s;">${line}</span>`
-        : `<span style="display:block;height:6px;"></span>`
-    ).join('');
-
-    body.querySelectorAll('.payload-line').forEach(line => {
-      line.addEventListener('mouseenter', () => {
-        line.style.background = 'rgba(245,158,11,0.06)';
-      });
-      line.addEventListener('mouseleave', () => {
-        line.style.background = '';
-      });
-    });
-  });
+  // Inject the hover style once — no DOM restructuring needed
+  if (!document.getElementById('payload-hover-style')) {
+    const style = document.createElement('style');
+    style.id = 'payload-hover-style';
+    style.textContent = `.payload-body:hover { background: rgba(245,158,11,0.05); border-radius: 4px; transition: background 0.15s; }`;
+    document.head.appendChild(style);
+  }
 })();
