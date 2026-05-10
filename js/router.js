@@ -2,19 +2,10 @@
  * router.js — SPA-style streaming page loader
  * OpenRelay · FIKSI 2026
  *
- * BUG FIXED:
- *  [+] The entire file was dead code — it checked for #app-content which
- *      didn't exist in any HTML page, so every function silently returned
- *      immediately on DOMContentLoaded.
- *
- * HOW TO ACTIVATE:
- *  Add <div id="app-content"></div> to home.html (or whichever page should
- *  stream in content), then include this script. Without that element this
- *  file still does nothing — but now it logs a clear warning instead of
- *  silently failing, making the issue obvious during development.
- *
- *  Also added a visible error message when a section fetch fails, instead
- *  of only console.error (which judges can't see).
+ * BUGS FIXED:
+ *  [+] Dead code — checked for #app-content that didn't exist (now warns clearly)
+ *  [13] Redundant `const app` inside catch block shadowed the outer variable and
+ *       made an unnecessary DOM query. The outer `app` is already in scope.
  */
 
 'use strict';
@@ -82,15 +73,16 @@ async function streamNextSection() {
   } catch (err) {
     console.error('Stream error:', err);
 
-    // FIX: show a visible fallback instead of silently failing
-    const app = document.getElementById('app-content');
+    // FIX [13]: `app` is already in scope from the outer const — no need to
+    // re-query the DOM. The previous `const app` inside catch shadowed the outer
+    // variable unnecessarily and made an extra getElementById call.
     if (app) {
       const errEl = document.createElement('p');
       errEl.style.cssText = 'text-align:center;color:var(--text-dim);padding:24px;font-size:13px;';
       errEl.textContent = 'Could not load section — check your connection.';
       app.appendChild(errEl);
     }
-    pageIndex++; // advance so we don't retry the same failed page
+    pageIndex++;
   }
 
   loading = false;
@@ -146,7 +138,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const app = document.getElementById('app-content');
 
   if (!app) {
-    // FIX: clear warning instead of silent failure
     console.warn(
       '[router.js] #app-content not found. ' +
       'Add <div id="app-content"></div> to your page to enable streaming.'

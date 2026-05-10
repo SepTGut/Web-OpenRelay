@@ -1,15 +1,13 @@
 /* ════════════════════════════════════════════════
    explorer.js — Hardware Explorer Logic
    OpenRelay · FIKSI 2026
- 
+
    BUGS FIXED:
-    [7] Touch double-fire: touchstart+touchend both triggered click() — some
-        browsers also fired the native click, toggling panel open then shut.
+    [7] Touch double-fire: touchstart+touchend both triggered click().
         Removed touchstart handler; kept only touchend with preventDefault.
     [8] closePanel() crashed with TypeError when lastFocusedElement was null
-        (e.g. Escape pressed before any panel was ever opened).
-    [+] mouseleave now checks if any node is active before resetting connections,
-        so connections stay lit while a panel is open.
+        (Escape pressed before any panel was ever opened).
+    [+] mouseleave now checks if any node is active before resetting connections.
 ═════════════════════════════════════════════════ */
 
 'use strict';
@@ -42,8 +40,8 @@
       ],
       items: [
         'Acts as the central communication hub for all OpenRelay devices.',
-        'Supports retained messages and Last Will & Testament (LWT).',
         'Compatible with Home Assistant, Node-RED, and any MQTT client.',
+        'Supports retained messages and Last Will & Testament (LWT).',
         'Dashboard uses MQTT over WSS for secure browser connectivity.',
       ],
       topics: [
@@ -139,9 +137,8 @@
   /* ── BUILD PANEL HTML ── */
   function buildPanel(key) {
     const d = details[key];
-    if (!d) return '';
+    if (!d) return document.createDocumentFragment();
 
-    // Use DOM methods for all dynamic content — safe if data ever becomes dynamic
     const frag = document.createDocumentFragment();
 
     const intro = document.createElement('p');
@@ -158,14 +155,14 @@
     d.specs.forEach(s => {
       const row = document.createElement('div');
       row.className = 'detail-spec-row';
-      const key = document.createElement('span');
-      key.className = 'detail-spec-key';
-      key.textContent = s.k;
-      const val = document.createElement('span');
-      val.className = `detail-spec-val ${s.cls}`;
-      val.textContent = s.v;
-      row.appendChild(key);
-      row.appendChild(val);
+      const k = document.createElement('span');
+      k.className = 'detail-spec-key';
+      k.textContent = s.k;
+      const v = document.createElement('span');
+      v.className = `detail-spec-val ${s.cls}`;
+      v.textContent = s.v;
+      row.appendChild(k);
+      row.appendChild(v);
       specWrap.appendChild(row);
     });
     frag.appendChild(specWrap);
@@ -224,7 +221,6 @@
     conns.forEach(c => c.classList.remove('conn-active'));
     nodes.forEach(n => n.classList.remove('node-active'));
 
-    // FIX [8]: guard against null — lastFocusedElement is null before first open
     if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
       lastFocusedElement.focus();
     }
@@ -241,7 +237,6 @@
     node.addEventListener('mouseenter', () => activateUpTo(idx));
 
     node.addEventListener('mouseleave', () => {
-      // FIX [+]: only reset if NO node is currently active (panel open)
       const anyActive = [...nodes].some(n => n.classList.contains('node-active'));
       if (!anyActive) {
         conns.forEach(c => c.classList.remove('conn-active'));
@@ -266,10 +261,6 @@
       }
     });
 
-    // FIX [7]: Removed touchstart handler that called e.preventDefault() but
-    // did nothing — it was causing double-fire on some browsers because
-    // touchend then called node.click() AND the browser fired a synthetic click.
-    // Now only touchend is used, which reliably fires once.
     node.addEventListener('touchend', e => {
       e.preventDefault();
       node.click();

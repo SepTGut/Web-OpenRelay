@@ -1,5 +1,4 @@
 'use strict';
-// FIX: added 'use strict' — was the only JS file running in sloppy mode.
 
 console.log('OpenRelay NewStyle loaded');
 
@@ -10,7 +9,6 @@ console.log('OpenRelay NewStyle loaded');
  * BUGS FIXED:
  *  [10] mousemove was reassigning card.style.background on every pixel —
  *       hundreds of full repaints per second during mouse drag.
- *
  *       Fix: use CSS custom properties (--mx, --my) instead.
  *       The browser batches CSS var updates and only triggers one composite
  *       pass, not a full repaint. The visual result is identical.
@@ -31,15 +29,11 @@ cards.forEach(card => {
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    // FIX: set CSS custom properties instead of inline background.
-    // One CSS var write per event vs. one full background repaint per event.
     card.style.setProperty('--mx', x + 'px');
     card.style.setProperty('--my', y + 'px');
   });
 
   card.addEventListener('mouseleave', () => {
-    // Remove custom properties so the CSS fallback (50% 50%) takes over,
-    // which matches the original default background on mouseleave.
     card.style.removeProperty('--mx');
     card.style.removeProperty('--my');
   });

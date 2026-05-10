@@ -4,17 +4,16 @@
  * OpenRelay · FIKSI 2026
  *
  * BUGS FIXED:
- *  [+] Arch nodes stayed at opacity 0.4 permanently after the cursor left
- *      the .arch-flow container without hovering another node.
- *      Fixed by adding a mouseleave handler on the parent container that
- *      resets all nodes and arrows to their default state.
+ *  [+] Arch nodes stayed at opacity 0.4 permanently after cursor left .arch-flow
+ *  [14] initCodeCopy used body.innerText which triggers layout reflow and includes
+ *       pseudo-element content in some browsers. Switched to textContent for
+ *       consistent, reflow-free text extraction.
  */
 
 'use strict';
 
 /* ══════════════════════════════════════════════
-   ARCH FLOW — highlight node on hover,
-   animate the arrow between them
+   ARCH FLOW — highlight node on hover
 ══════════════════════════════════════════════ */
 (function initArchFlow() {
   const nodes  = document.querySelectorAll('.arch-node');
@@ -42,14 +41,10 @@
     });
 
     node.addEventListener('mouseleave', () => {
-      // Individual node mouseleave — don't reset here.
-      // The container mouseleave (below) handles full reset.
-      // This prevents a flicker when moving between adjacent nodes.
+      // Container mouseleave handles the full reset — no flicker between nodes.
     });
   });
 
-  // FIX: when the cursor exits the entire flow container,
-  // reset all nodes and arrows — previously they stayed dimmed forever.
   const flow = document.querySelector('.arch-flow');
   if (flow) {
     flow.addEventListener('mouseleave', resetAll);
@@ -81,6 +76,12 @@
 
 /* ══════════════════════════════════════════════
    CODE BLOCKS — copy button per block
+   FIX [14]: replaced innerText with textContent.
+   innerText: triggers layout reflow, includes visible text only,
+              normalizes whitespace per CSS (unreliable for code),
+              may include ::before/::after pseudo-element text in some engines.
+   textContent: no reflow, returns raw text of all child nodes,
+                preserves whitespace as-is — correct for code copying.
 ══════════════════════════════════════════════ */
 (function initCodeCopy() {
   document.querySelectorAll('.code-card').forEach(card => {
@@ -94,8 +95,8 @@
     btn.style.cssText = 'margin-left:auto;font-size:11px;padding:3px 10px;border-radius:4px;';
 
     btn.addEventListener('click', () => {
-      // Normalize extra blank lines that innerText produces from display:block spans
-      const plain = (body.innerText || body.textContent)
+      // FIX: textContent instead of innerText — no reflow, no pseudo-element leakage
+      const plain = (body.textContent || '')
         .replace(/\n{3,}/g, '\n\n')
         .trim();
       window.copyToClipboard(plain, 'Code copied!');

@@ -8,6 +8,7 @@
  *  [2] Mobile menu didn't close on outside touch (touchstart missing)
  *  [3] Scroll handler fired every pixel — now throttled to 50ms
  *  [4] showToast / copyToClipboard polluted window — moved to window.OR namespace
+ *  [5] Smooth scroll crashed with SyntaxError when href was bare '#' — now guarded
  */
 
 'use strict';
@@ -16,8 +17,6 @@
    NAV — active link highlight + mobile menu
 ══════════════════════════════════════════════ */
 (function initNav() {
-  // FIX [1]: pathname.split('/').pop() returns '' on GH Pages directory URLs.
-  // Use the last non-empty segment instead.
   const parts = window.location.pathname.split('/');
   const currentPage = parts[parts.length - 1] || parts[parts.length - 2] || 'home.html';
 
@@ -58,7 +57,6 @@
       }
     }
 
-    // FIX [2]: add touchstart handler so outside-tap closes the menu on mobile.
     document.addEventListener('click',      e => closeMenuIfOutside(e.target));
     document.addEventListener('touchstart', e => closeMenuIfOutside(e.target), { passive: true });
 
@@ -67,7 +65,6 @@
     });
   }
 
-  // FIX [3]: throttle the scroll handler — was firing every pixel (up to 120×/sec).
   const nav = document.querySelector('nav.site-nav');
   if (nav) {
     let lastScroll = 0;
@@ -108,10 +105,14 @@
 
 /* ══════════════════════════════════════════════
    SMOOTH SCROLL for anchor links
+   FIX [5]: guard against bare '#' href which throws SyntaxError in querySelector
 ══════════════════════════════════════════════ */
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', e => {
-    const target = document.querySelector(anchor.getAttribute('href'));
+    const hash = anchor.getAttribute('href');
+    // FIX: bare '#' is not a valid querySelector argument → SyntaxError
+    if (!hash || hash === '#') return;
+    const target = document.querySelector(hash);
     if (target) {
       e.preventDefault();
       const offset = 72;
@@ -124,9 +125,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 /* ══════════════════════════════════════════════
    TOAST NOTIFICATIONS
-   FIX [4]: moved from window.showToast → window.OR.showToast
-            to avoid polluting the global namespace.
-            window.showToast alias kept for backward-compat.
 ══════════════════════════════════════════════ */
 (function() {
   const toastRoot = document.createElement('div');
@@ -181,24 +179,20 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     }, duration);
   }
 
-  // Namespaced — preferred
   window.OR = window.OR || {};
   window.OR.showToast = showToast;
-  // Backward-compat alias
   window.showToast = showToast;
 })();
 
 
 /* ══════════════════════════════════════════════
    COPY TO CLIPBOARD utility
-   FIX [4]: also namespaced under window.OR
 ══════════════════════════════════════════════ */
 (function() {
   function copyToClipboard(text, label = 'Copied!') {
     navigator.clipboard.writeText(text).then(() => {
       window.OR.showToast(`✓ ${label}`, 'ok', 2000);
     }).catch(() => {
-      // Modern fallback without deprecated execCommand
       const ta = document.createElement('textarea');
       ta.value = text;
       ta.style.cssText = 'position:fixed;opacity:0;pointer-events:none';
@@ -213,7 +207,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
   window.OR = window.OR || {};
   window.OR.copyToClipboard = copyToClipboard;
-  // Backward-compat alias
   window.copyToClipboard = copyToClipboard;
 })();
 

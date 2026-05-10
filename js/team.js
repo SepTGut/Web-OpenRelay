@@ -4,19 +4,16 @@
  * OpenRelay · FIKSI 2026
  *
  * BUGS FIXED:
- *  [+] School name stayed blank permanently if IntersectionObserver fired
- *      synchronously or not at all. Added a 2s fallback timeout.
- *  [+] Timeline items used inline style for opacity:0 — if element was already
- *      in viewport on load, transition had no start state and item just appeared.
- *      Now uses CSS class (.timeline-item / .revealed) for clean transitions.
- *      Add these rules to team.css (included as injected style for drop-in safety).
+ *  [+] School name stayed blank permanently if IntersectionObserver didn't fire.
+ *      Added 2s fallback timeout.
+ *  [+] Timeline items used inline style for opacity:0 — broken start state on
+ *      elements already in viewport. Now uses CSS class for clean transition.
  */
 
 'use strict';
 
 /* ══════════════════════════════════════════════
-   INJECT TIMELINE CSS — co-located with the JS
-   that drives it. Safe to move to team.css.
+   INJECT TIMELINE CSS
 ══════════════════════════════════════════════ */
 (function injectTimelineCSS() {
   if (document.getElementById('timeline-fix-style')) return;
@@ -38,8 +35,7 @@
 
 
 /* ══════════════════════════════════════════════
-   TEAM CARDS — avatar ring pulse on hover,
-   skill tag stagger reveal
+   TEAM CARDS
 ══════════════════════════════════════════════ */
 (function initTeamCards() {
   document.querySelectorAll('.team-card').forEach(card => {
@@ -72,15 +68,10 @@
 
 /* ══════════════════════════════════════════════
    TIMELINE — animate items in sequence
-   FIX: use CSS class instead of inline style so the
-   browser has a proper start state for transitions.
 ══════════════════════════════════════════════ */
 (function initTimeline() {
   const items = document.querySelectorAll('.timeline-item');
   if (!items.length) return;
-
-  // CSS class drives the hidden → visible transition (injected above).
-  // No inline style needed here.
 
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
@@ -92,7 +83,6 @@
 
       setTimeout(() => {
         item.classList.add('revealed');
-
         if (dot) {
           dot.style.transform  = 'scale(1.4)';
           dot.style.transition = 'transform 0.3s ease';
@@ -109,7 +99,7 @@
 
 
 /* ══════════════════════════════════════════════
-   FIKSI BADGES — hover lift + glow
+   FIKSI BADGES — hover lift
 ══════════════════════════════════════════════ */
 (function initFiksiBadges() {
   document.querySelectorAll('.fiksi-badge').forEach(badge => {
@@ -129,10 +119,7 @@
 
 
 /* ══════════════════════════════════════════════
-   SCHOOL CARD — typewriter effect on school name
-   FIX: added 2s fallback timeout in case the
-   IntersectionObserver never fires (element already
-   in viewport, or threshold not met on short screens).
+   SCHOOL CARD — typewriter effect
 ══════════════════════════════════════════════ */
 (function initSchoolTypewriter() {
   const nameEl = document.querySelector('.school-name');
@@ -160,8 +147,6 @@
     }, 48);
   }
 
-  // FIX: if the element is already in viewport or the observer never fires,
-  // restore the full text after 2 seconds so the heading is never blank.
   const fallbackTimer = setTimeout(() => {
     if (!started) {
       nameEl.textContent       = fullText;
@@ -181,7 +166,7 @@
 
 
 /* ══════════════════════════════════════════════
-   SKILL TAGS — individual hover color per tag
+   SKILL TAGS — individual hover color
 ══════════════════════════════════════════════ */
 (function initSkillTags() {
   const palette = [

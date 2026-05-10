@@ -1,0 +1,162 @@
+{
+  "communities": {
+    "0": [
+      "js_app_colors",
+      "js_app_hamburger",
+      "js_app_isopen",
+      "js_app_js",
+      "js_app_mobilemenu",
+      "js_app_nav",
+      "js_app_observer",
+      "js_app_reveals",
+      "js_app_spans",
+      "js_app_ta",
+      "js_app_target",
+      "js_app_toast",
+      "js_app_toastroot"
+    ],
+    "1": [
+      "js_explorer_activateupto",
+      "js_explorer_buildpanel",
+      "js_explorer_closepanel",
+      "js_explorer_conns",
+      "js_explorer_details",
+      "js_explorer_js",
+      "js_explorer_nodes",
+      "js_explorer_openpanel",
+      "js_explorer_overlay",
+      "js_explorer_panel",
+      "js_explorer_panelbody",
+      "js_explorer_panelclose",
+      "js_explorer_paneltitle"
+    ],
+    "2": [
+      "js_home_animate",
+      "js_home_animatecount",
+      "js_home_badge",
+      "js_home_container",
+      "js_home_d",
+      "js_home_dot",
+      "js_home_dots",
+      "js_home_easeoutquart",
+      "js_home_js",
+      "js_home_observer",
+      "js_home_stats"
+    ],
+    "3": [
+      "js_features_arrows",
+      "js_features_body",
+      "js_features_btn",
+      "js_features_cards",
+      "js_features_header",
+      "js_features_js",
+      "js_features_layers",
+      "js_features_nodes",
+      "js_features_observer"
+    ],
+    "4": [
+      "js_router_app",
+      "js_router_fetchsection",
+      "js_router_initdynamiccontent",
+      "js_router_js",
+      "js_router_pages",
+      "js_router_setupinfinitescroll",
+      "js_router_setupnavigation",
+      "js_router_streamnextsection"
+    ],
+    "5": [
+      "js_team_fulltext",
+      "js_team_items",
+      "js_team_js",
+      "js_team_nameel",
+      "js_team_observer",
+      "js_team_palette",
+      "js_team_ring",
+      "js_team_skills"
+    ],
+    "6": [
+      "js_docs_badge",
+      "js_docs_js",
+      "js_docs_lines",
+      "js_docs_row",
+      "js_docs_svg",
+      "js_docs_topic",
+      "js_docs_val"
+    ],
+    "7": [
+      "newstyle_app_cards",
+      "newstyle_app_js",
+      "newstyle_app_rect"
+    ]
+  },
+  "cohesion": {
+    "0": 0.15,
+    "1": 0.17,
+    "2": 0.18,
+    "3": 0.22,
+    "4": 0.32,
+    "5": 0.25,
+    "6": 0.29,
+    "7": 0.67
+  },
+  "gods": [
+    {
+      "id": "js_router_streamnextsection",
+      "label": "streamNextSection()",
+      "degree": 3
+    },
+    {
+      "id": "js_explorer_buildpanel",
+      "label": "buildPanel()",
+      "degree": 2
+    },
+    {
+      "id": "js_explorer_openpanel",
+      "label": "openPanel()",
+      "degree": 2
+    },
+    {
+      "id": "js_router_fetchsection",
+      "label": "fetchSection()",
+      "degree": 2
+    },
+    {
+      "id": "js_router_initdynamiccontent",
+      "label": "initDynamicContent()",
+      "degree": 2
+    },
+    {
+      "id": "js_app_hamburger",
+      "label": "hamburger",
+      "degree": 1
+    },
+    {
+      "id": "js_app_mobilemenu",
+      "label": "mobileMenu",
+      "degree": 1
+    },
+    {
+      "id": "js_app_isopen",
+      "label": "isOpen",
+      "degree": 1
+    },
+    {
+      "id": "js_app_spans",
+      "label": "spans",
+      "degree": 1
+    },
+    {
+      "id": "js_app_nav",
+      "label": "nav",
+      "degree": 1
+    }
+  ],
+  "surprises": [],
+  "questions": [
+    {
+      "type": "isolated_nodes",
+      "question": "What connects `hamburger`, `mobileMenu`, `isOpen` to the rest of the system?",
+      "why": "52 weakly-connected nodes found - possible documentation gaps or missing edges."
+    }
+  ]
+}

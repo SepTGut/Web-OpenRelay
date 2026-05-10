@@ -7,8 +7,10 @@
  *  [9]  Broker badge always showed "Online" via unconditional setTimeout —
  *       now does a real WebSocket probe to broker.hivemq.com:8884.
  *  [10] initPayloadHighlight split innerHTML by '\n', cutting across existing
- *       <span> tags and producing broken HTML. Replaced with a CSS hover rule
- *       approach — no DOM surgery needed.
+ *       <span> tags and producing broken HTML. Replaced with a CSS hover rule.
+ *  [11] initCredsCopy race condition — mouseleave cleared inline color before
+ *       the click's 1500ms timeout fired, permanently stranding the green flash.
+ *       Fixed by tracking and clearing the active timeout on mouseleave.
  */
 
 'use strict';
@@ -37,9 +39,7 @@
 
 /* ══════════════════════════════════════════════
    BROKER STATUS BADGE
-   FIX [9]: replaced fake setTimeout with a real WebSocket connectivity probe.
-   Opens a connection to broker.hivemq.com:8884 (MQTT over WSS).
-   4 second timeout — shows "Unreachable" if connection doesn't open in time.
+   Real WebSocket probe with 4s timeout.
 ══════════════════════════════════════════════ */
 (function initBrokerStatus() {
   const badge = document.getElementById('broker-status-badge');
@@ -47,39 +47,20 @@
 
   function setOnline() {
     badge.innerHTML = `<span class="dot-live" style="margin-right:6px;"></span>broker.hivemq.com reachable`;
-    badge.style.color       = 'var(--green)';
-    badge.style.borderColor = 'rgba(34,197,94,0.35)';
-    badge.style.background  = 'var(--green-dim)';
+    badge.style.color = 'var(--green)';
   }
 
   function setOffline() {
-    badge.textContent       = 'Unreachable';
-    badge.style.color       = 'var(--red)';
-    badge.style.borderColor = 'rgba(239,68,68,0.35)';
-    badge.style.background  = 'rgba(239,68,68,0.1)';
+    badge.textContent = 'Unreachable';
+    badge.style.color = 'var(--red)';
   }
 
   try {
     const ws = new WebSocket('wss://broker.hivemq.com:8884/mqtt');
-
-    // 4 second timeout — if no open event, mark offline
-    const timeout = setTimeout(() => {
-      ws.close();
-      setOffline();
-    }, 4000);
-
-    ws.addEventListener('open', () => {
-      clearTimeout(timeout);
-      ws.close();
-      setOnline();
-    });
-
-    ws.addEventListener('error', () => {
-      clearTimeout(timeout);
-      setOffline();
-    });
+    const timeout = setTimeout(() => { ws.close(); setOffline(); }, 4000);
+    ws.addEventListener('open', () => { clearTimeout(timeout); ws.close(); setOnline(); });
+    ws.addEventListener('error', () => { clearTimeout(timeout); setOffline(); });
   } catch (_) {
-    // WebSocket constructor can throw in very restricted environments
     setOffline();
   }
 })();
@@ -87,6 +68,8 @@
 
 /* ══════════════════════════════════════════════
    CREDS BOX — click any cred value to copy
+   FIX [11]: track the active reset timer per item and cancel it on mouseleave
+   so the green flash always completes its full 1500ms, not cut short by hover-out.
 ══════════════════════════════════════════════ */
 (function initCredsCopy() {
   document.querySelectorAll('.cred-item').forEach(item => {
@@ -96,33 +79,37 @@
     item.style.cursor = 'pointer';
     item.title        = 'Click to copy';
 
+    let resetTimer = null;
+
     item.addEventListener('click', () => {
       window.copyToClipboard(val.textContent.trim(), `"${val.textContent.trim()}" copied!`);
       val.style.color      = 'var(--green)';
       val.style.transition = 'color 0.2s';
-      setTimeout(() => { val.style.color = ''; }, 1500);
+      // FIX: clear any previous timer before setting a new one
+      clearTimeout(resetTimer);
+      resetTimer = setTimeout(() => {
+        val.style.color = '';
+        resetTimer = null;
+      }, 1500);
     });
 
-    item.addEventListener('mouseenter', () => { val.style.color = 'var(--amber2)'; });
-    item.addEventListener('mouseleave', () => { val.style.color = ''; });
+    item.addEventListener('mouseenter', () => {
+      // Only tint if not in the middle of the green-flash sequence
+      if (!resetTimer) val.style.color = 'var(--amber2)';
+    });
+
+    item.addEventListener('mouseleave', () => {
+      // Only clear if we're not mid-flash
+      if (!resetTimer) val.style.color = '';
+    });
   });
 })();
 
 
 /* ══════════════════════════════════════════════
-   PAYLOAD ROWS — hover highlight
-   FIX [10]: the original code split innerHTML by '\n', which sliced across
-   existing <span class="key"> / <span class="str"> etc. tags and produced
-   broken HTML fragments.
-   
-   Replaced with a pure CSS hover on the container — same visual effect
-   (subtle amber tint on hover), zero DOM surgery, zero risk of breaking
-   the existing syntax-highlight spans.
-   
-   The CSS rule is injected once here to keep it co-located with this feature.
+   PAYLOAD ROWS — hover highlight (pure CSS injection)
 ══════════════════════════════════════════════ */
 (function initPayloadHighlight() {
-  // Inject the hover style once — no DOM restructuring needed
   if (!document.getElementById('payload-hover-style')) {
     const style = document.createElement('style');
     style.id = 'payload-hover-style';
