@@ -20,12 +20,12 @@
 /* ── Pages to stream in order ── */
 const PAGES = [
   { file: 'features.html', id: 'stream-features', label: 'Fitur' },
-  { file: 'docs.html',     id: 'stream-docs',     label: 'Dokumentasi' },
-  { file: 'team.html',     id: 'stream-team',      label: 'Tim' },
+  { file: 'docs.html', id: 'stream-docs', label: 'Dokumentasi' },
+  { file: 'team.html', id: 'stream-team', label: 'Tim' },
 ];
 
 let pageIndex = 0;
-let loading   = false;
+let loading = false;
 
 /* ════════════════════════════════════════════════
    FETCH — pull .page-main inner sections from a page
@@ -35,10 +35,10 @@ let loading   = false;
 async function fetchSections(file) {
   const res = await fetch(file);
   if (!res.ok) throw new Error(`HTTP ${res.status} — ${file}`);
-  const html   = await res.text();
+  const html = await res.text();
   const parser = new DOMParser();
-  const doc    = parser.parseFromString(html, 'text/html');
-  const main   = doc.querySelector('.page-main');
+  const doc = parser.parseFromString(html, 'text/html');
+  const main = doc.querySelector('.page-main');
   if (!main) return '';
 
   // Remove page-level hero / header divs that duplicate the home hero
@@ -51,11 +51,12 @@ async function fetchSections(file) {
    INIT SCRIPTS — re-run page-specific initialisers
    for a newly injected DOM subtree.
 ════════════════════════════════════════════════ */
+function initSectionScripts(wrapper, file) {
   // Global animations from animations.js
   if (window.OR) {
     if (window.OR.initMagnetic) window.OR.initMagnetic(wrapper);
-    if (window.OR.initTilt)     window.OR.initTilt(wrapper);
-    if (window.OR.initStagger)  window.OR.initStagger(wrapper);
+    if (window.OR.initTilt) window.OR.initTilt(wrapper);
+    if (window.OR.initStagger) window.OR.initStagger(wrapper);
   }
 
   // Scroll-reveal: pick up any .reveal elements in the new section
@@ -88,7 +89,7 @@ async function fetchSections(file) {
     initTopicCopy(wrapper);
     initCredsCopy(wrapper);
     initPayloadHighlight();
-    initBrokerStatus();         // idempotent — checks for element first
+    initBrokerStatus(); // idempotent — checks for element first
   }
 
   // team.html scripts
@@ -151,16 +152,16 @@ async function streamNext() {
 
     // Content wrapper
     const wrapper = document.createElement('div');
-    wrapper.id          = id;
+    wrapper.id = id;
     wrapper.dataset.page = file;
-    wrapper.className   = 'stream-section';
+    wrapper.className = 'stream-section';
     wrapper.style.cssText = 'opacity:0;transform:translateY(32px);transition:opacity .55s ease,transform .55s ease;';
-    wrapper.innerHTML   = html;
+    wrapper.innerHTML = html;
     app.appendChild(wrapper);
 
     // Animate in next frame
     requestAnimationFrame(() => {
-      wrapper.style.opacity   = '1';
+      wrapper.style.opacity = '1';
       wrapper.style.transform = 'translateY(0)';
     });
 
@@ -243,10 +244,10 @@ function setupNavigation() {
 ════════════════════════════════════════════════ */
 function setupHashTracking() {
   const map = [
-    { id: 'beranda',         hash: '#beranda' },
+    { id: 'beranda', hash: '#beranda' },
     { id: 'stream-features', hash: '#fitur' },
-    { id: 'stream-docs',     hash: '#dokumentasi' },
-    { id: 'stream-team',     hash: '#tim' },
+    { id: 'stream-docs', hash: '#dokumentasi' },
+    { id: 'stream-team', hash: '#tim' },
   ];
 
   const obs = new IntersectionObserver(entries => {
@@ -315,7 +316,7 @@ function injectTimelineCSS() {
 
 /* features.js stubs */
 function initArchFlow(scope) {
-  const nodes  = scope.querySelectorAll('.arch-node');
+  const nodes = scope.querySelectorAll('.arch-node');
   const arrows = scope.querySelectorAll('.arch-arrow');
   if (!nodes.length) return;
   function resetAll() {
@@ -325,12 +326,12 @@ function initArchFlow(scope) {
   nodes.forEach((node, i) => {
     node.addEventListener('mouseenter', () => {
       nodes.forEach((n, j) => {
-        n.style.opacity     = j === i ? '1' : '0.4';
+        n.style.opacity = j === i ? '1' : '0.4';
         n.style.borderColor = j === i ? 'var(--border2)' : 'var(--border)';
-        n.style.boxShadow   = j === i ? 'var(--shadow-amber)' : 'none';
+        n.style.boxShadow = j === i ? 'var(--shadow-amber)' : 'none';
       });
       if (arrows[i - 1]) arrows[i - 1].style.color = 'var(--amber2)';
-      if (arrows[i])     arrows[i].style.color     = 'var(--amber2)';
+      if (arrows[i]) arrows[i].style.color = 'var(--amber2)';
     });
   });
   const flow = scope.querySelector('.arch-flow');
@@ -350,7 +351,7 @@ function initCodeCopy(scope) {
     if (card.dataset.copyInit) return;
     card.dataset.copyInit = '1';
     const header = card.querySelector('.code-header');
-    const body   = card.querySelector('.code-body');
+    const body = card.querySelector('.code-body');
     if (!header || !body) return;
     const btn = document.createElement('button');
     btn.className = 'btn btn-ghost btn-sm';
@@ -381,7 +382,7 @@ function initLayerReveal(scope) {
       if (entry.isIntersecting) {
         setTimeout(() => {
           entry.target.style.borderColor = 'var(--border2)';
-          entry.target.style.transition  = 'border-color 0.4s ease';
+          entry.target.style.transition = 'border-color 0.4s ease';
         }, i * 120);
         obs.unobserve(entry.target);
       }
@@ -435,8 +436,8 @@ function initBrokerStatus() {
   badge.dataset.probed = '1';
   try {
     const ws = new WebSocket('wss://broker.hivemq.com:8884/mqtt');
-    const t  = setTimeout(() => { ws.close(); badge.textContent = 'Unreachable'; badge.style.color = 'var(--red)'; }, 4000);
-    ws.addEventListener('open',  () => { clearTimeout(t); ws.close(); badge.innerHTML = '<span class="dot-live" style="margin-right:6px;"></span>broker.hivemq.com reachable'; badge.style.color = 'var(--green)'; });
+    const t = setTimeout(() => { ws.close(); badge.textContent = 'Unreachable'; badge.style.color = 'var(--red)'; }, 4000);
+    ws.addEventListener('open', () => { clearTimeout(t); ws.close(); badge.innerHTML = '<span class="dot-live" style="margin-right:6px;"></span>broker.hivemq.com reachable'; badge.style.color = 'var(--green)'; });
     ws.addEventListener('error', () => { clearTimeout(t); badge.textContent = 'Unreachable'; badge.style.color = 'var(--red)'; });
   } catch (_) { badge.textContent = 'Unreachable'; badge.style.color = 'var(--red)'; }
 }
@@ -444,7 +445,7 @@ function initBrokerStatus() {
 /* team.js stubs */
 function initTeamCards(scope) {
   scope.querySelectorAll('.team-card').forEach(card => {
-    const ring   = card.querySelector('.team-avatar-ring');
+    const ring = card.querySelector('.team-avatar-ring');
     const skills = card.querySelectorAll('.skill-tag');
     card.addEventListener('mouseenter', () => {
       if (ring) ring.style.animationDuration = '1s';
@@ -466,8 +467,8 @@ function initTimeline(scope) {
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
       const item = entry.target;
-      const dot  = item.querySelector('.timeline-dot');
-      const idx  = Array.from(items).indexOf(item);
+      const dot = item.querySelector('.timeline-dot');
+      const idx = Array.from(items).indexOf(item);
       setTimeout(() => {
         item.classList.add('revealed');
         if (dot) { dot.style.transform = 'scale(1.4)'; dot.style.transition = 'transform .3s ease'; setTimeout(() => { dot.style.transform = ''; }, 300); }
@@ -509,9 +510,9 @@ function initSchoolTypewriter(scope) {
 
 function initSkillTags(scope) {
   const palette = [
-    { bg: 'var(--amber-dim)', border: 'var(--border2)',         color: 'var(--amber)' },
-    { bg: 'var(--green-dim)', border: 'rgba(34,197,94,0.25)',   color: 'var(--green)' },
-    { bg: 'var(--blue-dim)',  border: 'rgba(56,189,248,0.25)',  color: 'var(--blue)'  },
+    { bg: 'var(--amber-dim)', border: 'var(--border2)', color: 'var(--amber)' },
+    { bg: 'var(--green-dim)', border: 'rgba(34,197,94,0.25)', color: 'var(--green)' },
+    { bg: 'var(--blue-dim)', border: 'rgba(56,189,248,0.25)', color: 'var(--blue)' },
   ];
   scope.querySelectorAll('.skill-tag').forEach((tag, i) => {
     const p = palette[i % palette.length];
