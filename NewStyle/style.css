@@ -1,42 +1,431 @@
-body {
-  font-family: Inter, system-ui, sans-serif;
+/*!
+ * OPENRELAY INDUSTRIAL HUD DESIGN SYSTEM
+ * Version: 1.0.0 | Target: NewStyle Production
+ * Tone: Brutalist Engineering / Spacecraft Control
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Michroma&display=swap');
+
+:root {
+  /* --- THE PALETTE: OBSIDIAN & AMBER --- */
+  --color-bg: #050505;
+  --color-bg-alt: #0a0a0a;
+  --color-bg-card: rgba(12, 12, 12, 0.85);
+
+  --color-accent: #FFB400; /* Industrial Amber */
+  --color-accent-dim: rgba(255, 180, 0, 0.3);
+  --color-accent-glow: rgba(255, 180, 0, 0.15);
+
+  --color-text: #E0E0E0;
+  --color-text-dim: #888888;
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-border-accent: rgba(255, 180, 0, 0.5);
+
+  /* --- TYPOGRAPHY --- */
+  --font-display: 'Michroma', sans-serif; /* Tech/Futuristic */
+  --font-mono: 'JetBrains Mono', monospace; /* Engineering Precision */
+
+  /* --- HUD DIMENSIONS --- */
+  --hud-padding: 24px;
+  --grid-size: 32px;
+  --transition-fast: 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.bg-grid {
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-mono);
+  overflow-x: hidden;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ══ GLOBAL HUD OVERLAYS ══ */
+
+.hud-grid {
   position: fixed;
   inset: 0;
   background-image:
-    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
-  mask-image: radial-gradient(circle at center, black, transparent 80%);
+    linear-gradient(to right, var(--color-border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-border) 1px, transparent 1px);
+  background-size: var(--grid-size) var(--grid-size);
   pointer-events: none;
+  z-index: 100;
+  mask-image: radial-gradient(circle at center, black, transparent 90%);
+  opacity: 0.3;
 }
 
-.glass-card {
-  /*
-   * FIX: background now uses CSS custom properties --mx / --my
-   * set by NewStyle/app.js on mousemove.
-   * Fallback values (50% 50%) reproduce the original static center gradient
-   * when no mouse position has been set (e.g. on touch, or before hover).
-   *
-   * This replaces the old approach of reassigning card.style.background
-   * inline on every pixel of mouse movement (which triggered a full repaint
-   * each time). CSS var updates are batched by the browser — one composite
-   * pass instead of hundreds of repaints per second.
-   */
-  background: radial-gradient(
-    circle at var(--mx, 50%) var(--my, 50%),
-    rgba(245,158,11,0.14),
-    rgba(255,255,255,0.04)
-  );
-  border: 1px solid rgba(255,255,255,0.08);
-  backdrop-filter: blur(16px);
-  transition: all .3s ease;
+.hud-crt {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%,
+    rgba(0, 0, 0, 0.1) 50%
+  ), linear-gradient(90deg, rgba(255,0,0,0.02), rgba(0,255,0,0.01), rgba(0,0,255,0.02));
+  background-size: 100% 3px, 3px 100%;
+  pointer-events: none;
+  z-index: 101;
 }
 
-.glass-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(245,158,11,0.4);
-  box-shadow: 0 0 30px rgba(245,158,11,0.12);
+.hud-brackets {
+  position: fixed;
+  inset: 20px;
+  pointer-events: none;
+  z-index: 102;
+}
+
+.bracket {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-color: var(--color-accent);
+  border-style: solid;
+  border-width: 2px;
+}
+
+.br-tl { top: 0; left: 0; border-right: 0; border-bottom: 0; }
+.br-tr { top: 0; right: 0; border-left: 0; border-bottom: 0; }
+.br-bl { bottom: 0; left: 0; border-right: 0; border-top: 0; }
+.br-br { bottom: 0; right: 0; border-left: 0; border-top: 0; }
+
+/* ══ NAVIGATION ══ */
+
+.hud-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px var(--hud-padding);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-bg-alt);
+  position: relative;
+  z-index: 103;
+}
+
+.hud-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-mark {
+  font-family: var(--font-display);
+  font-size: 24px;
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  padding: 0 8px;
+}
+
+.logo-text {
+  font-family: var(--font-display);
+  font-size: 18px;
+  letter-spacing: 1px;
+}
+
+.version {
+  font-size: 10px;
+  color: var(--color-text-dim);
+  vertical-align: super;
+}
+
+.system-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--color-text-dim);
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--color-accent);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--color-accent);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.hud-time {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--color-text-dim);
+}
+
+/* ══ TERMINAL LAYOUT ══ */
+
+.hud-terminal {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px var(--hud-padding);
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.hud-section {
+  position: relative;
+}
+
+.hud-header-group {
+  margin-bottom: 32px;
+}
+
+.hud-text-display {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-size: clamp(24px, 5vw, 48px);
+  color: var(--color-text);
+}
+
+.accent {
+  color: var(--color-accent);
+}
+
+/* ══ COMPONENTS ══ */
+
+.hud-label {
+  font-size: 11px;
+  color: var(--color-text-dim);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.glass-panel {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  backdrop-filter: blur(20px);
+  position: relative;
+  padding: 24px;
+  transition: var(--transition-smooth);
+}
+
+.glass-panel:hover {
+  border-color: var(--color-border-accent);
+  box-shadow: 0 0 30px var(--color-accent-glow);
+}
+
+.hud-grid-layout {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.hud-main-readout {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.readout-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.header-line {
+  height: 1px;
+  background: var(--color-border);
+  width: 100%;
+}
+
+.readout-text {
+  font-size: 18px;
+  color: var(--color-text);
+  max-width: 600px;
+}
+
+.readout-actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.hud-telemetry {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.telemetry-card {
+  padding: 16px;
+}
+
+.hud-value {
+  font-family: var(--font-display);
+  color: var(--color-accent);
+  font-size: 2rem;
+  margin: 4px 0;
+}
+
+.stat-bar {
+  height: 4px;
+  background: rgba(255,255,255,0.05);
+  width: 100%;
+  margin-top: 8px;
+}
+
+.bar-fill {
+  height: 100%;
+  background: var(--color-accent);
+  box-shadow: 0 0 8px var(--color-accent);
+}
+
+/* ══ RELAY VISUALIZER ══ */
+
+.hud-visualizer {
+  margin-top: 24px;
+}
+
+.vis-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.status-tag {
+  font-size: 10px;
+  padding: 2px 8px;
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+  background: var(--color-accent-dim);
+}
+
+.relay-vis {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12px, 1fr));
+  gap: 8px;
+  justify-content: center;
+}
+
+.relay-dot {
+  width: 12px;
+  height: 12px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid var(--color-border);
+  transition: all 0.2s ease;
+}
+
+.relay-dot.on {
+  background: var(--color-accent);
+  box-shadow: 0 0 10px var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.relay-dot.alt {
+  background: var(--color-text-dim);
+  border-color: var(--color-text-dim);
+}
+
+/* ══ SPECS GRID ══ */
+
+.specs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.spec-item {
+  padding: 16px;
+  text-align: center;
+}
+
+.hud-value-sm {
+  font-family: var(--font-display);
+  color: var(--color-accent);
+  font-size: 1.1rem;
+}
+
+/* ══ HUD BUTTONS ══ */
+
+.hud-btn {
+  font-family: var(--font-mono);
+  background: transparent;
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  padding: 10px 20px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+.hud-btn:hover {
+  color: var(--color-bg);
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.hud-btn.primary {
+  background: var(--color-accent);
+  color: var(--color-bg);
+  border-color: var(--color-accent);
+}
+
+.hud-btn.primary:hover {
+  background: var(--color-text);
+  color: var(--color-bg);
+  border-color: var(--color-text);
+}
+
+/* ══ FOOTER ══ */
+
+.hud-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 12px var(--hud-padding);
+  background: var(--color-bg-alt);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--color-text-dim);
+  letter-spacing: 1px;
+  z-index: 103;
+}
+
+/* ANIMATIONS */
+@keyframes stutter-reveal {
+  0% { opacity: 0; transform: translateX(-10px); }
+  20% { opacity: 0.5; transform: translateX(5px); }
+  40% { opacity: 0.2; transform: translateX(-2px); }
+  60% { opacity: 0.8; transform: translateX(2px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+.reveal-stutter {
+  animation: stutter-reveal 0.4s forwards;
+}
+
+@media (max-width: 900px) {
+  .hud-grid-layout {
+    grid-template-columns: 1fr;
+  }
+  .hud-nav {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
 }
