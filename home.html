@@ -9,6 +9,9 @@
 
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/home.css" />
+  <link rel="stylesheet" href="css/features.css" />
+  <link rel="stylesheet" href="css/docs.css" />
+  <link rel="stylesheet" href="css/team.css" />
 </head>
 <body>
 
@@ -36,7 +39,7 @@
     </a>
 
     <ul class="nav-links" role="list">
-      <li><a href="home.html" class="active">Beranda</a></li>
+      <li><a href="#beranda">Beranda</a></li>
       <li><a href="features.html">Fitur</a></li>
       <li><a href="docs.html">Dokumentasi</a></li>
       <li><a href="team.html">Tim</a></li>
@@ -44,7 +47,7 @@
     </ul>
 
     <div class="nav-cta-wrap">
-      <a href="docs.html#akses" class="nav-cta">
+      <a href="docs.html" class="nav-cta">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
           <path d="M5 12h14M12 5l7 7-7 7"/>
         </svg>
@@ -58,12 +61,12 @@
   </nav>
 
   <div class="nav-mobile-menu" role="menu">
-    <a href="home.html" role="menuitem" class="active">Beranda</a>
+    <a href="#beranda" role="menuitem">Beranda</a>
     <a href="features.html" role="menuitem">Fitur</a>
     <a href="docs.html" role="menuitem">Dokumentasi</a>
     <a href="team.html" role="menuitem">Tim</a>
     <a href="explorer.html" role="menuitem">Explorer</a>
-    <a href="docs.html#akses" class="nav-cta" role="menuitem">Akses Sekarang</a>
+    <a href="docs.html" class="nav-cta" role="menuitem">Akses Sekarang</a>
   </div>
 
   <!-- ══ MAIN ══ -->
@@ -105,33 +108,25 @@
 
       <!-- Stats bar -->
       <div class="hero-stats" role="list" aria-label="Key statistics">
-
         <div class="stat" role="listitem">
           <div class="stat-num" data-count="128" data-suffix="">0</div>
           <div class="stat-label">Relay Channels</div>
         </div>
-
         <div class="stat-divider" aria-hidden="true"></div>
-
         <div class="stat" role="listitem">
           <div class="stat-num">ESP32</div>
           <div class="stat-label">Platform</div>
         </div>
-
         <div class="stat-divider" aria-hidden="true"></div>
-
         <div class="stat" role="listitem">
           <div class="stat-num">MQTT</div>
           <div class="stat-label">Protocol</div>
         </div>
-
         <div class="stat-divider" aria-hidden="true"></div>
-
         <div class="stat" role="listitem">
           <div class="stat-num" data-count="8" data-suffix="MB">0</div>
           <div class="stat-label">LittleFS Flash</div>
         </div>
-
       </div>
 
       <!-- Relay dot visualizer -->
@@ -155,7 +150,6 @@
             Komunikasi dari SMK Negeri 1 Madiun, Jawa Timur.
           </p>
         </div>
-
         <div class="comp-badges">
           <div class="comp-badge">
             <div class="comp-badge-icon" aria-hidden="true">🏆</div>
@@ -164,7 +158,6 @@
               <div class="comp-badge-sub">Kompetisi Nasional SMK</div>
             </div>
           </div>
-
           <div class="comp-badge">
             <div class="comp-badge-icon" aria-hidden="true">🏫</div>
             <div>
@@ -172,7 +165,6 @@
               <div class="comp-badge-sub">Jawa Timur, Indonesia</div>
             </div>
           </div>
-
           <div class="comp-badge">
             <div class="comp-badge-icon" aria-hidden="true">💡</div>
             <div>
@@ -199,18 +191,15 @@
             <p>
               OpenRelay adalah platform kontrol relay <strong>open source</strong> berbasis
               ESP32 yang dirancang untuk otomasi rumah, industri kecil, dan eksperimen IoT modern.
-              Seluruh komponen — dari firmware hingga PCB — dibuat sendiri.
             </p>
             <p>
               Sistem mendukung hingga <strong>128 channel relay</strong> menggunakan ekspander
               I2C (PCF8574 &amp; MCP23017), dikontrol melalui MQTT, WebSocket, atau REST API.
-              Dashboard web tersedia secara remote via GitHub Pages dan lokal via LittleFS ESP32.
             </p>
             <p>
               Kompatibel dengan ekosistem <strong>WLED</strong> — sehingga bisa diintegrasikan
               ke sistem yang sudah ada tanpa konfigurasi ulang.
             </p>
-
             <div class="about-highlights">
               <div class="highlight-item">Firmware ~1585 baris · 15+ bug diperbaiki</div>
               <div class="highlight-item">PCB custom via EasyEDA + MCP23017 + INMP441</div>
@@ -220,51 +209,25 @@
             </div>
           </div>
 
-          <!-- Spec card -->
           <div class="spec-card card">
             <div class="card-top-stripe" aria-hidden="true"></div>
             <div class="spec-card-header">
               <div class="spec-card-title">Hardware Specifications</div>
             </div>
             <div class="spec-rows">
-              <div class="spec-row">
-                <span class="spec-key">MCU</span>
-                <span class="spec-val">ESP32 Dual-core</span>
-              </div>
-              <div class="spec-row">
-                <span class="spec-key">Max Relay</span>
-                <span class="spec-val">128 Channel</span>
-              </div>
-              <div class="spec-row">
-                <span class="spec-key">Storage</span>
-                <span class="spec-val">LittleFS 8MB</span>
-              </div>
-              <div class="spec-row">
-                <span class="spec-key">Protocol</span>
-                <span class="spec-val">MQTT / WS / REST</span>
-              </div>
-              <div class="spec-row">
-                <span class="spec-key">Expansion</span>
-                <span class="spec-val">PCF8574 / MCP23017</span>
-              </div>
-              <div class="spec-row">
-                <span class="spec-key">OTA</span>
-                <span class="spec-val">Supported</span>
-              </div>
-              <div class="spec-row">
-                <span class="spec-key">Watchdog</span>
-                <span class="spec-val">Hardware 10s</span>
-              </div>
-              <div class="spec-row">
-                <span class="spec-key">WLED Compat</span>
-                <span class="spec-val">v0.14.0-relay</span>
-              </div>
+              <div class="spec-row"><span class="spec-key">MCU</span><span class="spec-val">ESP32 Dual-core</span></div>
+              <div class="spec-row"><span class="spec-key">Max Relay</span><span class="spec-val">128 Channel</span></div>
+              <div class="spec-row"><span class="spec-key">Storage</span><span class="spec-val">LittleFS 8MB</span></div>
+              <div class="spec-row"><span class="spec-key">Protocol</span><span class="spec-val">MQTT / WS / REST</span></div>
+              <div class="spec-row"><span class="spec-key">Expansion</span><span class="spec-val">PCF8574 / MCP23017</span></div>
+              <div class="spec-row"><span class="spec-key">OTA</span><span class="spec-val">Supported</span></div>
+              <div class="spec-row"><span class="spec-key">Watchdog</span><span class="spec-val">Hardware 10s</span></div>
+              <div class="spec-row"><span class="spec-key">WLED Compat</span><span class="spec-val">v0.14.0-relay</span></div>
             </div>
           </div>
 
         </div>
 
-        <!-- Actions -->
         <div style="margin-top:48px;display:flex;gap:14px;flex-wrap:wrap;" class="glitch-reveal">
           <a href="features.html" class="btn btn-primary">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
@@ -279,12 +242,14 @@
       </div>
     </section>
 
+    <!-- ══ STREAMED SECTIONS LAND HERE ══ -->
+    <div id="app-content"></div>
+
   </main>
 
   <!-- ══ FOOTER ══ -->
   <footer class="site-footer" role="contentinfo">
     <div class="footer-main">
-
       <div class="footer-brand">
         <a href="home.html" class="nav-logo" style="margin-bottom:14px;display:inline-flex;">
           <div class="nav-logo-mark">
@@ -301,43 +266,27 @@
           Dibuat untuk kompetisi FIKSI 2026 oleh siswa SMKN 1 Madiun.
         </p>
       </div>
-
       <div>
         <div class="footer-col-title">Navigasi</div>
         <ul class="footer-links-list">
-          <li><a href="home.html">Beranda</a></li>
+          <li><a href="#beranda">Beranda</a></li>
           <li><a href="features.html">Fitur</a></li>
           <li><a href="docs.html">Dokumentasi</a></li>
           <li><a href="team.html">Tim</a></li>
           <li><a href="explorer.html">Explorer</a></li>
         </ul>
       </div>
-
       <div>
         <div class="footer-col-title">Info Perangkat</div>
-        <div class="footer-spec-row">
-          <span class="footer-spec-key">AP SSID</span>
-          <span class="footer-spec-val">ESP32-Relay</span>
-        </div>
-        <div class="footer-spec-row">
-          <span class="footer-spec-key">Password</span>
-          <span class="footer-spec-val">relay1234</span>
-        </div>
-        <div class="footer-spec-row">
-          <span class="footer-spec-key">Hostname</span>
-          <span class="footer-spec-val">relaycrtl</span>
-        </div>
-        <div class="footer-spec-row">
-          <span class="footer-spec-key">MQTT Prefix</span>
-          <span class="footer-spec-val">home/relay</span>
-        </div>
+        <div class="footer-spec-row"><span class="footer-spec-key">AP SSID</span><span class="footer-spec-val">ESP32-Relay</span></div>
+        <div class="footer-spec-row"><span class="footer-spec-key">Password</span><span class="footer-spec-val">relay1234</span></div>
+        <div class="footer-spec-row"><span class="footer-spec-key">Hostname</span><span class="footer-spec-val">relaycrtl</span></div>
+        <div class="footer-spec-row"><span class="footer-spec-key">MQTT Prefix</span><span class="footer-spec-val">home/relay</span></div>
       </div>
-
     </div>
-
     <div class="footer-bottom">
       <p class="footer-copy">
-        © <span class="footer-year">2026</span> GT &amp; M. Rizky Alfianno · SMK Negeri 1 Madiun · FIKSI 2026
+        © <span class="footer-year">2026</span> Setyo Guntur S. &amp; M. Rizky Alfianno · SMK Negeri 1 Madiun · FIKSI 2026
       </p>
       <div class="footer-bottom-links">
         <a href="features.html">Fitur</a>
@@ -349,5 +298,6 @@
 
   <script src="js/app.js"></script>
   <script src="js/home.js"></script>
+  <script src="js/router.js"></script>
 </body>
 </html>
