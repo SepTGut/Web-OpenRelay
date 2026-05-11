@@ -97,6 +97,8 @@ function initSectionScripts(wrapper, file) {
 
   // Smooth scroll for any new anchor links
   wrapper.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    if (anchor.dataset.bound) return;
+    anchor.dataset.bound = '1';
     anchor.addEventListener('click', e => {
       const hash = anchor.getAttribute('href');
       if (!hash || hash === '#') return;
@@ -179,7 +181,8 @@ function setupInfiniteScroll() {
 
   function check() {
     if (!loading && pageIndex < PAGES.length) {
-      const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 1200;
+      const threshold = window.innerHeight * 0.8;
+      const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - threshold;
       if (nearBottom) streamNext();
     }
     ticking = false;
@@ -249,18 +252,25 @@ function setupHashTracking() {
     });
   }, { threshold: 0.25 });
 
-  map.forEach(({ id }) => {
-    const el = document.getElementById(id);
-    if (el) obs.observe(el);
-    else {
-      // Sections streamed later — observe once they appear
-      const mo = new MutationObserver(() => {
-        const el2 = document.getElementById(id);
-        if (el2) { obs.observe(el2); mo.disconnect(); }
-      });
-      mo.observe(document.getElementById('app-content') || document.body, { childList: true, subtree: true });
-    }
-  });
+  const missing = map.filter(m => !document.getElementById(m.id));
+  map.filter(m => document.getElementById(m.id)).forEach(m => obs.observe(document.getElementById(m.id)));
+
+  if (missing.length) {
+    const container = document.getElementById('app-content') || document.body;
+    const mo = new MutationObserver(() => {
+      for (let i = missing.length - 1; i >= 0; i--) {
+        const item = missing[i];
+        const el = document.getElementById(item.id);
+        if (el) {
+          obs.observe(el);
+          missing.splice(i, 1);
+        }
+      }
+      if (!missing.length) mo.disconnect();
+    });
+    mo.observe(container, { childList: true, subtree: true });
+    setTimeout(() => mo.disconnect(), 60000); // Extended safety
+  }
 }
 
 /* ════════════════════════════════════════════════
@@ -331,6 +341,8 @@ function initFeatureCards(scope) {
 
 function initCodeCopy(scope) {
   scope.querySelectorAll('.code-card').forEach(card => {
+    if (card.dataset.copyInit) return;
+    card.dataset.copyInit = '1';
     const header = card.querySelector('.code-header');
     const body   = card.querySelector('.code-body');
     if (!header || !body) return;
@@ -340,7 +352,7 @@ function initCodeCopy(scope) {
     btn.style.cssText = 'margin-left:auto;font-size:11px;padding:3px 10px;border-radius:4px;';
     btn.addEventListener('click', () => {
       const plain = (body.textContent || '').replace(/\n{3,}/g, '\n\n').trim();
-      window.copyToClipboard(plain, 'Code copied!');
+      window.OR.copyToClipboard(plain, 'Code copied!');
       btn.textContent = '✓ Copied';
       setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
     });

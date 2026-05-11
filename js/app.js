@@ -22,7 +22,8 @@
 
   document.querySelectorAll('.nav-links a, .nav-mobile-menu a').forEach(link => {
     const href = link.getAttribute('href') || '';
-    if (href === currentPage || (currentPage === '' && href === 'index.html')) {
+    const cleanHref = href.split('#')[0];
+    if (cleanHref === currentPage || (currentPage === '' && cleanHref === 'index.html')) {
       link.classList.add('active');
     }
   });
@@ -34,6 +35,7 @@
     hamburger.addEventListener('click', () => {
       const isOpen = mobileMenu.classList.toggle('open');
       hamburger.setAttribute('aria-expanded', isOpen);
+      mobileMenu.setAttribute('aria-hidden', !isOpen);
       const spans = hamburger.querySelectorAll('span');
       if (isOpen) {
         spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
@@ -48,12 +50,15 @@
 
     function closeMenuIfOutside(target) {
       if (!hamburger.contains(target) && !mobileMenu.contains(target)) {
-        mobileMenu.classList.remove('open');
-        hamburger.setAttribute('aria-expanded', 'false');
-        hamburger.querySelectorAll('span').forEach(s => {
-          s.style.transform = '';
-          s.style.opacity   = '';
-        });
+        if (mobileMenu.classList.contains('open')) {
+          mobileMenu.classList.remove('open');
+          mobileMenu.setAttribute('aria-hidden', 'true');
+          hamburger.setAttribute('aria-expanded', 'false');
+          hamburger.querySelectorAll('span').forEach(s => {
+            s.style.transform = '';
+            s.style.opacity   = '';
+          });
+        }
       }
     }
 
@@ -61,7 +66,11 @@
     document.addEventListener('touchstart', e => closeMenuIfOutside(e.target), { passive: true });
 
     mobileMenu.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => mobileMenu.classList.remove('open'));
+      a.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        hamburger.setAttribute('aria-expanded', 'false');
+      });
     });
   }
 
@@ -199,9 +208,14 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       document.body.appendChild(ta);
       ta.focus();
       ta.select();
-      try { document.execCommand('copy'); } catch (_) {}
+      let ok = false;
+      try { ok = document.execCommand('copy'); } catch (_) {}
       document.body.removeChild(ta);
-      window.OR.showToast(`✓ ${label}`, 'ok', 2000);
+      if (ok) {
+        window.OR.showToast(`✓ ${label}`, 'ok', 2000);
+      } else {
+        window.OR.showToast('Copy failed', 'error', 2000);
+      }
     });
   }
 
