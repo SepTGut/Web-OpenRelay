@@ -26,6 +26,13 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   overflow: hidden;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.mqtt-card:hover {
+  border-color: var(--border2);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
 }
 
 .mqtt-card-header {
@@ -142,6 +149,13 @@
   padding: 28px;
   position: relative;
   overflow: hidden;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.broker-card:hover {
+  border-color: var(--border2);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
 }
 
 .broker-card::before {
@@ -348,6 +362,11 @@
   font-size: 16px;
   font-weight: 700;
   color: var(--amber);
+  transition: text-shadow 0.3s ease;
+}
+
+.cred-item:hover .cred-val {
+  text-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
 }
 
 /* ── RESPONSIVE ── */

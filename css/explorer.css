@@ -22,6 +22,7 @@
   border-radius: var(--radius-lg);
   overflow: hidden;
   padding: 48px 32px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(245, 158, 11, 0.06);
 }
 
 /* ── COORDINATE MARKERS ── */
@@ -65,10 +66,10 @@
 
 .signal-flow-node:hover,
 .signal-flow-node.node-active {
-  background: var(--amber);
+  background: linear-gradient(135deg, var(--amber), var(--amber2));
   border-color: var(--amber2);
-  box-shadow: 0 0 24px rgba(245,158,11,0.5);
-  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 0 30px rgba(245,158,11,0.5), 0 0 60px rgba(245,158,11,0.2);
+  transform: translateY(-4px) scale(1.06);
 }
 
 .signal-flow-node:hover .node-label,
