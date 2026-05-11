@@ -51,7 +51,13 @@ async function fetchSections(file) {
    INIT SCRIPTS — re-run page-specific initialisers
    for a newly injected DOM subtree.
 ════════════════════════════════════════════════ */
-function initSectionScripts(wrapper, file) {
+  // Global animations from animations.js
+  if (window.OR) {
+    if (window.OR.initMagnetic) window.OR.initMagnetic(wrapper);
+    if (window.OR.initTilt)     window.OR.initTilt(wrapper);
+    if (window.OR.initStagger)  window.OR.initStagger(wrapper);
+  }
+
   // Scroll-reveal: pick up any .reveal elements in the new section
   if (typeof IntersectionObserver !== 'undefined') {
     const reveals = wrapper.querySelectorAll('.reveal');
@@ -523,6 +529,9 @@ document.addEventListener('DOMContentLoaded', () => {
     console.warn('[router.js] #app-content not found — add <div id="app-content"></div> to home.html');
     return;
   }
+
+  window.OR = window.OR || {};
+  window.OR.routerActive = true;
 
   injectTimelineCSS();
   setupInfiniteScroll();
